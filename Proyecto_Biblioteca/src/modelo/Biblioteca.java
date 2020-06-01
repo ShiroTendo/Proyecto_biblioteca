@@ -19,7 +19,7 @@ public class Biblioteca {
 			System.out.println(Libros.toString());
 		}
 	}
-	
+	//ajajajajajajajaj
 	public void mostar_Socios() {
 		for (Socio Socio : lista_socios) {
 			System.out.println(Socio.toString());
