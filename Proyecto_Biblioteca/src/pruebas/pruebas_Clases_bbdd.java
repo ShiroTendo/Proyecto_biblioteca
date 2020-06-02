@@ -148,9 +148,13 @@ public class pruebas_Clases_bbdd implements Generos{
 	}
 	
 	public static void eliminarSocio(int i) throws SQLException {
+		try {
 		String insert=" delete  from socios where cod_socio ="+i;
 		st=conexion.createStatement();
 		st.executeUpdate(insert);
+		}catch (SQLException e) {
+			System.out.println("El id dado no es valido, introduzca uno valido");
+		}
 	}
 
 
@@ -169,9 +173,10 @@ public class pruebas_Clases_bbdd implements Generos{
 		//eliminaPrestamos(l1.getId_libro());
 		//eliminaLibro(l1.getId_libro());
 		//eliminarSocio(1);
+		System.out.println("JAJAJAJAJAj");
 		cerrar();
 		}catch (Exception e) {
-			System.out.println(e.getMessage());
+			//System.out.println(e.printStackTrace());
 		}
 
 	}

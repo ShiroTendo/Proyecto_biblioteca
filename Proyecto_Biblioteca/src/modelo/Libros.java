@@ -18,13 +18,19 @@ public class Libros {
 		this.prestado=false;
 	}
 	
-	public static boolean Prestar(Socio socio, Libros libro) {
+	public static boolean Prestar(Socio  socio, Libros libro,Biblioteca biblio) {
 		if(!libro.prestado) {
 			//lista.add(new Prestamos(socio.id
 		}
 			
 		
 		return true;
+	}
+	
+	public static boolean socioExiste(Biblioteca biblio,Socio socio) {
+		if(biblio.getLista_socios().contains(socio))
+			return true;
+		return false;
 	}
 	
 	public static boolean Devolver(Socio socio, Libros libro) {
