@@ -1,17 +1,18 @@
 package modelo;
 
 import java.sql.Date;
+import java.util.Objects;
 
 public class Prestamos {
-	
+
 	private Date fecha_inicio;
 	private Date fecha_fin;
 	private int socio_asocidado;
 	private int libro_asociado;
-	
-	
-	
-	
+
+
+
+
 	public Prestamos(Date inicio,Date fin,int socio,int libro) {
 		this.fecha_inicio=inicio;
 		this.fecha_fin=fin;
@@ -19,6 +20,40 @@ public class Prestamos {
 		this.libro_asociado=libro;
 
 	}
+
+
+
+
+
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(fecha_inicio,fecha_fin,socio_asocidado,libro_asociado);
+	}
+
+
+
+
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if(obj instanceof Prestamos) {
+			Prestamos aux=(Prestamos)obj;
+			if(this.fecha_inicio.equals(aux.getFecha_inicio())&&this.fecha_fin.equals(aux.getFecha_fin())&&
+					this.socio_asocidado==aux.getSocio_asocidado()&&
+					this.libro_asociado==aux.libro_asociado)
+				return(true);
+		}
+		return false;
+	}
+
+
+
 
 
 
@@ -84,9 +119,9 @@ public class Prestamos {
 	public void setSocio_asocidado(int socio_asocidado) {
 		this.socio_asocidado = socio_asocidado;
 	}
-	
-	
-	
-	
+
+
+
+
 
 }

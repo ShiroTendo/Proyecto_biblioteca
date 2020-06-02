@@ -7,6 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Scanner;
 
 import modelo.Bibliotecario;
@@ -161,19 +164,26 @@ public class pruebas_Clases_bbdd implements Generos{
 
 	public static void main(String[] args){
 		try {
-		Socio s1= new Socio("021584Q", "Mortador", "RJ", 85964217, 5);
+		java.util.Date date = Calendar.getInstance().getTime();  
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
+        String strDate = dateFormat.format(date); 
+        Calendar cal=Calendar.getInstance();
+        cal.add(cal.MONTH, 1);
+        java.util.Date date2 = cal.getTime();  
+        DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");  
+        String strDate2 = dateFormat.format(date2); 
+        Socio s1= new Socio("021584Q", "Mortador", "RJ", 85964217, 5);
 		Bibliotecario b1= new Bibliotecario("2241183V", "Gemma", "Gonzalez", 657895127, 1);
 		Libros l1= new Libros(1234, "EL cid campeador", "Maritn","accion");
-		Prestamos p1= new Prestamos(Date.valueOf("2008-4-22"), Date.valueOf("2008-5-22"), s1.getCod_Socio(),l1.getId_libro());
+		Prestamos p1= new Prestamos(Date.valueOf(strDate), Date.valueOf(strDate2), s1.getCod_Socio(),l1.getId_libro());
 		conectar();
 		//insertarSocio(s1);
 		//insertarBibliotecario(b1);
 		//insertarLibro(l1);
-		//insertarPrestamo(p1);
+		insertarPrestamo(p1);
 		//eliminaPrestamos(l1.getId_libro());
 		//eliminaLibro(l1.getId_libro());
-		eliminarSocio(s1.getCod_Socio());
-		System.out.println("JAJAJAJAJAj");
+		//eliminarSocio(s1.getCod_Socio());
 		cerrar();
 		}catch (ClassNotFoundException e) {
 			e.printStackTrace();

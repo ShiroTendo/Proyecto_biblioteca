@@ -5,14 +5,24 @@ public class Biblioteca {
 	private HashSet<Libros> lista_libros;
 	private HashSet<Socio> lista_socios;
 	private HashSet<Bibliotecario> lista_bibliotecarios;
+	private HashSet<Prestamos> lista_prestamos;
 	
 	Biblioteca(){
 		this.lista_libros= new HashSet<Libros>();
 		this.lista_socios= new HashSet<Socio>();
 		this.lista_bibliotecarios= new HashSet<Bibliotecario>();
+		this.lista_prestamos= new HashSet<Prestamos>();
 		
 	}
 	
+	public HashSet<Prestamos> getLista_prestamos() {
+		return lista_prestamos;
+	}
+
+	public void setLista_prestamos(HashSet<Prestamos> lista_prestamos) {
+		this.lista_prestamos = lista_prestamos;
+	}
+
 	//hola
 	public void mostrar_libros(){
 		for (Libros Libros : lista_libros) {

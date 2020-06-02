@@ -1,5 +1,9 @@
 package modelo;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Objects;
 
@@ -28,10 +32,19 @@ public class Libros {
 		this.prestado=obj.isPrestado();
 	}
 
-	public  void PrestarLibro(Socio  socio, Libros libro,Biblioteca biblio) {
-		if(socioExiste(biblio, socio)){
-			if(libroExiste(biblio, libro)) {
-				//if(libroDisponible)
+	public  void PrestarLibro(int  socio_id, int  id_libro,Biblioteca biblio) {
+		Socio socio=buscarSocio(socio_id, biblio);
+		Libros libro= buscaLibro(id_libro, biblio);
+		if(socio!=null){
+			if(libro!=null){
+				if(!libro.isPrestado()) {				
+		                //Prestamos p1= new Prestamos(millis, fin, socio, libro);
+					
+					
+					
+				}
+				else
+					System.out.println("El libro ya esta prestado, prueba mas tarde");
 				
 			}
 			else
@@ -58,11 +71,12 @@ public class Libros {
 		while(it.hasNext()) {
 			Socio aux=(Socio) it.next();
 			if(aux.getCod_Socio()==id)
-				return null;
+				return retornar=new Socio(aux);
 		}
 		return null;
 
 	}
+	/**
 	public  boolean libroExiste(Biblioteca biblio,Libros libro) {
 		if(biblio.getLista_libros().contains(libro))
 			return true;
@@ -75,7 +89,7 @@ public class Libros {
 		if(biblio.getLista_socios().contains(socio))
 			return true;
 		return false;
-	}
+	}**/
 
 	public static boolean Devolver(Socio socio, Libros libro) {
 		return true;
