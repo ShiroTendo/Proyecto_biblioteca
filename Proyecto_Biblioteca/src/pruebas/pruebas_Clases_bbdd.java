@@ -35,7 +35,7 @@ public class pruebas_Clases_bbdd implements Generos{
 		if(rs!=null)
 			rs.close();
 		if(st!=null)
-			rs.close();
+			st.close();
 		if(conexion!=null)
 			conexion.close();
 	}
@@ -141,7 +141,7 @@ public class pruebas_Clases_bbdd implements Generos{
 		
 	}
 	public static void eliminaLibro(int i) throws SQLException {
-		String insert=" delete  from libros where id_libro ="+i;
+		String insert="delete from libros where id_libro ="+i;
 		st=conexion.createStatement();
 		st.executeUpdate(insert);
 		
@@ -161,7 +161,7 @@ public class pruebas_Clases_bbdd implements Generos{
 
 	public static void main(String[] args){
 		try {
-		Socio s1= new Socio("0255724P", "Oswaldo", "Nunez", 589632478, 2);
+		Socio s1= new Socio("021584Q", "Mortador", "RJ", 85964217, 5);
 		Bibliotecario b1= new Bibliotecario("2241183V", "Gemma", "Gonzalez", 657895127, 1);
 		Libros l1= new Libros(1234, "EL cid campeador", "Maritn","accion");
 		Prestamos p1= new Prestamos(Date.valueOf("2008-4-22"), Date.valueOf("2008-5-22"), s1.getCod_Socio(),l1.getId_libro());
@@ -172,12 +172,16 @@ public class pruebas_Clases_bbdd implements Generos{
 		//insertarPrestamo(p1);
 		//eliminaPrestamos(l1.getId_libro());
 		//eliminaLibro(l1.getId_libro());
-		//eliminarSocio(1);
+		eliminarSocio(s1.getCod_Socio());
 		System.out.println("JAJAJAJAJAj");
 		cerrar();
-		}catch (Exception e) {
-			//System.out.println(e.printStackTrace());
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}catch (SQLException e) {
+			e.printStackTrace();
+
 		}
+		
 
 	}
 

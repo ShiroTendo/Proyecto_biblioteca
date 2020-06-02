@@ -19,8 +19,8 @@ public class Libros {
 	}
 	
 	public static boolean Prestar(Socio  socio, Libros libro,Biblioteca biblio) {
-		if(!libro.prestado) {
-			//lista.add(new Prestamos(socio.id
+		if(socioExiste(biblio, socio)) {
+			
 		}
 			
 		
