@@ -10,9 +10,11 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 import modelo.Bibliotecario;
+import modelo.Generos;
+import modelo.Libros;
 import modelo.Socio;
 
-public class pruebas_Clases_bbdd {
+public class pruebas_Clases_bbdd implements Generos{
 	public static String bd="xe";
 	public static String login="biblio";
 	public static String pass="biblio";
@@ -28,7 +30,14 @@ public class pruebas_Clases_bbdd {
 			System.out.println("SKR");
 		
 	}
-	
+	public static void cerrar() throws SQLException {
+		if(rs!=null)
+			rs.close();
+		if(st!=null)
+			rs.close();
+		if(conexion!=null)
+			conexion.close();
+	}
 	public static void mostrar() throws SQLException {
 		int n_cliente=0;
 		String nombre="";
@@ -48,7 +57,7 @@ public class pruebas_Clases_bbdd {
 		
 	}
 	
-	public static void insertar() throws SQLException {
+	/**public static void insertar() throws SQLException {
 		Scanner sc= new Scanner(System.in);
 		int n_cliente=0;
 		String nombre="";
@@ -77,7 +86,7 @@ public class pruebas_Clases_bbdd {
 		st2.setDate(5, fecha);
 		st2.executeUpdate();
 		System.out.println("Exito");
-	}
+	}**/
 	
 	public static  void insertarSocio(Socio s1) throws SQLException {
 		String insert=" Insert into socios values(?,?,?,?,?)";
@@ -90,14 +99,7 @@ public class pruebas_Clases_bbdd {
 		st2.executeUpdate();
 		
 	}
-	public static void cerrar() throws SQLException {
-		if(rs!=null)
-			rs.close();
-		if(st!=null)
-			rs.close();
-		if(conexion!=null)
-			conexion.close();
-	}
+	
 	public static  void insertarBibliotecario(Bibliotecario s1) throws SQLException {
 		String insert=" Insert into bibliotecarios values(?,?,?,?,?)";
 		PreparedStatement st2=conexion.prepareStatement(insert);
@@ -109,16 +111,32 @@ public class pruebas_Clases_bbdd {
 		st2.executeUpdate();
 		
 	}
+	
+	public static void insertarLibro(Libros l1) throws SQLException {
+		String insert=" Insert into libros values(?,?,?,?,?)";
+		PreparedStatement st2=conexion.prepareStatement(insert);
+		st2.setInt(1, l1.getId_libro());
+		st2.setString(2, l1.getTitulo());
+		st2.setString(3, l1.getAutor());
+		st2.setString(4, l1.getGenero());
+		if(l1.isPrestado())
+			st2.setInt(5, 1);
+		else
+			st2.setInt(5, 0);
+		st2.executeUpdate();
+	}
 
 
 
-	public static void main(String[] args) {
+	public static void main(String[] args){
 		try {
 		Socio s1= new Socio("0255724P", "Sergio", "Fernandez Cuevas", 682898714, 0001);
 		Bibliotecario b1= new Bibliotecario("2241183V", "Gemma", "Gonzalez", 657895127, 0001);
+		Libros l1= new Libros(1234, "EL cid campeador", "Maritn","accion");
 		conectar();
 		//insertarSocio(s1);
 		//insertarBibliotecario(b1);
+		insertarLibro(l1);
 		cerrar();
 		}catch (Exception e) {
 			System.out.println(e.getMessage());

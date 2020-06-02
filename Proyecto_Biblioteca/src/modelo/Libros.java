@@ -1,16 +1,16 @@
 package modelo;
 
-public class Libros implements Generos {
-	enum generos {fantasia,accion,aventura,comic,historia,sobrenatural,terror,misterio};
-	private String id_libro;
+public class Libros {
+	//public enum generos {fantasia,accion,aventura,comic,historia,sobrenatural,terror,misterio};
+	private int id_libro;
 	private String titulo;
 	private String autor;
-	private generos genero;
+	private String genero;
 	private boolean prestado;
 	
 	
 	
-	Libros(String id,String titulo,String autor,generos genero){
+	public Libros(int id,String titulo,String autor,String genero){
 		this.id_libro=id;
 		this.titulo=titulo;
 		this.autor=autor;
@@ -46,13 +46,13 @@ public class Libros implements Generos {
 
 
 
-	public String getId_libro() {
+	public int getId_libro() {
 		return id_libro;
 	}
 
 
 
-	public void setId_libro(String id_libro) {
+	public void setId_libro(int id_libro) {
 		this.id_libro = id_libro;
 	}
 
@@ -82,13 +82,13 @@ public class Libros implements Generos {
 
 
 
-	public generos getGenero() {
+	public String getGenero() {
 		return genero;
 	}
 
 
 
-	public void setGenero(generos genero) {
+	public void setGenero(String genero) {
 		this.genero = genero;
 	}
 
