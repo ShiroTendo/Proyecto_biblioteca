@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.HashSet;
+import java.util.Objects;
 
 public class Socio extends Personas {
 		
@@ -20,6 +21,33 @@ public class Socio extends Personas {
 				System.out.println(libros.toString());
 			}
 			
+		}
+		
+		
+		public Socio(Socio obj) {
+			super(obj);
+			this.Cod_Socio=obj.getCod_Socio();
+			this.Libros_Tiene=obj.getLibros_Tiene();
+		}
+		
+		
+		
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(Cod_Socio,Libros_Tiene);
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if(obj instanceof Socio) {
+				Socio aux=(Socio)obj;
+				if(this.Cod_Socio==aux.Cod_Socio&&this.Libros_Tiene.equals(aux.getLibros_Tiene()))
+					return(true);
+			}
+			return false;
 		}
 
 		public int getCod_Socio() {

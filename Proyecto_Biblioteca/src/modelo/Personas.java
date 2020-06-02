@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.Objects;
+
 public class Personas {
 
 	private String Dni;
@@ -17,7 +19,39 @@ public class Personas {
 
 	@Override
 	public String toString() {
-		return "Dni: " + Dni + ", Nombre: " + Nombre + Apellidos + ", N_telefono:" + N_telefono+ super.toString();
+		return "Dni: " + Dni + ", Nombre: " + Nombre + Apellidos + ", N_telefono:" + N_telefono;
+	}
+	
+	public Personas(Personas obj) {
+		this.Dni=obj.getDni();
+		this.Nombre=obj.getNombre();
+		this.Apellidos=obj.getApellidos();
+		this.N_telefono=obj.getN_telefono();
+	}
+	
+	
+	
+	
+
+
+	@Override
+	public int hashCode() {
+	return Objects.hash(Dni,Nombre,Apellidos,N_telefono); 
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if(obj instanceof Personas) {
+			Personas aux=(Personas) obj;
+			if(this.Dni.equalsIgnoreCase(aux.getDni())&&this.Nombre.equalsIgnoreCase(aux.getNombre())&&
+					this.Apellidos.equalsIgnoreCase(aux.getApellidos())&&this.N_telefono==aux.getN_telefono())
+				return(true);
+				
+		}
+		return false;
 	}
 
 
