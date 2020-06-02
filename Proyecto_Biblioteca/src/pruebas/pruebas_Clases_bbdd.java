@@ -12,6 +12,7 @@ import java.util.Scanner;
 import modelo.Bibliotecario;
 import modelo.Generos;
 import modelo.Libros;
+import modelo.Prestamos;
 import modelo.Socio;
 
 public class pruebas_Clases_bbdd implements Generos{
@@ -125,18 +126,29 @@ public class pruebas_Clases_bbdd implements Generos{
 			st2.setInt(5, 0);
 		st2.executeUpdate();
 	}
+	public static void insertarPrestamo(Prestamos p1) throws SQLException {
+		String insert=" Insert into prestamos values(?,?,?,?)";
+		PreparedStatement st2=conexion.prepareStatement(insert);
+		st2.setDate(1, p1.getFecha_inicio());
+		st2.setDate(2, p1.getFecha_fin());
+		st2.setInt(3, p1.getSocio_asocidado());
+		st2.setInt(4, p1.getLibro_asociado());
+		st2.executeUpdate();
+	}
 
 
 
 	public static void main(String[] args){
 		try {
-		Socio s1= new Socio("0255724P", "Sergio", "Fernandez Cuevas", 682898714, 0001);
-		Bibliotecario b1= new Bibliotecario("2241183V", "Gemma", "Gonzalez", 657895127, 0001);
+		Socio s1= new Socio("0255724P", "Sergio", "Fernandez Cuevas", 682898714, 1);
+		Bibliotecario b1= new Bibliotecario("2241183V", "Gemma", "Gonzalez", 657895127, 1);
 		Libros l1= new Libros(1234, "EL cid campeador", "Maritn","accion");
+		Prestamos p1= new Prestamos(Date.valueOf("2008-4-22"), Date.valueOf("2008-5-22"), s1.getCod_Socio(),l1.getId_libro());
 		conectar();
 		//insertarSocio(s1);
 		//insertarBibliotecario(b1);
-		insertarLibro(l1);
+		//insertarLibro(l1);
+		insertarPrestamo(p1);
 		cerrar();
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
