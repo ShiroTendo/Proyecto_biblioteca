@@ -4,13 +4,12 @@ import java.util.HashSet;
 
 public class Socio extends Personas {
 		
-		private String Cod_Socio;
+		private int Cod_Socio;
 		private HashSet<Libros> Libros_Tiene;
 		
 		
 		
-		public Socio(String Dni, String Nombre, String Apellidos, int N_telefono, String cod_Socio,
-				String[] libros_Tiene) {
+		public Socio(String Dni, String Nombre, String Apellidos, int N_telefono, int cod_Socio) {
 			super(Dni, Nombre, Apellidos, N_telefono);
 			Cod_Socio = cod_Socio;
 			Libros_Tiene = new HashSet<Libros>();
@@ -23,11 +22,11 @@ public class Socio extends Personas {
 			
 		}
 
-		public String getCod_Socio() {
+		public int getCod_Socio() {
 			return Cod_Socio;
 		}
 
-		public void setCod_Socio(String cod_Socio) {
+		public void setCod_Socio(int cod_Socio) {
 			Cod_Socio = cod_Socio;
 		}
 

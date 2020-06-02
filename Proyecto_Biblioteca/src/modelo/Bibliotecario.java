@@ -3,13 +3,11 @@ package modelo;
 import java.util.HashSet;
 
 public class Bibliotecario extends Personas {
-	private String Cod_Emple;
-	private String Horario;
+	private int Cod_Emple;
 	
-	public Bibliotecario(String Dni, String Nombre, String Apellidos, int N_telefono, String Cod_Emple, String Horario) {
+	public Bibliotecario(String Dni, String Nombre, String Apellidos, int N_telefono, int Cod_Emple) {
 		super(Dni, Nombre, Apellidos, N_telefono);
 		this.Cod_Emple=Cod_Emple;
-		this.Horario=Horario;
 	}
 	
 	public  boolean Alta_Socio(Socio socio,HashSet<Socio> listasocios) {
@@ -20,19 +18,13 @@ public class Bibliotecario extends Personas {
 	}
 	
 
-	public String getCod_Emple() {
+	public int getCod_Emple() {
 		return Cod_Emple;
 	}
 
-	public void setCod_Emple(String cod_Emple) {
+	public void setCod_Emple(int cod_Emple) {
 		Cod_Emple = cod_Emple;
 	}
 
-	public String getHorario() {
-		return Horario;
-	}
-
-	public void setHorario(String horario) {
-		Horario = horario;
-	}
+	
 }
