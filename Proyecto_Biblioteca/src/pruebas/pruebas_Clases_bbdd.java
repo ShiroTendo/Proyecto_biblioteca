@@ -28,7 +28,7 @@ public class pruebas_Clases_bbdd implements Generos{
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		conexion=DriverManager.getConnection(url, login, pass);
 		if(conexion!=null)
-			System.out.println("SKR");
+			System.out.println("Conexion realizada con exito");
 		
 	}
 	public static void cerrar() throws SQLException {
@@ -120,10 +120,7 @@ public class pruebas_Clases_bbdd implements Generos{
 		st2.setString(2, l1.getTitulo());
 		st2.setString(3, l1.getAutor());
 		st2.setString(4, l1.getGenero());
-		if(l1.isPrestado())
-			st2.setInt(5, 1);
-		else
-			st2.setInt(5, 0);
+		st2.setInt(5, 0);
 		st2.executeUpdate();
 	}
 	public static void insertarPrestamo(Prestamos p1) throws SQLException {
@@ -135,12 +132,32 @@ public class pruebas_Clases_bbdd implements Generos{
 		st2.setInt(4, p1.getLibro_asociado());
 		st2.executeUpdate();
 	}
+	
+	
+	public static void eliminaPrestamos(int i) throws SQLException {
+		String insert=" delete  from prestamos where id_libro ="+i;
+		st=conexion.createStatement();
+		st.executeUpdate(insert);
+		
+	}
+	public static void eliminaLibro(int i) throws SQLException {
+		String insert=" delete  from libros where id_libro ="+i;
+		st=conexion.createStatement();
+		st.executeUpdate(insert);
+		
+	}
+	
+	public static void eliminarSocio(int i) throws SQLException {
+		String insert=" delete  from socios where cod_socio ="+i;
+		st=conexion.createStatement();
+		st.executeUpdate(insert);
+	}
 
 
 
 	public static void main(String[] args){
 		try {
-		Socio s1= new Socio("0255724P", "Sergio", "Fernandez Cuevas", 682898714, 1);
+		Socio s1= new Socio("0255724P", "Oswaldo", "Nunez", 589632478, 2);
 		Bibliotecario b1= new Bibliotecario("2241183V", "Gemma", "Gonzalez", 657895127, 1);
 		Libros l1= new Libros(1234, "EL cid campeador", "Maritn","accion");
 		Prestamos p1= new Prestamos(Date.valueOf("2008-4-22"), Date.valueOf("2008-5-22"), s1.getCod_Socio(),l1.getId_libro());
@@ -148,7 +165,10 @@ public class pruebas_Clases_bbdd implements Generos{
 		//insertarSocio(s1);
 		//insertarBibliotecario(b1);
 		//insertarLibro(l1);
-		insertarPrestamo(p1);
+		//insertarPrestamo(p1);
+		//eliminaPrestamos(l1.getId_libro());
+		//eliminaLibro(l1.getId_libro());
+		//eliminarSocio(1);
 		cerrar();
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
