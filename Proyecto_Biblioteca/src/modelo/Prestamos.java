@@ -20,6 +20,12 @@ public class Prestamos {
 		this.libro_asociado=libro;
 
 	}
+	public Prestamos(Prestamos obj) {
+		this.fecha_inicio=obj.getFecha_inicio();
+		this.fecha_fin=obj.getFecha_fin();
+		this.socio_asocidado=obj.getSocio_asocidado();
+		this.libro_asociado=obj.libro_asociado;
+	}
 
 
 

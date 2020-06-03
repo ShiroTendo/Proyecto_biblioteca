@@ -1,6 +1,8 @@
 package modelo;
 
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,11 +39,14 @@ public class Libros {
 		Libros libro= buscaLibro(id_libro, biblio);
 		if(socio!=null){
 			if(libro!=null){
-				if(!libro.isPrestado()) {				
-		                //Prestamos p1= new Prestamos(millis, fin, socio, libro);
-					
-					
-					
+				if(!libro.isPrestado()) {			
+					String[] fechas=devuelveFecha();
+					Prestamos prestamo= new Prestamos(Date.valueOf(fechas[0]), Date.valueOf(fechas[1]), socio.getCod_Socio(), libro.getId_libro());
+					//insertarPrestamos(prestamo);
+					biblio.getLista_prestamos().add(prestamo);
+					updateStatusLibro(libro, biblio);
+					//updateStatusLibroBbdd(int id);
+					insertarLibroenSocio(socio, libro);
 				}
 				else
 					System.out.println("El libro ya esta prestado, prueba mas tarde");
@@ -52,6 +57,44 @@ public class Libros {
 		}
 		else			
 			System.out.println("El usuario no se encuentra en la base de datos, intrudzca un id valido");
+	}
+	public void insertarLibroenSocio(Socio socio, Libros libro) {
+		libro.setPrestado(true);
+		socio.getLibros_Tiene().add(libro);
+
+		
+	}
+	public void updateStatusLibro(Libros libro,Biblioteca biblio) {
+		if(biblio.getLista_libros().contains(libro)) {
+			biblio.getLista_libros().remove(libro);
+			libro.setPrestado(true);
+			biblio.getLista_libros().add(libro);
+		}
+	}
+	/**public static void insertarPrestamo(Prestamos p1) throws SQLException {
+		String insert=" Insert into prestamos values(?,?,?,?)";
+		PreparedStatement st2=conexion.prepareStatement(insert);
+		st2.setDate(1, p1.getFecha_inicio());
+		st2.setDate(2, p1.getFecha_fin());
+		st2.setInt(3, p1.getSocio_asocidado());
+		st2.setInt(4, p1.getLibro_asociado());
+		st2.executeUpdate();
+	}**/
+	
+	
+	
+	public String[] devuelveFecha(){
+		java.util.Date date = Calendar.getInstance().getTime();  
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
+        String strDate = dateFormat.format(date); 
+        Calendar cal=Calendar.getInstance();
+        cal.add(cal.MONTH, 1);
+        java.util.Date date2 = cal.getTime();  
+        DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");  
+        String strDate2 = dateFormat.format(date2); 
+        String [] devolver= {strDate,strDate2};
+        return devolver;
+		
 	}
 	public Libros buscaLibro(int id,Biblioteca biblio) {
 		Iterator it=biblio.getLista_libros().iterator();
