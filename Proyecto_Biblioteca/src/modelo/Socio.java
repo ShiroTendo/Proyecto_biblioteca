@@ -6,7 +6,7 @@ import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Objects;
 
-public class Socio extends Personas {
+public class Socio extends Personas implements Comparable<Socio>{
 		
 		private int Cod_Socio;
 		private HashSet<Libros> Libros_Tiene;
@@ -33,7 +33,7 @@ public class Socio extends Personas {
 			this.Libros_Tiene=obj.getLibros_Tiene();
 		}
 		
-		public void insertarSocioBD() throws SQLException, ClassNotFoundException {
+		public void insertarSocioBD(Biblioteca bl) throws SQLException, ClassNotFoundException {
 			try {
 			String insert = " Insert into socios values(?,?,?,?,?)";
 			PreparedStatement st2 = Conector.conectar().prepareStatement(insert);
@@ -43,6 +43,7 @@ public class Socio extends Personas {
 			st2.setInt(4, this.getN_telefono());
 			st2.setInt(5, this.getCod_Socio());
 			st2.executeUpdate();
+			bl.getLista_socios().add(this);
 			}finally {
 				Conector.cerrar();
 			}
@@ -96,6 +97,11 @@ public class Socio extends Personas {
 		@Override
 		public String toString() {
 			return "Socio [Cod_Socio=" + Cod_Socio + ", Libros_Tiene=" + Libros_Tiene + "]";
+		}
+		
+		@Override
+		public int compareTo(Socio o) {
+			return String.valueOf(this.Cod_Socio).compareTo(String.valueOf(o.getCod_Socio()));
 		}
 		
 
