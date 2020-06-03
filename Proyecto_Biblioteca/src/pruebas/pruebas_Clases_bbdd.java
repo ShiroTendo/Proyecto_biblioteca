@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -175,21 +176,25 @@ public class pruebas_Clases_bbdd implements Generos{
         Socio s1= new Socio("021584Q", "Mortador", "RJ", 85964217, 5);
 		Bibliotecario b1= new Bibliotecario("2241183V", "Gemma", "Gonzalez", 657895127, 1);
 		Libros l1= new Libros(1234, "EL cid campeador", "Maritn","accion");
+		Libros l2= new Libros(1324, "El lobo", "Clase","animales");
 		Prestamos p1= new Prestamos(Date.valueOf(strDate), Date.valueOf(strDate2), s1.getCod_Socio(),l1.getId_libro());
 		conectar();
+		//l2.insertarLibroBD();
+		l2.eliminarLibroBD();
 		//insertarSocio(s1);
 		//insertarBibliotecario(b1);
 		//insertarLibro(l1);
-		insertarPrestamo(p1);
+		//insertarPrestamo(p1);
 		//eliminaPrestamos(l1.getId_libro());
 		//eliminaLibro(l1.getId_libro());
 		//eliminarSocio(s1.getCod_Socio());
 		cerrar();
-		}catch (ClassNotFoundException e) {
-			e.printStackTrace();
+		}catch (SQLIntegrityConstraintViolationException e) {
+			System.out.println("Error, el id ya existe en la tabla");
 		}catch (SQLException e) {
 			e.printStackTrace();
-
+		}catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
 		
 

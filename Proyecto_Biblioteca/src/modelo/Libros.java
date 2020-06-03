@@ -3,6 +3,7 @@ package modelo;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -103,8 +104,32 @@ public class Libros {
 		}
 		
 	}
-
-
+	
+	public void insertarLibroBD() throws SQLException, ClassNotFoundException {
+		try {
+		String insert=" Insert into libros values(?,?,?,?,?)";
+		PreparedStatement st2=Conector.conectar().prepareStatement(insert);
+		st2.setInt(1, this.getId_libro());
+		st2.setString(2, this.getTitulo());
+		st2.setString(3, this.getAutor());
+		st2.setString(4, this.getGenero());
+		st2.setInt(5, 0);
+		st2.executeUpdate();
+		}finally {
+			Conector.cerrar();
+		}
+		
+	}
+	
+	public void eliminarLibroBD() throws SQLException, ClassNotFoundException {
+		try {
+		String insert="delete from libros where id_libro ="+this.getId_libro();
+		Statement st=Conector.conectar().createStatement();
+		st.executeUpdate(insert);
+		}finally {
+			Conector.cerrar();
+		}
+	}
 
 	public String[] devuelveFecha(){
 		java.util.Date date = Calendar.getInstance().getTime();  
