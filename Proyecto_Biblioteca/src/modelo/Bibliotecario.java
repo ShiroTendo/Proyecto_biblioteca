@@ -11,6 +11,7 @@ public class Bibliotecario extends Personas {
 	}
 	
 	//hola
+	//te sale
 	public  boolean Alta_Socio(Socio socio,HashSet<Socio> listasocios) {
 		if(listasocios.contains(socio))
 			return false;
@@ -18,7 +19,7 @@ public class Bibliotecario extends Personas {
 			return listasocios.add(socio); 
 	}
 	
-
+	
 	public int getCod_Emple() {
 		return Cod_Emple;
 	}
