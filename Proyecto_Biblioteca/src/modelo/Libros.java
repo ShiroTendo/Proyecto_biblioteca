@@ -35,8 +35,13 @@ public class Libros {
 		this.genero=obj.getGenero();
 		this.prestado=obj.isPrestado();
 	}
-
-	public  void PrestarLibro(int  socio_id, int  id_libro,Biblioteca biblio) {
+	/**
+	 * Metodo centrado en crear un prestamo.
+	 * @param socio_id
+	 * @param id_libro
+	 * @param biblio
+	 */
+	public  void PrestarLibro(int socio_id, int id_libro,Biblioteca biblio) {
 		Socio socio=buscarSocio(socio_id, biblio);
 		Libros libro= buscaLibro(id_libro, biblio);
 		if(socio!=null){
@@ -84,15 +89,20 @@ public class Libros {
 			biblio.getLista_libros().add(libro);
 		}
 	}
-	/**public static void insertarPrestamo(Prestamos p1) throws SQLException {
+	public static void insertarPrestamo(Prestamos p1) throws SQLException, ClassNotFoundException {
+		try {
 		String insert=" Insert into prestamos values(?,?,?,?)";
-		PreparedStatement st2=conexion.prepareStatement(insert);
+		PreparedStatement st2=Conector.conectar().prepareStatement(insert);
 		st2.setDate(1, p1.getFecha_inicio());
 		st2.setDate(2, p1.getFecha_fin());
 		st2.setInt(3, p1.getSocio_asocidado());
 		st2.setInt(4, p1.getLibro_asociado());
 		st2.executeUpdate();
-	}**/
+		}finally {
+			Conector.cerrar();
+		}
+		
+	}
 
 
 
