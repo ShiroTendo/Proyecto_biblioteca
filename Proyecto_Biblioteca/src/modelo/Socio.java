@@ -1,5 +1,8 @@
 package modelo;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -30,7 +33,31 @@ public class Socio extends Personas {
 			this.Libros_Tiene=obj.getLibros_Tiene();
 		}
 		
+		public void insertarSocioBD() throws SQLException {
+			try {
+			String insert = " Insert into socios values(?.?.?,?,?)";
+			PreparedStatement st2 = Conector.conectar().prepareStatement(insert);
+			st2.setString(1, this.getDni());
+			st2.setString(2, this.getNombre());
+			st2.setString(3, this.getApellidos());
+			st2.setInt(4, this.getN_telefono());
+			st2.setInt(5, this.getCod_Socio());
+			st2.executeUpdate();
+			}catch (ClassNotFoundException e) {
+				System.out.println("El código no es válido, introduce otro");
+			}
+		}
 		
+		public void eliminarSocioBD() throws SQLException, ClassNotFoundException {
+			try {
+			String insert = " delete from socios where cod_socio =" + this.getCod_Socio();
+			Statement st = Conector.conectar().createStatement();
+			st.executeUpdate(insert);
+			}catch (SQLException e) {
+				System.out.println("El código de socio introducido no es válido, introduce otro");
+			}
+			
+		}
 		
 
 		@Override
