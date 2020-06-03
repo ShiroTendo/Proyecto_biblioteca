@@ -17,13 +17,25 @@ import java.util.HashSet;
 
 public class Bibliotecario extends Personas implements Comparable<Bibliotecario>{
 	private int Cod_Emple;
-	
+	/**
+	 * Constructor de la clase.
+	 * @param Dni String
+	 * @param Nombre String
+	 * @param Apellidos String
+	 * @param N_telefono int 
+	 * @param Cod_Emple int
+	 */
 	public Bibliotecario(String Dni, String Nombre, String Apellidos, int N_telefono, int Cod_Emple) {
 		super(Dni, Nombre, Apellidos, N_telefono);
 		this.Cod_Emple=Cod_Emple;
 	}
 	
-	
+	/**Metodo encargado de insertar el bibliotecario en la base de datos.
+	 * Despues de insertarlo en la base, tambien sera insertdo en la bilioteca pasada como parametro
+	 * @param bi1 la biblioteca que usaremos
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public void insertarBibliotecarioBD(Biblioteca bi1) throws ClassNotFoundException, SQLException {
 		try {
 			String insert = " Insert into bibliotecarios values(?,?,?,?,?)";
@@ -39,21 +51,24 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 			Conector.cerrar();
 		}
 	}
-	
-	public void eliminarBibliotecarioBD() throws SQLException, ClassNotFoundException {
+	//Mirar y eliminar 90% seguro
+	public void eliminarBibliotecarioBD(Biblioteca bi1) throws SQLException, ClassNotFoundException {
 		try {
 		String insert="delete from bibliotecarios where cod_emple ="+this.getCod_Emple();
 		Statement st=Conector.conectar().createStatement();
-		st.executeUpdate(insert);
+		st.executeUpdate(insert);		
 		}finally {
 			Conector.cerrar();
 		}
 	}
-	/**Este metodo getiona el prestamo de libros a los socios.
+	/**Este metodo getiona el prestamo de libros a los socios de la biblioteca.
+	 * Este metodo funciona de manera que, unido al uso de otros metodos, se comprueba si tanto el usuario como el libro existen.
+	 * En caso de que esto se cumpla, se revisa si el libro no esta prestado, en cuyo caso se creara un prestamo, el cual sera insertado en la base de datos y en la biblioteca.
+	 * Ademas se realizaran una serie de cambios tanto en el socio como en el libro asociados, de manera que se ajusten a los datos del prestamo
 	 * 
-	 * @param socio_id
-	 * @param id_libro
-	 * @param biblio
+	 * @param socio_id id del socio que quiere el libro
+	 * @param id_libro id del libro a prestar
+	 * @param biblio biblioteca que usaremos para otras gestiones
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -82,6 +97,11 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 		else			
 			System.out.println("El usuario no se encuentra en la base de datos, intrudzca un id valido");
 	}
+	/**Metodo encargado de darnos la fecha en la que se hace el prestamo y la mecha de devolucion maxima del mismo.
+	 * Se calcula la fecha actual con la clase java.util.date y con Calendar, ademas de la fecha pasado un mes de la actual
+	 * 
+	 * @return un array de String con las dos fechas pasadas a String
+	 */
 	public String[] devuelveFecha(){
 		java.util.Date date = Calendar.getInstance().getTime();  
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
@@ -96,20 +116,30 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 
 	}
 	
-	
+	/**Metodo get cod_empleado
+	 * 	
+	 * @return retorna el codigo del  empleado
+	 */
 	public int getCod_Emple() {
 		return Cod_Emple;
 	}
-
+	/**Metodo set cod_empleado
+	 * 
+	 * @param cod_Emple  el valor que se le quiere dar al cod_empleado
+	 */
 	public void setCod_Emple(int cod_Emple) {
 		Cod_Emple = cod_Emple;
 	}
-
+	/*Metodo por defecto de ordenacion de lo bibliotecarios.
+	 * 
+	 */
 	@Override
 	public int compareTo(Bibliotecario o) {
 		return String.valueOf(this.Cod_Emple).compareTo(String.valueOf(o.getCod_Emple()));
 	}
-
+	/**Metodo toString.
+	 * 
+	 */
 	@Override
 	public String toString() {
 		return super.toString() + "Cod_Emple=" + Cod_Emple;
