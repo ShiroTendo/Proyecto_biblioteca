@@ -80,7 +80,7 @@ public class Biblioteca {
 		Prestamos prestamo;
 		HashSet<Prestamos> lista = new HashSet<Prestamos>();
 		Statement st=Conector.conectar().createStatement();
-		ResultSet rs=st.executeQuery("select fecha_inicio, fecha_fin, cod_socio, id_libro");
+		ResultSet rs=st.executeQuery("select fecha_inicio, fecha_fin, cod_socio, id_libro from prestamos");
 		while(rs.next()) {
 			fecha_ini=rs.getDate("fecha_inicio");
 			fecha_fin=rs.getDate("fecha_fin");
