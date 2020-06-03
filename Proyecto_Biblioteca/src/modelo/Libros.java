@@ -53,7 +53,7 @@ public class Libros {
 				}
 				else
 					System.out.println("El libro ya esta prestado, prueba mas tarde");
-				
+
 			}
 			else
 				System.out.println("El libro no existe, introduce un id de libro valido");
@@ -61,21 +61,21 @@ public class Libros {
 		else			
 			System.out.println("El usuario no se encuentra en la base de datos, intrudzca un id valido");
 	}
-	
-	
+
+
 	public Socio insertarLibroenSocio(Socio socio, Libros libro) {
 		libro.setPrestado(true);
 		socio.getLibros_Tiene().add(libro);
 		return socio;
 
-		
+
 	}
 	public void updateSocioenBiblio(Socio socioold,Socio socionew,Biblioteca biblio) {
 		if(biblio.getLista_socios().contains(socioold)) {
 			biblio.getLista_socios().remove(socioold);
 			biblio.getLista_socios().add(socionew);
 		}
-		
+
 	}
 	public void updateStatusLibroTrue(Libros libro,Biblioteca biblio) {
 		if(biblio.getLista_libros().contains(libro)) {
@@ -93,21 +93,21 @@ public class Libros {
 		st2.setInt(4, p1.getLibro_asociado());
 		st2.executeUpdate();
 	}**/
-	
-	
-	
+
+
+
 	public String[] devuelveFecha(){
 		java.util.Date date = Calendar.getInstance().getTime();  
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
-        String strDate = dateFormat.format(date); 
-        Calendar cal=Calendar.getInstance();
-        cal.add(cal.MONTH, 1);
-        java.util.Date date2 = cal.getTime();  
-        DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");  
-        String strDate2 = dateFormat2.format(date2); 
-        String [] devolver= {strDate,strDate2};
-        return devolver;
-		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
+		String strDate = dateFormat.format(date); 
+		Calendar cal=Calendar.getInstance();
+		cal.add(cal.MONTH, 1);
+		java.util.Date date2 = cal.getTime();  
+		DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");  
+		String strDate2 = dateFormat2.format(date2); 
+		String [] devolver= {strDate,strDate2};
+		return devolver;
+
 	}
 	public Libros buscaLibro(int id,Biblioteca biblio) {
 		Iterator it=biblio.getLista_libros().iterator();
@@ -118,9 +118,9 @@ public class Libros {
 				return retornar=new Libros(aux);
 		}
 		return null;
-		
+
 	}
-	
+
 	public Socio buscarSocio(int id,Biblioteca biblio) {
 		Iterator it=biblio.getLista_socios().iterator();
 		Socio retornar;
@@ -138,7 +138,7 @@ public class Libros {
 			return true;
 		else
 			return false;
-		
+
 	}
 
 	public  boolean socioExiste(Biblioteca biblio,Socio socio) {
@@ -158,21 +158,23 @@ public class Libros {
 			updateStatusLibroFalse(libro, biblio);
 			Socio socio2=eliminarLibroenSocio(socio, libro);
 			updateSocioenBiblio(socio, socio2, biblio);
-			
-			
+
+
 		}
-	
+		else
+			System.out.println("Introduzca unos datos validos, puesto que los introducidos no son referentes a ningun prestamo");
+
 	}
-	
+
 	public Socio eliminarLibroenSocio(Socio socio, Libros libro) {
 		libro.setPrestado(false);
 		socio.getLibros_Tiene().remove(libro);
 		return socio;
 
-		
+
 	}
-	
-	
+
+
 	public void updateStatusLibroFalse(Libros libro,Biblioteca biblio) {
 		if(biblio.getLista_libros().contains(libro)) {
 			biblio.getLista_libros().remove(libro);
@@ -180,14 +182,14 @@ public class Libros {
 			biblio.getLista_libros().add(libro);
 		}
 	}
-	
+
 	public void eliminarPrestamoBiblio(Prestamos presta,Biblioteca biblio) {
 		if(biblio.getLista_prestamos().contains(presta)) {
 			biblio.getLista_prestamos().remove(presta);
 		}
 	}
-	
-	
+
+
 	public Prestamos existePrestamo(int socio_id,int id_libro,Biblioteca biblio) {
 		Iterator it=biblio.getLista_prestamos().iterator();
 		Prestamos retornar;
@@ -197,7 +199,7 @@ public class Libros {
 				return retornar=aux;
 		}
 		return null;
-		
+
 	}
 
 
