@@ -10,6 +10,7 @@ public class Bibliotecario extends Personas {
 		this.Cod_Emple=Cod_Emple;
 	}
 	
+	//hola
 	public  boolean Alta_Socio(Socio socio,HashSet<Socio> listasocios) {
 		if(listasocios.contains(socio))
 			return false;
