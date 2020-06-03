@@ -9,6 +9,8 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Objects;
 
+import oracle.security.o3logon.b;
+
 public class Libros {
 	//public enum generos {fantasia,accion,aventura,comic,historia,sobrenatural,terror,misterio};
 	private int id_libro;
@@ -44,9 +46,10 @@ public class Libros {
 					Prestamos prestamo= new Prestamos(Date.valueOf(fechas[0]), Date.valueOf(fechas[1]), socio.getCod_Socio(), libro.getId_libro());
 					//insertarPrestamos(prestamo);
 					biblio.getLista_prestamos().add(prestamo);
-					updateStatusLibro(libro, biblio);
+					updateStatusLibroTrue(libro, biblio);
 					//updateStatusLibroBbdd(int id);
-					insertarLibroenSocio(socio, libro);
+					Socio socio2=insertarLibroenSocio(socio, libro);
+					updateSocioenBiblio(socio, socio2, biblio);
 				}
 				else
 					System.out.println("El libro ya esta prestado, prueba mas tarde");
@@ -58,13 +61,23 @@ public class Libros {
 		else			
 			System.out.println("El usuario no se encuentra en la base de datos, intrudzca un id valido");
 	}
-	public void insertarLibroenSocio(Socio socio, Libros libro) {
+	
+	
+	public Socio insertarLibroenSocio(Socio socio, Libros libro) {
 		libro.setPrestado(true);
 		socio.getLibros_Tiene().add(libro);
+		return socio;
 
 		
 	}
-	public void updateStatusLibro(Libros libro,Biblioteca biblio) {
+	public void updateSocioenBiblio(Socio socioold,Socio socionew,Biblioteca biblio) {
+		if(biblio.getLista_socios().contains(socioold)) {
+			biblio.getLista_socios().remove(socioold);
+			biblio.getLista_socios().add(socionew);
+		}
+		
+	}
+	public void updateStatusLibroTrue(Libros libro,Biblioteca biblio) {
 		if(biblio.getLista_libros().contains(libro)) {
 			biblio.getLista_libros().remove(libro);
 			libro.setPrestado(true);
@@ -91,7 +104,7 @@ public class Libros {
         cal.add(cal.MONTH, 1);
         java.util.Date date2 = cal.getTime();  
         DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");  
-        String strDate2 = dateFormat.format(date2); 
+        String strDate2 = dateFormat2.format(date2); 
         String [] devolver= {strDate,strDate2};
         return devolver;
 		
@@ -134,8 +147,57 @@ public class Libros {
 		return false;
 	}**/
 
-	public static boolean Devolver(Socio socio, Libros libro) {
-		return true;
+	public void DevolverLibro(int socio_id,int id_libro,Biblioteca biblio) {
+		Socio socio=buscarSocio(socio_id, biblio);
+		Libros libro= buscaLibro(id_libro, biblio);
+		Prestamos prestamo=existePrestamo(socio_id, id_libro, biblio);
+		if(prestamo!=null) {
+			//eliminarPrestamosBd
+			eliminarPrestamoBiblio(prestamo, biblio);
+			eliminarLibroenSocio(socio, libro);
+			updateStatusLibroFalse(libro, biblio);
+			Socio socio2=eliminarLibroenSocio(socio, libro);
+			updateSocioenBiblio(socio, socio2, biblio);
+			
+			
+		}
+	
+	}
+	
+	public Socio eliminarLibroenSocio(Socio socio, Libros libro) {
+		libro.setPrestado(false);
+		socio.getLibros_Tiene().remove(libro);
+		return socio;
+
+		
+	}
+	
+	
+	public void updateStatusLibroFalse(Libros libro,Biblioteca biblio) {
+		if(biblio.getLista_libros().contains(libro)) {
+			biblio.getLista_libros().remove(libro);
+			libro.setPrestado(false);
+			biblio.getLista_libros().add(libro);
+		}
+	}
+	
+	public void eliminarPrestamoBiblio(Prestamos presta,Biblioteca biblio) {
+		if(biblio.getLista_prestamos().contains(presta)) {
+			biblio.getLista_prestamos().remove(presta);
+		}
+	}
+	
+	
+	public Prestamos existePrestamo(int socio_id,int id_libro,Biblioteca biblio) {
+		Iterator it=biblio.getLista_prestamos().iterator();
+		Prestamos retornar;
+		while(it.hasNext()) {
+			Prestamos aux=(Prestamos)it.next();
+			if(aux.getLibro_asociado()==id_libro && aux.getSocio_asocidado()==socio_id)
+				return retornar=aux;
+		}
+		return null;
+		
 	}
 
 
