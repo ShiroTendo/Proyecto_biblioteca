@@ -12,7 +12,7 @@ import java.util.Objects;
 
 import oracle.security.o3logon.b;
 
-public class Libros {
+public class Libros implements Comparable<Libros>{
 	//public enum generos {fantasia,accion,aventura,comic,historia,sobrenatural,terror,misterio};
 	private int id_libro;
 	private String titulo;
@@ -112,7 +112,7 @@ public class Libros {
 		
 	}
 	
-	public void insertarLibroBD() throws SQLException, ClassNotFoundException {
+	public void insertarLibroBD(Biblioteca bi1) throws SQLException, ClassNotFoundException {
 		try {
 		String insert=" Insert into libros values(?,?,?,?,?)";
 		PreparedStatement st2=Conector.conectar().prepareStatement(insert);
@@ -122,6 +122,7 @@ public class Libros {
 		st2.setString(4, this.getGenero());
 		st2.setInt(5, 0);
 		st2.executeUpdate();
+		bi1.getLista_libros().add(this);
 		}finally {
 			Conector.cerrar();
 		}
@@ -337,6 +338,10 @@ public class Libros {
 
 	public void setPrestado(boolean prestado) {
 		this.prestado = prestado;
+	}
+	@Override
+	public int compareTo(Libros o) {
+		return String.valueOf(this.id_libro).compareTo(String.valueOf(o.getId_libro()));
 	}
 
 

@@ -3,6 +3,8 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 
 public class Biblioteca {
@@ -11,7 +13,7 @@ public class Biblioteca {
 	private HashSet<Bibliotecario> lista_bibliotecarios;
 	private HashSet<Prestamos> lista_prestamos;
 	
-	Biblioteca() throws ClassNotFoundException, SQLException{
+	public Biblioteca() throws ClassNotFoundException, SQLException{
 		this.lista_libros= new HashSet<Libros>(volcarLibros());
 		this.lista_socios= new HashSet<Socio>();
 		this.lista_bibliotecarios= new HashSet<Bibliotecario>();
@@ -44,6 +46,7 @@ public class Biblioteca {
 			lista.add(libro);
 				
 		}
+		Conector.cerrar();
 		return lista;
 		
 	}
@@ -62,7 +65,9 @@ public class Biblioteca {
 
 	//hola
 	public void mostrar_libros(){
-		for (Libros Libros : lista_libros) {
+		ArrayList<Libros> orden = new ArrayList<Libros>(this.lista_libros);
+		Collections.sort(orden);
+		for (Libros Libros : orden) {
 			System.out.println(Libros.toString());
 		}
 	}

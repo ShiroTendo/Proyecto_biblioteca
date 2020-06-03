@@ -2,6 +2,7 @@ package modelo;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashSet;
 
 public class Bibliotecario extends Personas {
@@ -31,6 +32,16 @@ public class Bibliotecario extends Personas {
 			st2.setInt(4, this.getN_telefono());
 			st2.setInt(5, this.getCod_Emple());
 			st2.executeUpdate();
+		}finally {
+			Conector.cerrar();
+		}
+	}
+	
+	public void eliminarBibliotecarioBD() throws SQLException, ClassNotFoundException {
+		try {
+		String insert="delete from bibliotecarios where cod_emple ="+this.getCod_Emple();
+		Statement st=Conector.conectar().createStatement();
+		st.executeUpdate(insert);
 		}finally {
 			Conector.cerrar();
 		}

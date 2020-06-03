@@ -33,9 +33,9 @@ public class Socio extends Personas {
 			this.Libros_Tiene=obj.getLibros_Tiene();
 		}
 		
-		public void insertarSocioBD() throws SQLException {
+		public void insertarSocioBD() throws SQLException, ClassNotFoundException {
 			try {
-			String insert = " Insert into socios values(?.?.?,?,?)";
+			String insert = " Insert into socios values(?,?,?,?,?)";
 			PreparedStatement st2 = Conector.conectar().prepareStatement(insert);
 			st2.setString(1, this.getDni());
 			st2.setString(2, this.getNombre());
@@ -43,8 +43,8 @@ public class Socio extends Personas {
 			st2.setInt(4, this.getN_telefono());
 			st2.setInt(5, this.getCod_Socio());
 			st2.executeUpdate();
-			}catch (ClassNotFoundException e) {
-				System.out.println("El código no es válido, introduce otro");
+			}finally {
+				Conector.cerrar();
 			}
 		}
 		
