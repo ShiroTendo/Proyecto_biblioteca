@@ -51,7 +51,14 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 			Conector.cerrar();
 		}
 	}
-	
+	/**Este metodo getiona el prestamo de libros a los socios.
+	 * 
+	 * @param socio_id
+	 * @param id_libro
+	 * @param biblio
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public  void PrestarLibro(int socio_id, int id_libro,Biblioteca biblio) throws ClassNotFoundException, SQLException {
 		Socio socio=biblio.buscarSocio(socio_id);
 		Libros libro=biblio.buscaLibro(id_libro);
