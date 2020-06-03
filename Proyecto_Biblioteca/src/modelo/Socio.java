@@ -96,7 +96,7 @@ public class Socio extends Personas implements Comparable<Socio>{
 
 		@Override
 		public String toString() {
-			return "Socio [Cod_Socio=" + Cod_Socio + ", Libros_Tiene=" + Libros_Tiene + "]";
+			return super.toString() + "Cod_Socio=" + Cod_Socio + ", Libros_Tiene=" + Libros_Tiene;
 		}
 		
 		@Override

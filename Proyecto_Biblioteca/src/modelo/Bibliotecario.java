@@ -62,5 +62,10 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 		return String.valueOf(this.Cod_Emple).compareTo(String.valueOf(o.getCod_Emple()));
 	}
 
+	@Override
+	public String toString() {
+		return super.toString() + "Cod_Emple=" + Cod_Emple;
+	}
+
 	
 }

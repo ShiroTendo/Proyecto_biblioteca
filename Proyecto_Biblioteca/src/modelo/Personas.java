@@ -19,7 +19,7 @@ public class Personas {
 
 	@Override
 	public String toString() {
-		return "Dni: " + Dni + ", Nombre: " + Nombre + Apellidos + ", N_telefono:" + N_telefono;
+		return "Dni: " + Dni + ", Nombre: " + Nombre + " " + Apellidos + ", N_telefono:" + N_telefono + " ";
 	}
 	
 	public Personas(Personas obj) {

@@ -15,9 +15,9 @@ public class Biblioteca {
 	
 	public Biblioteca() throws ClassNotFoundException, SQLException{
 		this.lista_libros= new HashSet<Libros>(volcarLibros());
-		this.lista_socios= new HashSet<Socio>();
-		this.lista_bibliotecarios= new HashSet<Bibliotecario>();
-		this.lista_prestamos= new HashSet<Prestamos>();
+		this.lista_socios= new HashSet<Socio>(volcarSocios());
+		this.lista_bibliotecarios= new HashSet<Bibliotecario>(volcarBibliotecario());
+		this.lista_prestamos= new HashSet<Prestamos>(volcarPrestamos());
 		
 	}
 	
@@ -129,6 +129,7 @@ public class Biblioteca {
 	public void mostrar_libros(){
 		ArrayList<Libros> orden= new ArrayList<Libros>(this.lista_libros);
 		Collections.sort(orden);
+		System.out.println("Listado de libros:");
 		for (Libros Libros : orden) {
 			System.out.println(Libros.toString());
 		}
@@ -137,6 +138,7 @@ public class Biblioteca {
 	public void mostar_Socios() {
 		ArrayList<Socio> orden= new ArrayList<Socio>(this.lista_socios);
 		Collections.sort(orden);
+		System.out.println("Listado de socios:");
 		for (Socio Socio : orden) {
 			System.out.println(Socio.toString());
 			
@@ -146,6 +148,7 @@ public class Biblioteca {
 	public void mostrar_Prestamos() {
 		ArrayList<Prestamos> orden= new ArrayList<Prestamos>(this.lista_prestamos);
 		Collections.sort(orden);
+		System.out.println("Listado de prestamos:");
 		for(Prestamos Prestamo : orden) {
 			System.out.println(Prestamo.toString());
 		}
@@ -154,6 +157,7 @@ public class Biblioteca {
 	public void mostrar_bibliotecarios() {
 		ArrayList<Bibliotecario> orden = new ArrayList<Bibliotecario>(this.lista_bibliotecarios);
 		Collections.sort(orden);
+		System.out.println("Listado de bibliotecarios:");
 		for (Bibliotecario bibliotecario : orden) {
 			System.out.println(bibliotecario.toString());
 		}

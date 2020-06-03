@@ -251,8 +251,8 @@ public class Libros implements Comparable<Libros>{
 
 	@Override
 	public String toString() {
-		return "Libros [id_libro=" + id_libro + ", titulo=" + titulo + ", autor=" + autor + ", genero=" + genero
-				+ ", prestado=" + prestado + "]";
+		return "id_libro=" + id_libro + ", titulo=" + titulo + ", autor=" + autor + ", genero=" + genero
+				+ ", prestado=" + prestado;
 	}
 
 
