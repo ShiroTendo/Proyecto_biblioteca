@@ -1,5 +1,7 @@
 package modelo;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashSet;
 
 public class Bibliotecario extends Personas {
@@ -17,6 +19,21 @@ public class Bibliotecario extends Personas {
 			return false;
 		else
 			return listasocios.add(socio); 
+	}
+	
+	public void insertarBibliotecarioBD() throws ClassNotFoundException, SQLException {
+		try {
+			String insert = " Insert into bibliotecarios values(?,?,?,?,?)";
+			PreparedStatement st2 = Conector.conectar().prepareStatement(insert);
+			st2.setString(1, this.getDni());
+			st2.setString(2, this.getNombre());
+			st2.setString(3, this.getApellidos());
+			st2.setInt(4, this.getN_telefono());
+			st2.setInt(5, this.getCod_Emple());
+			st2.executeUpdate();
+		}finally {
+			Conector.cerrar();
+		}
 	}
 	
 	
