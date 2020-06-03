@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class Biblioteca {
 	private HashSet<Libros> lista_libros;
@@ -115,6 +116,29 @@ public class Biblioteca {
 		}
 		Conector.conectar();
 		return lista;
+	}
+	public Libros buscaLibro(int id) {
+		Iterator it=this.getLista_libros().iterator();
+		Libros retornar;
+		while(it.hasNext()) {
+			Libros aux=(Libros) it.next();
+			if(aux.getId_libro()==id)
+				return retornar=new Libros(aux);
+		}
+		return null;
+
+	}
+
+	public Socio buscarSocio(int id) {
+		Iterator it=this.getLista_socios().iterator();
+		Socio retornar;
+		while(it.hasNext()) {
+			Socio aux=(Socio) it.next();
+			if(aux.getCod_Socio()==id)
+				return retornar=new Socio(aux);
+		}
+		return null;
+
 	}
 	
 	public HashSet<Prestamos> getLista_prestamos() {

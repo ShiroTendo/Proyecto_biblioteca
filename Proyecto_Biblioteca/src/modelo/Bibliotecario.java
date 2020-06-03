@@ -1,8 +1,12 @@
 package modelo;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashSet;
 
 public class Bibliotecario extends Personas implements Comparable<Bibliotecario>{
@@ -46,6 +50,45 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 		}finally {
 			Conector.cerrar();
 		}
+	}
+	
+	public  void PrestarLibro(int socio_id, int id_libro,Biblioteca biblio) throws ClassNotFoundException, SQLException {
+		Socio socio=biblio.buscarSocio(socio_id);
+		Libros libro=biblio.buscaLibro(id_libro);
+		if(socio!=null){
+			if(libro!=null){
+				if(!libro.isPrestado()) {			
+					String[] fechas=devuelveFecha();
+					Prestamos prestamo= new Prestamos(Date.valueOf(fechas[0]), Date.valueOf(fechas[1]), socio.getCod_Socio(), libro.getId_libro());
+					prestamo.insertarPrestamo();
+					biblio.getLista_prestamos().add(prestamo);
+					libro.updateStatusLibroTrue(biblio);
+					libro.updateTrueBd();
+					Socio socio2=socio.insertarLibroenSocio(libro);
+					socio2.updateSocioenBiblio(socio, biblio);
+				}
+				else
+					System.out.println("El libro ya esta prestado, prueba mas tarde");
+
+			}
+			else
+				System.out.println("El libro no existe, introduce un id de libro valido");
+		}
+		else			
+			System.out.println("El usuario no se encuentra en la base de datos, intrudzca un id valido");
+	}
+	public String[] devuelveFecha(){
+		java.util.Date date = Calendar.getInstance().getTime();  
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
+		String strDate = dateFormat.format(date); 
+		Calendar cal=Calendar.getInstance();
+		cal.add(cal.MONTH, 1);
+		java.util.Date date2 = cal.getTime();  
+		DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");  
+		String strDate2 = dateFormat2.format(date2); 
+		String [] devolver= {strDate,strDate2};
+		return devolver;
+
 	}
 	
 	

@@ -1,6 +1,8 @@
 package modelo;
 
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class Prestamos implements Comparable<Prestamos>{
@@ -26,7 +28,20 @@ public class Prestamos implements Comparable<Prestamos>{
 		this.socio_asocidado=obj.getSocio_asocidado();
 		this.libro_asociado=obj.libro_asociado;
 	}
-
+	public  void insertarPrestamo() throws SQLException, ClassNotFoundException {
+		try {
+		String insert=" Insert into prestamos values(?,?,?,?)";
+		PreparedStatement st2=Conector.conectar().prepareStatement(insert);
+		st2.setDate(1, this.getFecha_inicio());
+		st2.setDate(2, this.getFecha_fin());
+		st2.setInt(3, this.getSocio_asocidado());
+		st2.setInt(4, this.getLibro_asociado());
+		st2.executeUpdate();
+		}finally {
+			Conector.cerrar();
+		}
+		
+	}
 
 
 

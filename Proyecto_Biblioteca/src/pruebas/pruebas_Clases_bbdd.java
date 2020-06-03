@@ -184,29 +184,10 @@ public class pruebas_Clases_bbdd implements Generos{
 		Libros l3= new Libros(2001, "El perro", "Clase1","animales");
 		Prestamos p1= new Prestamos(Date.valueOf(strDate), Date.valueOf(strDate2), s1.getCod_Socio(),l1.getId_libro());
 		conectar();
-		//bi1.mostrar_libros();
 		//l3.insertarLibroBD(bi1);
-		//System.out.println();
-		//bi1.mostrar_libros();
-		//l1.insertarLibroBD();
-		//l2.insertarLibroBD();
-		//l2.eliminarLibroBD();
-		//b2.insertarBibliotecarioBD(bi1);
-		//b2.eliminarBibliotecarioBD();
-		//s2.insertarSocioBD(bi1);
-		bi1.mostar_Socios();
-		System.out.println();
-		bi1.mostrar_libros();
-		System.out.println();
-		bi1.mostrar_bibliotecarios();
-		//s2.eliminarSocioBD();
-		//insertarSocio(s1);
-		//insertarBibliotecario(b1);
-		//insertarLibro(l1);
-		//insertarPrestamo(p1);
-		//eliminaPrestamos(l1.getId_libro());
-		//eliminaLibro(l1.getId_libro());
-		//eliminarSocio(s1.getCod_Socio());
+		b1.PrestarLibro(s1.getCod_Socio(),l3.getId_libro(), bi1);
+		
+		
 		cerrar();
 		}catch (SQLIntegrityConstraintViolationException e) {
 			System.out.println("Error, el id ya existe en la tabla");

@@ -59,6 +59,20 @@ public class Socio extends Personas implements Comparable<Socio>{
 			}
 			
 		}
+		public Socio insertarLibroenSocio( Libros libro) {
+			libro.setPrestado(true);
+			this.getLibros_Tiene().add(libro);
+			return this;
+
+
+		}
+		public void updateSocioenBiblio(Socio socioold,Biblioteca biblio) {
+			if(biblio.getLista_socios().contains(socioold)) {
+				biblio.getLista_socios().remove(socioold);
+				biblio.getLista_socios().add(this);
+			}
+
+		}
 		
 
 		@Override

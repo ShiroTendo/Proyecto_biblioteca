@@ -49,7 +49,7 @@ public class Libros implements Comparable<Libros>{
 	 * @param id_libro
 	 * @param biblio
 	 */
-	public  void PrestarLibro(int socio_id, int id_libro,Biblioteca biblio) {
+	/**public  void PrestarLibro(int socio_id, int id_libro,Biblioteca biblio) {
 		Socio socio=buscarSocio(socio_id, biblio);
 		Libros libro= buscaLibro(id_libro, biblio);
 		if(socio!=null){
@@ -74,15 +74,20 @@ public class Libros implements Comparable<Libros>{
 		else			
 			System.out.println("El usuario no se encuentra en la base de datos, intrudzca un id valido");
 	}
-
-
-	public Socio insertarLibroenSocio(Socio socio, Libros libro) {
-		libro.setPrestado(true);
-		socio.getLibros_Tiene().add(libro);
-		return socio;
-
-
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException **/
+	public void updateTrueBd() throws ClassNotFoundException, SQLException {
+		try {
+			String insert="update libros set estado=1 where id_libro ="+this.getId_libro();
+			Statement st=Conector.conectar().createStatement();
+			st.executeUpdate(insert);
+			}finally {
+				Conector.cerrar();
+			}
+		
 	}
+
+
 	public void updateSocioenBiblio(Socio socioold,Socio socionew,Biblioteca biblio) {
 		if(biblio.getLista_socios().contains(socioold)) {
 			biblio.getLista_socios().remove(socioold);
@@ -90,27 +95,14 @@ public class Libros implements Comparable<Libros>{
 		}
 
 	}
-	public void updateStatusLibroTrue(Libros libro,Biblioteca biblio) {
-		if(biblio.getLista_libros().contains(libro)) {
-			biblio.getLista_libros().remove(libro);
-			libro.setPrestado(true);
-			biblio.getLista_libros().add(libro);
+	public void updateStatusLibroTrue(Biblioteca biblio) {
+		if(biblio.getLista_libros().contains(this)) {
+			biblio.getLista_libros().remove(this);
+			this.setPrestado(true);
+			biblio.getLista_libros().add(this);
 		}
 	}
-	public static void insertarPrestamo(Prestamos p1) throws SQLException, ClassNotFoundException {
-		try {
-		String insert=" Insert into prestamos values(?,?,?,?)";
-		PreparedStatement st2=Conector.conectar().prepareStatement(insert);
-		st2.setDate(1, p1.getFecha_inicio());
-		st2.setDate(2, p1.getFecha_fin());
-		st2.setInt(3, p1.getSocio_asocidado());
-		st2.setInt(4, p1.getLibro_asociado());
-		st2.executeUpdate();
-		}finally {
-			Conector.cerrar();
-		}
-		
-	}
+	
 	
 	public void insertarLibroBD(Biblioteca bi1) throws SQLException, ClassNotFoundException {
 		try {
