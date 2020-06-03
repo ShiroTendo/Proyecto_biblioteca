@@ -3,6 +3,8 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 
 public class Biblioteca {
@@ -47,6 +49,29 @@ public class Biblioteca {
 		return lista;
 		
 	}
+	public HashSet<Socio> volcarSocios() throws ClassNotFoundException, SQLException{
+		String dni=" ";
+		String nombre=" ";
+		String apellidos=" ";
+		int telefono;
+		int cod_socio;
+		Socio socio;
+		HashSet<Socio> lista= new HashSet<Socio>();
+		Statement st=Conector.conectar().createStatement();
+		ResultSet rs=st.executeQuery("select dni,nombre,apellidos,n_telefono,cod_socio from socios");
+		while(rs.next()) {
+			dni=rs.getString("dni");
+			nombre=rs.getString("nombre");
+			apellidos=rs.getString("apellidos");
+			telefono=rs.getInt("n_telefono");
+			cod_socio=rs.getInt("cod_socio");
+			socio= new Socio(dni, nombre, apellidos, telefono, cod_socio);
+			lista.add(socio);
+		}
+		Conector.conectar();
+		return lista;
+	}
+
 	
 	
 	public HashSet<Prestamos> getLista_prestamos() {
@@ -59,12 +84,16 @@ public class Biblioteca {
 
 	//hola
 	public void mostrar_libros(){
-		for (Libros Libros : lista_libros) {
+		ArrayList<Libros> orden= new ArrayList<Libros>(this.lista_libros);
+		Collections.sort(orden);
+		for (Libros Libros : orden) {
 			System.out.println(Libros.toString());
 		}
 	}
 	//ajajajajajajajaj
 	public void mostar_Socios() {
+		ArrayList<Socio> orden= new ArrayList<Socio>(this.lista_socios);
+		Collections.sort(orden);
 		for (Socio Socio : lista_socios) {
 			System.out.println(Socio.toString());
 			
@@ -72,6 +101,7 @@ public class Biblioteca {
 	}
 	
 	public void mostrar_bibliotecarios() {
+	
 		for (Bibliotecario bibliotecario : lista_bibliotecarios) {
 			System.out.println(bibliotecario.toString());
 			
