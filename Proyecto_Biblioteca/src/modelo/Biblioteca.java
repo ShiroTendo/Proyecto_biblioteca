@@ -72,7 +72,27 @@ public class Biblioteca {
 		return lista;
 	}
 
-	
+	public HashSet<Prestamos> volcarPrestamos() throws SQLException, ClassNotFoundException{
+		Date fecha_ini;
+		Date fecha_fin;
+		int socio_asociado;
+		int libro_asociado;
+		Prestamos prestamo;
+		HashSet<Prestamos> lista = new HashSet<Prestamos>();
+		Statement st=Conector.conectar().createStatement();
+		ResultSet rs=st.executeQuery("select fecha_inicio, fecha_fin, cod_socio, id_libro");
+		while(rs.next()) {
+			fecha_ini=rs.getDate("fecha_inicio");
+			fecha_fin=rs.getDate("fecha_fin");
+			socio_asociado=rs.getInt("cod_socio");
+			libro_asociado=rs.getInt("id_libro");
+			prestamo= new Prestamos(fecha_ini, fecha_fin, socio_asociado, libro_asociado);
+			lista.add(prestamo);
+		}
+		Conector.conectar();
+		return lista;
+		
+	}
 	
 	public HashSet<Prestamos> getLista_prestamos() {
 		return lista_prestamos;
@@ -97,6 +117,14 @@ public class Biblioteca {
 		for (Socio Socio : lista_socios) {
 			System.out.println(Socio.toString());
 			
+		}
+	}
+	
+	public void mostrar_Prestamos() {
+		ArrayList<Prestamos> orden= new ArrayList<Prestamos>(this.lista_prestamos);
+		Collections.sort(orden);
+		for(Prestamos Prestamo : lista_prestamos) {
+			System.out.println(Prestamo.toString());
 		}
 	}
 	

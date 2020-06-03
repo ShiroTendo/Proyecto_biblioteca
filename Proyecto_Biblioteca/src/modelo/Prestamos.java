@@ -3,7 +3,7 @@ package modelo;
 import java.sql.Date;
 import java.util.Objects;
 
-public class Prestamos {
+public class Prestamos implements Comparable<Prestamos>{
 
 	private Date fecha_inicio;
 	private Date fecha_fin;
@@ -124,6 +124,10 @@ public class Prestamos {
 
 	public void setSocio_asocidado(int socio_asocidado) {
 		this.socio_asocidado = socio_asocidado;
+	}
+	@Override
+	public int compareTo(Prestamos o) {
+		return String.valueOf(this.libro_asociado).compareTo(String.valueOf(o.getLibro_asociado()));
 	}
 
 
