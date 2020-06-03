@@ -1,4 +1,8 @@
 package modelo;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashSet;
 
 public class Biblioteca {
@@ -7,13 +11,46 @@ public class Biblioteca {
 	private HashSet<Bibliotecario> lista_bibliotecarios;
 	private HashSet<Prestamos> lista_prestamos;
 	
-	Biblioteca(){
-		this.lista_libros= new HashSet<Libros>();
+	Biblioteca() throws ClassNotFoundException, SQLException{
+		this.lista_libros= new HashSet<Libros>(volcarLibros());
 		this.lista_socios= new HashSet<Socio>();
 		this.lista_bibliotecarios= new HashSet<Bibliotecario>();
 		this.lista_prestamos= new HashSet<Prestamos>();
 		
 	}
+	
+	public  HashSet<Libros> volcarLibros() throws SQLException, ClassNotFoundException {
+		int id_libro=0;
+		String titulo="";
+		String autor="";
+		String genero="";
+		int aux=0;
+		boolean estado=false;
+		Libros libro;
+		HashSet<Libros> lista= new HashSet<Libros>();
+		 Statement st=Conector.conectar().createStatement();
+		 ResultSet rs=st.executeQuery("select id_libro,titulo,autor,genero,estado from libros");
+		while(rs.next()) {
+			id_libro=rs.getInt("id_libro");
+			titulo=rs.getString("titulo");
+			autor=rs.getString("autor");
+			genero=rs.getString("genero");
+			aux=rs.getInt("estado");
+			if(aux==0)
+				estado=false;
+			if(aux==1)
+				estado=true;
+			libro= new Libros(id_libro, titulo, autor, genero,estado);
+			lista.add(libro);
+				
+		}
+		return lista;
+		
+	}
+	
+	
+	
+	
 	
 	public HashSet<Prestamos> getLista_prestamos() {
 		return lista_prestamos;

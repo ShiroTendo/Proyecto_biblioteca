@@ -29,6 +29,13 @@ public class Libros {
 		this.genero=genero;
 		this.prestado=false;
 	}
+	public Libros(int id,String titulo,String autor,String genero,boolean estado){
+		this.id_libro=id;
+		this.titulo=titulo;
+		this.autor=autor;
+		this.genero=genero;
+		this.prestado=estado;
+	}
 	public Libros(Libros obj) {
 		this.id_libro=obj.getId_libro();
 		this.titulo=obj.getTitulo();
