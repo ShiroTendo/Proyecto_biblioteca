@@ -94,6 +94,29 @@ public class Biblioteca {
 		
 	}
 	
+	public HashSet<Bibliotecario> volcarBibliotecario() throws ClassNotFoundException, SQLException {
+		String dni = " ";
+		String nombre = " ";
+		String apellidos = " ";
+		int telefono;
+		int cod_emple;
+		Bibliotecario bibliotecario;
+		HashSet<Bibliotecario> lista = new HashSet<Bibliotecario>();
+		Statement st = Conector.conectar().createStatement();
+		ResultSet rs = st.executeQuery("select dni, nombre, apellidos, n_telefono, cod_emple from bibliotecarios");
+		while(rs.next()) {
+			dni = rs.getString("dni");
+			nombre = rs.getString("nombre");
+			apellidos = rs.getString("apellidos");
+			telefono = rs.getInt("n_telefono");
+			cod_emple = rs.getInt("cod_emple");
+			bibliotecario = new Bibliotecario(dni, nombre, apellidos, telefono, cod_emple);
+			lista.add(bibliotecario);
+		}
+		Conector.conectar();
+		return lista;
+	}
+	
 	public HashSet<Prestamos> getLista_prestamos() {
 		return lista_prestamos;
 	}
@@ -114,7 +137,7 @@ public class Biblioteca {
 	public void mostar_Socios() {
 		ArrayList<Socio> orden= new ArrayList<Socio>(this.lista_socios);
 		Collections.sort(orden);
-		for (Socio Socio : lista_socios) {
+		for (Socio Socio : orden) {
 			System.out.println(Socio.toString());
 			
 		}
@@ -123,16 +146,16 @@ public class Biblioteca {
 	public void mostrar_Prestamos() {
 		ArrayList<Prestamos> orden= new ArrayList<Prestamos>(this.lista_prestamos);
 		Collections.sort(orden);
-		for(Prestamos Prestamo : lista_prestamos) {
+		for(Prestamos Prestamo : orden) {
 			System.out.println(Prestamo.toString());
 		}
 	}
 	
 	public void mostrar_bibliotecarios() {
-	
-		for (Bibliotecario bibliotecario : lista_bibliotecarios) {
+		ArrayList<Bibliotecario> orden = new ArrayList<Bibliotecario>(this.lista_bibliotecarios);
+		Collections.sort(orden);
+		for (Bibliotecario bibliotecario : orden) {
 			System.out.println(bibliotecario.toString());
-			
 		}
 	}
 	
