@@ -1,6 +1,7 @@
 package modelo;
 
 import java.sql.Date;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -8,6 +9,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashSet;
+/**
+ * Clase centrada en la gestion y uso de la biblioteca a traves de Bibliotecarios.
+ * @author Ivan,Luis y Sergio
+ *
+ */
 
 public class Bibliotecario extends Personas implements Comparable<Bibliotecario>{
 	private int Cod_Emple;
@@ -17,14 +23,6 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 		this.Cod_Emple=Cod_Emple;
 	}
 	
-	//hola
-	//te sale
-	public  boolean Alta_Socio(Socio socio,HashSet<Socio> listasocios) {
-		if(listasocios.contains(socio))
-			return false;
-		else
-			return listasocios.add(socio); 
-	}
 	
 	public void insertarBibliotecarioBD(Biblioteca bi1) throws ClassNotFoundException, SQLException {
 		try {

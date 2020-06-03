@@ -47,6 +47,7 @@ public class Biblioteca {
 			lista.add(libro);
 				
 		}
+		Conector.cerrar();
 		return lista;
 		
 	}
@@ -69,7 +70,7 @@ public class Biblioteca {
 			socio= new Socio(dni, nombre, apellidos, telefono, cod_socio);
 			lista.add(socio);
 		}
-		Conector.conectar();
+		Conector.cerrar();
 		return lista;
 	}
 
@@ -90,7 +91,7 @@ public class Biblioteca {
 			prestamo= new Prestamos(fecha_ini, fecha_fin, socio_asociado, libro_asociado);
 			lista.add(prestamo);
 		}
-		Conector.conectar();
+		Conector.cerrar();
 		return lista;
 		
 	}
@@ -114,7 +115,7 @@ public class Biblioteca {
 			bibliotecario = new Bibliotecario(dni, nombre, apellidos, telefono, cod_emple);
 			lista.add(bibliotecario);
 		}
-		Conector.conectar();
+		Conector.cerrar();
 		return lista;
 	}
 	public Libros buscaLibro(int id) {
