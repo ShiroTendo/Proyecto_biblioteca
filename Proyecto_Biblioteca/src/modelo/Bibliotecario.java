@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
 
-public class Bibliotecario extends Personas {
+public class Bibliotecario extends Personas implements Comparable<Bibliotecario>{
 	private int Cod_Emple;
 	
 	public Bibliotecario(String Dni, String Nombre, String Apellidos, int N_telefono, int Cod_Emple) {
@@ -22,7 +22,7 @@ public class Bibliotecario extends Personas {
 			return listasocios.add(socio); 
 	}
 	
-	public void insertarBibliotecarioBD() throws ClassNotFoundException, SQLException {
+	public void insertarBibliotecarioBD(Biblioteca bi1) throws ClassNotFoundException, SQLException {
 		try {
 			String insert = " Insert into bibliotecarios values(?,?,?,?,?)";
 			PreparedStatement st2 = Conector.conectar().prepareStatement(insert);
@@ -32,7 +32,8 @@ public class Bibliotecario extends Personas {
 			st2.setInt(4, this.getN_telefono());
 			st2.setInt(5, this.getCod_Emple());
 			st2.executeUpdate();
-		}finally {
+			bi1.getLista_bibliotecarios().add(this);
+			}finally {
 			Conector.cerrar();
 		}
 	}
@@ -54,6 +55,11 @@ public class Bibliotecario extends Personas {
 
 	public void setCod_Emple(int cod_Emple) {
 		Cod_Emple = cod_Emple;
+	}
+
+	@Override
+	public int compareTo(Bibliotecario o) {
+		return String.valueOf(this.Cod_Emple).compareTo(String.valueOf(o.getCod_Emple()));
 	}
 
 	
