@@ -12,6 +12,12 @@ import java.util.Objects;
 
 import oracle.security.o3logon.b;
 
+/**
+ * Clase dedicada a la creacion de un libro
+ * @author Ivan, Luis y Sergio
+ *
+ */
+
 public class Libros implements Comparable<Libros>{
 	//public enum generos {fantasia,accion,aventura,comic,historia,sobrenatural,terror,misterio};
 	private int id_libro;
@@ -20,7 +26,13 @@ public class Libros implements Comparable<Libros>{
 	private String genero;
 	private boolean prestado;
 
-
+	/**
+	 * Constructor de la clase al que no se le pasa el estado.
+	 * @param id int
+	 * @param titulo String
+	 * @param autor String
+	 * @param genero String
+	 */
 
 	public Libros(int id,String titulo,String autor,String genero){
 		this.id_libro=id;
@@ -29,6 +41,16 @@ public class Libros implements Comparable<Libros>{
 		this.genero=genero;
 		this.prestado=false;
 	}
+	
+	/**
+	 * Constructor de la clase al que se le pasa el estado.
+	 * @param id int
+	 * @param titulo String
+	 * @param autor String
+	 * @param genero String
+	 * @param estado boolean
+	 */
+	
 	public Libros(int id,String titulo,String autor,String genero,boolean estado){
 		this.id_libro=id;
 		this.titulo=titulo;
@@ -36,6 +58,12 @@ public class Libros implements Comparable<Libros>{
 		this.genero=genero;
 		this.prestado=estado;
 	}
+	
+	/**
+	 * Constructor de copia de Libros
+	 * @param obj Libros
+	 */
+	
 	public Libros(Libros obj) {
 		this.id_libro=obj.getId_libro();
 		this.titulo=obj.getTitulo();
@@ -76,6 +104,12 @@ public class Libros implements Comparable<Libros>{
 	}
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException **/
+	
+	/**
+	 * Metodo que cambia el estado del libro en la base de datos
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public void updateTrueBd() throws ClassNotFoundException, SQLException {
 		try {
 			String insert="update libros set estado=1 where id_libro ="+this.getId_libro();
@@ -87,7 +121,14 @@ public class Libros implements Comparable<Libros>{
 		
 	}
 
-
+	/**
+	 * Metodo que modifica los datos de un socio
+	 * Se le pasa el socio con los datos antiguos y el socio con los datos nuevos y se cambia uno por el otro
+	 * @param socioold Socio
+	 * @param socionew Socio
+	 * @param biblio Biblioteca
+	 */
+	
 	public void updateSocioenBiblio(Socio socioold,Socio socionew,Biblioteca biblio) {
 		if(biblio.getLista_socios().contains(socioold)) {
 			biblio.getLista_socios().remove(socioold);
@@ -95,6 +136,12 @@ public class Libros implements Comparable<Libros>{
 		}
 
 	}
+	
+	/**
+	 * Metodo que cambia el estado de un libro a true
+	 * @param biblio Biblioteca
+	 */
+	
 	public void updateStatusLibroTrue(Biblioteca biblio) {
 		if(biblio.getLista_libros().contains(this)) {
 			biblio.getLista_libros().remove(this);
@@ -103,6 +150,12 @@ public class Libros implements Comparable<Libros>{
 		}
 	}
 	
+	/**
+	 * Metodo que inserta un libro en la base de datos
+	 * @param bi1 Biblioteca
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	
 	public void insertarLibroBD(Biblioteca bi1) throws SQLException, ClassNotFoundException {
 		try {
@@ -121,6 +174,12 @@ public class Libros implements Comparable<Libros>{
 		
 	}
 	
+	/**
+	 * Metodo que elimina un libro de la base de datos
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	
 	public void eliminarLibroBD() throws SQLException, ClassNotFoundException {
 		try {
 		String insert="delete from libros where id_libro ="+this.getId_libro();
@@ -130,6 +189,11 @@ public class Libros implements Comparable<Libros>{
 			Conector.cerrar();
 		}
 	}
+	
+	/**
+	 * Metodo que devuelve 
+	 * @return
+	 */
 
 	public String[] devuelveFecha(){
 		java.util.Date date = Calendar.getInstance().getTime();  
@@ -144,6 +208,14 @@ public class Libros implements Comparable<Libros>{
 		return devolver;
 
 	}
+	
+	/**
+	 * Metodo que busca un libro en la biblioteca
+	 * @param id int
+	 * @param biblio Biblioteca
+	 * @return devuelve el libro si lo ha encontrado o null si no
+	 */
+	
 	public Libros buscaLibro(int id,Biblioteca biblio) {
 		Iterator it=biblio.getLista_libros().iterator();
 		Libros retornar;
@@ -155,6 +227,13 @@ public class Libros implements Comparable<Libros>{
 		return null;
 
 	}
+	
+	/**
+	 * Metodo que busca un socio en la biblioteca
+	 * @param id int
+	 * @param biblio Biblioteca
+	 * @return devuelve sl socio si lo encuentra o null si no
+	 */
 
 	public Socio buscarSocio(int id,Biblioteca biblio) {
 		Iterator it=biblio.getLista_socios().iterator();
@@ -181,7 +260,8 @@ public class Libros implements Comparable<Libros>{
 			return true;
 		return false;
 	}**/
-
+	
+	//Metodo devolver un libro
 	public void DevolverLibro(int socio_id,int id_libro,Biblioteca biblio) {
 		Socio socio=buscarSocio(socio_id, biblio);
 		Libros libro= buscaLibro(id_libro, biblio);
@@ -201,6 +281,13 @@ public class Libros implements Comparable<Libros>{
 
 	}
 
+	/**
+	 * Metodo que cambia el estado del libro y lo elimina de los libros que tenia prestados el socio
+	 * @param socio Socio
+	 * @param libro Libros
+	 * @return devuelve el socio ya modificado
+	 */
+	
 	public Socio eliminarLibroenSocio(Socio socio, Libros libro) {
 		libro.setPrestado(false);
 		socio.getLibros_Tiene().remove(libro);
@@ -209,7 +296,12 @@ public class Libros implements Comparable<Libros>{
 
 	}
 
-
+	/**
+	 * Metodo que modifica el estado de un libro a false
+	 * @param libro Libros
+	 * @param biblio Biblioteca
+	 */
+	
 	public void updateStatusLibroFalse(Libros libro,Biblioteca biblio) {
 		if(biblio.getLista_libros().contains(libro)) {
 			biblio.getLista_libros().remove(libro);
@@ -217,13 +309,26 @@ public class Libros implements Comparable<Libros>{
 			biblio.getLista_libros().add(libro);
 		}
 	}
-
+	
+	/**
+	 * Metodo que elimina un prestamo
+	 * @param presta Prestamo
+	 * @param biblio Biblioteca
+	 */
+	
 	public void eliminarPrestamoBiblio(Prestamos presta,Biblioteca biblio) {
 		if(biblio.getLista_prestamos().contains(presta)) {
 			biblio.getLista_prestamos().remove(presta);
 		}
 	}
-
+	
+	/**
+	 * Metodo que comprueba si existe un prestamo
+	 * @param socio_id
+	 * @param id_libro
+	 * @param biblio
+	 * @return devuelve un prestamo si encuentra alguno con los parametros pasados o null si no
+	 */
 
 	public Prestamos existePrestamo(int socio_id,int id_libro,Biblioteca biblio) {
 		Iterator it=biblio.getLista_prestamos().iterator();
@@ -237,9 +342,9 @@ public class Libros implements Comparable<Libros>{
 
 	}
 
-
-
-
+	/**
+	 * Metodo toString
+	 */
 
 	@Override
 	public String toString() {
@@ -249,15 +354,14 @@ public class Libros implements Comparable<Libros>{
 
 
 
-
-
-
-
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id_libro,titulo,autor,genero,prestado);
 	}
+	
+	/**
+	 * Metodo equals clase libros
+	 */
 
 	@Override
 	public boolean equals(Object obj) {
@@ -273,70 +377,103 @@ public class Libros implements Comparable<Libros>{
 		return false;
 
 	}
+	
+	/**
+	 * Metodo get id_libro
+	 * @return devuelve el valor de id_libro
+	 */
 
 	public int getId_libro() {
 		return id_libro;
 	}
 
-
+	/**
+	 * Metodo set id_libro
+	 * @param id_libro el valor que se le quiere dar al id_libro
+	 */
 
 	public void setId_libro(int id_libro) {
 		this.id_libro = id_libro;
 	}
 
-
+	/**
+	 * Metodo get titulo
+	 * @return devuelve el valor del titulo del libro
+	 */
 
 	public String getTitulo() {
 		return titulo;
 	}
 
-
+	/**
+	 * Metodo set de titulo
+	 * @param titulo el valor que se le quiere dar al titulo
+	 */
 
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
 
-
+	/**
+	 * Metodo get autor
+	 * @return devuelve el valor del autor del libro
+	 */
 
 	public String getAutor() {
 		return autor;
 	}
 
-
+	/**
+	 * Metodo set de autor
+	 * @param autor el valor que se le quiere dar al autor
+	 */
 
 	public void setAutor(String autor) {
 		this.autor = autor;
 	}
 
-
+	/**
+	 * Metodo get genero
+	 * @return devuelve el valor del genero del libro
+	 */
 
 	public String getGenero() {
 		return genero;
 	}
 
-
+	/**
+	 * Metodo set de genero
+	 * @param genero el valor que se le quiere dar al genero
+	 */
 
 	public void setGenero(String genero) {
 		this.genero = genero;
 	}
 
-
+	/**
+	 * Metodo get prestado
+	 * @return devuelve el estado del libro
+	 */
 
 	public boolean isPrestado() {
 		return prestado;
 	}
 
-
+	/**
+	 * Metodo set de prestado
+	 * @param prestado el valor que se le quiere dar a prestado
+	 */
 
 	public void setPrestado(boolean prestado) {
 		this.prestado = prestado;
 	}
+	
+	/**
+	 * Metodo por defecto de ordenacion de los libros
+	 */
+	
 	@Override
 	public int compareTo(Libros o) {
 		return String.valueOf(this.id_libro).compareTo(String.valueOf(o.getId_libro()));
 	}
-
-
-
-
 }

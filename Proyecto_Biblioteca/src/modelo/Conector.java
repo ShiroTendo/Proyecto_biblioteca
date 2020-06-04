@@ -6,6 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Esta clase esta dedicada a conectar con la base de datos.
+ * @author Ivan, Luis y Sergio
+ *
+ */
 public  class Conector {
 	public static String bd="xe";
 	public static String login="biblio";
@@ -15,6 +20,12 @@ public  class Conector {
 	private  static Statement st;
 	private static ResultSet rs;
 	
+	/**
+	 * Metodo encargado de conectar con la base de datos.
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static Connection conectar() throws ClassNotFoundException, SQLException {
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		conexion=DriverManager.getConnection(url, login, pass);
@@ -22,6 +33,11 @@ public  class Conector {
 		
 		
 	}
+	
+	/**
+	 * Metodo encargado de cerrar todos los Statement y los ResulSet.
+	 * @throws SQLException
+	 */
 	public static void cerrar() throws SQLException {
 		if(rs!=null)
 			rs.close();
