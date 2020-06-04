@@ -29,15 +29,15 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	/*public Bibliotecario(String Dni, String Nombre, String Apellidos, int N_telefono) throws ClassNotFoundException, SQLException {
-		super(Dni, Nombre, Apellidos, N_telefono);
-		this.Cod_Emple=buscaMaxCod()+1;
-	}*/
 	public Bibliotecario(String Dni, String Nombre, String Apellidos, int N_telefono, int Cod_Emple) {
 		super(Dni, Nombre, Apellidos, N_telefono);
 		this.Cod_Emple=Cod_Emple;
 	}
-	
+	/*public Bibliotecario(String Dni, String Nombre, String Apellidos, int N_telefono) throws ClassNotFoundException, SQLException {
+	super(Dni, Nombre, Apellidos, N_telefono);
+	this.Cod_Emple=buscaMaxCod()+1;
+}*/
+	//Posiblemente sera borrado
 	/*public int buscaMaxCod() throws ClassNotFoundException, SQLException {
 		int num=0;
 		Statement st = Conector.conectar().createStatement();
@@ -118,7 +118,17 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 		else			
 			System.out.println("El usuario no se encuentra en la base de datos, intrudzca un id valido");
 	}
-	
+	/**Metodo centrado en menejar la devolucion y los elementos asociados con la devolucion.
+	 * Este metodo funciona de manera que tras recuperar el socio y el libro( si existen), busca si existe el prestamo con los datos dados.
+	 * En caso de que no sea asi manda un mensaje de error.
+	 * En caso contrario realiza los cambios pertinentes en la base de datos y en la biblioteca en los elementos asociados con dicho prestamos,ahora eliminado
+	 *  
+	 * @param socio_id int id del socio
+	 * @param id_libro int id del libro
+	 * @param biblio biblioteca a actualizar
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public void DevolverLibro(int socio_id,int id_libro,Biblioteca biblio) throws ClassNotFoundException, SQLException {
 		Socio socio=biblio.buscarSocio(socio_id);
 		Libros libro= biblio.buscaLibro(id_libro);
