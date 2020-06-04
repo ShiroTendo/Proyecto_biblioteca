@@ -13,13 +13,12 @@ import java.util.Objects;
 import oracle.security.o3logon.b;
 
 /**
- * Clase dedicada a la creacion de un libro
+ * Clase dedicada a los  libros y sus utilidades.
  * @author Ivan, Luis y Sergio
  *
  */
 
 public class Libros implements Comparable<Libros>{
-	//public enum generos {fantasia,accion,aventura,comic,historia,sobrenatural,terror,misterio};
 	private int id_libro;
 	private String titulo;
 	private String autor;
@@ -43,7 +42,7 @@ public class Libros implements Comparable<Libros>{
 	}
 	
 	/**
-	 * Constructor de la clase al que se le pasa el estado.
+	 * Constructor sobrecargado de la clase al que se le pasa el estado.
 	 * @param id int
 	 * @param titulo String
 	 * @param autor String
@@ -73,7 +72,7 @@ public class Libros implements Comparable<Libros>{
 	}
 	
 	/**
-	 * Metodo que cambia el estado del libro en la base de datos
+	 * Metodo que cambia el estado del libro a true en la base de datos
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
@@ -88,21 +87,6 @@ public class Libros implements Comparable<Libros>{
 		
 	}
 
-	/**
-	 * Metodo que modifica los datos de un socio
-	 * Se le pasa el socio con los datos antiguos y el socio con los datos nuevos y se cambia uno por el otro
-	 * @param socioold Socio
-	 * @param socionew Socio
-	 * @param biblio Biblioteca
-	 */
-	
-	public void updateSocioenBiblio(Socio socioold,Socio socionew,Biblioteca biblio) {
-		if(biblio.getLista_socios().contains(socioold)) {
-			biblio.getLista_socios().remove(socioold);
-			biblio.getLista_socios().add(socionew);
-		}
-
-	}
 	
 	/**
 	 * Metodo que cambia el estado de un libro a true
@@ -212,7 +196,7 @@ public class Libros implements Comparable<Libros>{
 			eliminarLibroenSocio(socio, libro);
 			updateStatusLibroFalse(libro, biblio);
 			Socio socio2=eliminarLibroenSocio(socio, libro);
-			updateSocioenBiblio(socio, socio2, biblio);
+			//updateSocioenBiblio(socio, socio2, biblio);
 
 
 		}
