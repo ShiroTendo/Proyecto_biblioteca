@@ -34,7 +34,8 @@ public class Personas {
 	 */
 	@Override
 	public String toString() {
-		return "Dni: " + Dni + ", Nombre: " + Nombre + " " + Apellidos + ", N_telefono:" + N_telefono + " ";
+		return "Nombre: " + Nombre + " " + Apellidos + ", cuyo numero de telefono es: " + N_telefono + "  y con dni: "+ Dni;
+		//return "Dni: " + Dni + ", Nombre: " + Nombre + " " + Apellidos + ", N_telefono:" + N_telefono + " ";
 	}
 	
 	/**

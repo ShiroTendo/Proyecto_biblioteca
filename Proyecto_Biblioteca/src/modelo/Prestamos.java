@@ -107,8 +107,8 @@ public class Prestamos implements Comparable<Prestamos>{
 
 	@Override
 	public String toString() {
-		return "Prestamos [fecha_inicio=" + fecha_inicio + ", fecha_fin=" + fecha_fin + ", libro_asociado="
-				+ libro_asociado + ", socio_asocidado=" + socio_asocidado + "]";
+		return "Datos del prestamo: Dia del prestamo " + fecha_inicio + ", Fecha limite del prestamo " + fecha_fin + ", ID del libro prestado "
+				+ libro_asociado + ", ID del socio " + socio_asocidado;
 	}
 
 	/**

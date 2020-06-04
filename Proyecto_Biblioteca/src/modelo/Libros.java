@@ -36,8 +36,8 @@ public class Libros implements Comparable<Libros>{
 	 * @throws ClassNotFoundException 
 	 */
 
-	public Libros(String titulo,String autor,String genero) throws ClassNotFoundException, SQLException{
-		this.id_libro=buscaMaxID()+1;
+	public Libros(int id, String titulo,String autor,String genero) throws ClassNotFoundException, SQLException{
+		this.id_libro=id;
 		this.titulo=titulo;
 		this.autor=autor;
 		this.genero=genero;
@@ -60,15 +60,18 @@ public class Libros implements Comparable<Libros>{
 		this.genero=genero;
 		this.prestado=estado;
 	}
-	public int buscaMaxID() throws ClassNotFoundException, SQLException {
+	/*public int buscaMaxID() throws ClassNotFoundException, SQLException {
 		int num=0;
 		Statement st = Conector.conectar().createStatement();
-		ResultSet rs = st.executeQuery("select max(id_libro) from libros");
+		ResultSet rs = st.executeQuery("select nvl(max(id_libro),0) max_id from libros");
 		if(rs.next()) {
-			num=rs.getInt(1);
+			num=rs.getInt("max_id");
+		}
+		if(String.valueOf(num)==null) {
+			return 0;
 		}
 		return num;
-	}
+	}*/
 	
 	/**
 	 * Constructor de copia de Libros
@@ -191,34 +194,6 @@ public class Libros implements Comparable<Libros>{
 		return null;
 
 	}
-	
-	/**
-	 * 
-	 * @param socio_id
-	 * @param id_libro
-	 * @param biblio
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
-	 */
-	public void DevolverLibro(int socio_id,int id_libro,Biblioteca biblio) throws ClassNotFoundException, SQLException {
-		Socio socio=buscarSocio(socio_id, biblio);
-		Libros libro= buscaLibro(id_libro, biblio);
-		Prestamos prestamo=existePrestamo(socio_id, id_libro, biblio);
-		if(prestamo!=null) {
-			prestamo.eliminarPrestamoBD();
-			biblio.eliminarPrestamoBiblio(prestamo);
-			socio.eliminarLibroenSocio(libro);
-			libro.updateStatusLibroFalse(biblio);
-			libro.updateFalseBd();
-			Socio socio2=socio.eliminarLibroenSocio(libro);
-			socio2.updateSocioenBiblio(socio,biblio);
-
-
-		}
-		else
-			System.out.println("Introduzca unos datos validos, puesto que los introducidos no son referentes a ningun prestamo");
-
-	}
 
 	/**
 	 * Metodo que cambia el estado del libro y lo elimina de los libros que tenia prestados el socio
@@ -253,13 +228,6 @@ public class Libros implements Comparable<Libros>{
 	}
 	
 	/**
-	 * Metodo que elimina un prestamo
-	 * @param presta Prestamo
-	 * @param biblio Biblioteca
-	 */
-	
-	
-	/**
 	 * Metodo que comprueba si existe un prestamo
 	 * @param socio_id
 	 * @param id_libro
@@ -285,11 +253,12 @@ public class Libros implements Comparable<Libros>{
 
 	@Override
 	public String toString() {
-		return "id_libro=" + id_libro + ", titulo=" + titulo + ", autor=" + autor + ", genero=" + genero
-				+ ", prestado=" + prestado;
+		String aux = "Libro: " + id_libro + ", con titulo " + titulo + ", cuyo autor/a es " + autor + " y cuyo genero es " + genero;
+		if(this.isPrestado()) {
+			return aux+= ", y estado: prestado";
+		}
+		return aux+= ", y estado: disponible";
 	}
-
-
 
 	@Override
 	public int hashCode() {

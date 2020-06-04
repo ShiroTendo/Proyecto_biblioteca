@@ -29,24 +29,27 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	public Bibliotecario(String Dni, String Nombre, String Apellidos, int N_telefono) throws ClassNotFoundException, SQLException {
+	/*public Bibliotecario(String Dni, String Nombre, String Apellidos, int N_telefono) throws ClassNotFoundException, SQLException {
 		super(Dni, Nombre, Apellidos, N_telefono);
 		this.Cod_Emple=buscaMaxCod()+1;
-	}
+	}*/
 	public Bibliotecario(String Dni, String Nombre, String Apellidos, int N_telefono, int Cod_Emple) {
 		super(Dni, Nombre, Apellidos, N_telefono);
 		this.Cod_Emple=Cod_Emple;
 	}
 	
-	public int buscaMaxCod() throws ClassNotFoundException, SQLException {
+	/*public int buscaMaxCod() throws ClassNotFoundException, SQLException {
 		int num=0;
 		Statement st = Conector.conectar().createStatement();
 		ResultSet rs = st.executeQuery("select max(cod_emple) from bibliotecarios");
 		if(rs.next()) {
 			num=rs.getInt(1);
 		}
+		if(String.valueOf(num)==null) {
+			return 0;
+		}
 		return num;
-	}
+	}*/
 	
 	/**Metodo encargado de insertar el bibliotecario en la base de datos.
 	 * Despues de insertarlo en la base, tambien sera insertdo en la bilioteca pasada como parametro
@@ -124,6 +127,7 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 			prestamo.eliminarPrestamoBD();
 			biblio.eliminarPrestamoBiblio(prestamo);
 			libro.updateStatusLibroFalse(biblio);
+			libro.updateFalseBd();
 			Socio socio2=socio.eliminarLibroenSocio(libro);
 			socio2.updateSocioenBiblio(socio,biblio);
 
@@ -201,7 +205,7 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 	 */
 	@Override
 	public String toString() {
-		return super.toString() + "Cod_Emple=" + Cod_Emple;
+		return "Bibliotecario: " + Cod_Emple + " " + super.toString();
 	}
 
 	

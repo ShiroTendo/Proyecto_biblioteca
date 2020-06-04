@@ -175,26 +175,41 @@ public class pruebas_Clases_bbdd implements Generos{
         DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");  
         String strDate2 = dateFormat.format(date2); 
         Biblioteca bi1 = new Biblioteca();
-        Socio s1= new Socio("021584Q", "Mortador", "RJ", 85964217);
-        Socio s2= new Socio("025554A", "Oswaldo", "Willy", 65465654);
-        Socio s3= new Socio("0978271Q", "Carla", "MEdia", 659741236);
+        Socio s1= new Socio("021584Q", "Mortador", "RJ", 85964217, 1);
+        Socio s2= new Socio("025554A", "Oswaldo", "Willy", 65465654, 2);
+        Socio s3= new Socio("0978271Q", "Carla", "MEdia", 659741236, 3);
 		Bibliotecario b1= new Bibliotecario("2241183V", "Gemma", "Gonzalez", 657895127, 1);
 		Bibliotecario b2= new Bibliotecario("2362576A", "Luis", "Reyes", 665448485, 2);
-		Libros l1= new Libros( "EL cid campeador", "Maritn","accion");
-		Libros l2= new Libros( "El lobo", "Clase","animales");
-		Libros l3= new Libros( "El perro", "Clase1","animales");
-		Libros l4= new Libros( "Morta Platino", "Romualdo","fantasia");
+		Libros l1= new Libros(1, "EL cid campeador", "Maritn","accion");
+		Libros l2= new Libros(2, "El lobo", "Clase","animales");
+		Libros l3= new Libros(3, "El perro", "Clase1","animales");
+		Libros l4= new Libros(4, "Morta Platino", "Romualdo","fantasia");
 		Prestamos p1= new Prestamos(Date.valueOf(strDate), Date.valueOf(strDate2), s1.getCod_Socio(),l1.getId_libro());
 		conectar();
-		//bi1.mostrar_libros();
-		//l2.insertarLibroBD(bi1);
-		//System.out.println("");
-		//b1.PrestarLibro(s1.getCod_Socio(),l2.getId_libro(), bi1);
+		l1.insertarLibroBD(bi1);
+		l4.insertarLibroBD(bi1);
+		s1.insertarSocioBD(bi1);
 		b2.insertarBibliotecarioBD(bi1);
+		b1.insertarBibliotecarioBD(bi1);
+		s2.insertarSocioBD(bi1);
+		b1.PrestarLibro(s1.getCod_Socio(), l1.getId_libro(), bi1);
+		b1.PrestarLibro(s2.getCod_Socio(), l4.getId_libro(), bi1);
+		b1.PrestarLibro(s1.getCod_Socio(), l4.getId_libro(), bi1);
+		System.out.println();
 		bi1.mostrar_bibliotecarios();
-		//System.out.println(bi1.getLista_prestamos().size());
-		//bi1.mostrar_Prestamos();
-		
+		System.out.println();
+		bi1.mostrar_libros();
+		System.out.println();
+		bi1.mostrar_Prestamos();
+		System.out.println();
+		bi1.mostrar_Socios();
+		b1.DevolverLibro(s2.getCod_Socio(), l4.getId_libro(), bi1);
+		System.out.println();
+		bi1.mostrar_libros();
+		System.out.println();
+		bi1.mostrar_Prestamos();
+		/*System.out.println(s1.getLibros_Tiene().toString());
+		System.out.println(s1.getLibros_Tiene().size());*/
 		
 		cerrar();
 		}catch (SQLIntegrityConstraintViolationException e) {

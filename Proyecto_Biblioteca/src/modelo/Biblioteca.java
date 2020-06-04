@@ -240,17 +240,6 @@ public class Biblioteca {
 	public void setLista_prestamos(HashSet<Prestamos> lista_prestamos) {
 		this.lista_prestamos = lista_prestamos;
 	}
-	
-	/**
-	 * Método encargado de recargar la biblioteca.
-	 * 
-	 * @return un nuevo objeto de tipo Biblioteca
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 */
-	public Biblioteca recargar() throws ClassNotFoundException, SQLException {
-		return new Biblioteca();
-	}
 
 	/**
 	 * Método encargado de mostrar la lista de Libros almacenados en la biblioteca.
@@ -259,8 +248,7 @@ public class Biblioteca {
 	 * @throws SQLException
 	 */
 	public void mostrar_libros() throws ClassNotFoundException, SQLException{
-		Biblioteca aux=recargar();
-		ArrayList<Libros> orden= new ArrayList<Libros>(aux.lista_libros);
+		ArrayList<Libros> orden= new ArrayList<Libros>(this.lista_libros);
 		Collections.sort(orden);
 		System.out.println("Listado de libros:");
 		for (Libros Libros : orden) {
@@ -274,8 +262,7 @@ public class Biblioteca {
 	 * @throws SQLException
 	 */
 	public void mostrar_Socios() throws ClassNotFoundException, SQLException {
-		Biblioteca aux=recargar();
-		ArrayList<Socio> orden= new ArrayList<Socio>(aux.lista_socios);
+		ArrayList<Socio> orden= new ArrayList<Socio>(this.lista_socios);
 		Collections.sort(orden);
 		System.out.println("Listado de socios:");
 		for (Socio Socio : orden) {
@@ -291,8 +278,7 @@ public class Biblioteca {
 	 * @throws SQLException
 	 */
 	public void mostrar_Prestamos() throws ClassNotFoundException, SQLException {
-		Biblioteca aux=recargar();
-		ArrayList<Prestamos> orden= new ArrayList<Prestamos>(aux.lista_prestamos);
+		ArrayList<Prestamos> orden= new ArrayList<Prestamos>(this.lista_prestamos);
 		Collections.sort(orden);
 		System.out.println("Listado de prestamos:");
 		for(Prestamos Prestamo : orden) {
@@ -307,8 +293,7 @@ public class Biblioteca {
 	 * @throws SQLException
 	 */
 	public void mostrar_bibliotecarios() throws ClassNotFoundException, SQLException {
-		Biblioteca aux=recargar();
-		ArrayList<Bibliotecario> orden = new ArrayList<Bibliotecario>(aux.lista_bibliotecarios);
+		ArrayList<Bibliotecario> orden = new ArrayList<Bibliotecario>(this.lista_bibliotecarios);
 		Collections.sort(orden);
 		System.out.println("Listado de bibliotecarios:");
 		for (Bibliotecario bibliotecario : orden) {
