@@ -2,6 +2,7 @@ package modelo;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
@@ -31,10 +32,12 @@ public class Libros implements Comparable<Libros>{
 	 * @param titulo String
 	 * @param autor String
 	 * @param genero String
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
 
-	public Libros(int id,String titulo,String autor,String genero){
-		this.id_libro=id;
+	public Libros(String titulo,String autor,String genero) throws ClassNotFoundException, SQLException{
+		this.id_libro=buscaMaxID()+1;
 		this.titulo=titulo;
 		this.autor=autor;
 		this.genero=genero;
@@ -56,6 +59,15 @@ public class Libros implements Comparable<Libros>{
 		this.autor=autor;
 		this.genero=genero;
 		this.prestado=estado;
+	}
+	public int buscaMaxID() throws ClassNotFoundException, SQLException {
+		int num=0;
+		Statement st = Conector.conectar().createStatement();
+		ResultSet rs = st.executeQuery("select max(id_libro) from libros");
+		if(rs.next()) {
+			num=rs.getInt(1);
+		}
+		return num;
 	}
 	
 	/**

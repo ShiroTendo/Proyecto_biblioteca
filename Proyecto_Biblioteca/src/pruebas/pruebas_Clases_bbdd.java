@@ -180,17 +180,18 @@ public class pruebas_Clases_bbdd implements Generos{
         Socio s3= new Socio("0978271Q", "Carla", "MEdia", 659741236);
 		Bibliotecario b1= new Bibliotecario("2241183V", "Gemma", "Gonzalez", 657895127, 1);
 		Bibliotecario b2= new Bibliotecario("2362576A", "Luis", "Reyes", 665448485, 2);
-		Libros l1= new Libros(1234, "EL cid campeador", "Maritn","accion");
-		Libros l2= new Libros(1324, "El lobo", "Clase","animales");
-		Libros l3= new Libros(2001, "El perro", "Clase1","animales");
+		Libros l1= new Libros( "EL cid campeador", "Maritn","accion");
+		Libros l2= new Libros( "El lobo", "Clase","animales");
+		Libros l3= new Libros( "El perro", "Clase1","animales");
+		Libros l4= new Libros( "Morta Platino", "Romualdo","fantasia");
 		Prestamos p1= new Prestamos(Date.valueOf(strDate), Date.valueOf(strDate2), s1.getCod_Socio(),l1.getId_libro());
 		conectar();
 		//bi1.mostrar_libros();
 		//l2.insertarLibroBD(bi1);
 		//System.out.println("");
 		//b1.PrestarLibro(s1.getCod_Socio(),l2.getId_libro(), bi1);
-		s3.insertarSocioBD(bi1);
-		bi1.mostrar_Socios();
+		b2.insertarBibliotecarioBD(bi1);
+		bi1.mostrar_bibliotecarios();
 		//System.out.println(bi1.getLista_prestamos().size());
 		//bi1.mostrar_Prestamos();
 		

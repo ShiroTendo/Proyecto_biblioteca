@@ -3,6 +3,7 @@ package modelo;
 import java.sql.Date;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
@@ -25,10 +26,26 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 	 * @param Apellidos String
 	 * @param N_telefono int 
 	 * @param Cod_Emple int
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
+	public Bibliotecario(String Dni, String Nombre, String Apellidos, int N_telefono) throws ClassNotFoundException, SQLException {
+		super(Dni, Nombre, Apellidos, N_telefono);
+		this.Cod_Emple=buscaMaxCod()+1;
+	}
 	public Bibliotecario(String Dni, String Nombre, String Apellidos, int N_telefono, int Cod_Emple) {
 		super(Dni, Nombre, Apellidos, N_telefono);
 		this.Cod_Emple=Cod_Emple;
+	}
+	
+	public int buscaMaxCod() throws ClassNotFoundException, SQLException {
+		int num=0;
+		Statement st = Conector.conectar().createStatement();
+		ResultSet rs = st.executeQuery("select max(cod_emple) from bibliotecarios");
+		if(rs.next()) {
+			num=rs.getInt(1);
+		}
+		return num;
 	}
 	
 	/**Metodo encargado de insertar el bibliotecario en la base de datos.
