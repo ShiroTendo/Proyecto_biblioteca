@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Objects;
 /**
  * Clase centrada en la gestion y uso de la biblioteca a traves de Bibliotecarios.
  * @author Ivan,Luis y Sergio
@@ -115,6 +116,27 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 		return devolver;
 
 	}
+	/**
+	 * Metodo hashCode de la clae.
+	 */
+	@Override
+	public int hashCode() {
+		return Objects.hash(Cod_Emple);
+	}
+	/**
+	 * Metodo equals de la clase
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if(obj instanceof Bibliotecario) {
+			Socio aux=(Socio)obj;
+			if(this.Cod_Emple==aux.getCod_Socio())
+				return(true);
+		}
+		return false;
+	}
 	
 	/**Metodo get cod_empleado
 	 * 	
@@ -137,7 +159,7 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 	public int compareTo(Bibliotecario o) {
 		return String.valueOf(this.Cod_Emple).compareTo(String.valueOf(o.getCod_Emple()));
 	}
-	/**Metodo toString.
+	/**Metodo toString de la clase.
 	 * 
 	 */
 	@Override

@@ -71,39 +71,6 @@ public class Libros implements Comparable<Libros>{
 		this.genero=obj.getGenero();
 		this.prestado=obj.isPrestado();
 	}
-	/**
-	 * Metodo centrado en crear un prestamo.
-	 * @param socio_id
-	 * @param id_libro
-	 * @param biblio
-	 */
-	/**public  void PrestarLibro(int socio_id, int id_libro,Biblioteca biblio) {
-		Socio socio=buscarSocio(socio_id, biblio);
-		Libros libro= buscaLibro(id_libro, biblio);
-		if(socio!=null){
-			if(libro!=null){
-				if(!libro.isPrestado()) {			
-					String[] fechas=devuelveFecha();
-					Prestamos prestamo= new Prestamos(Date.valueOf(fechas[0]), Date.valueOf(fechas[1]), socio.getCod_Socio(), libro.getId_libro());
-					//insertarPrestamos(prestamo);
-					biblio.getLista_prestamos().add(prestamo);
-					updateStatusLibroTrue(libro, biblio);
-					//updateStatusLibroBbdd(int id);
-					Socio socio2=insertarLibroenSocio(socio, libro);
-					updateSocioenBiblio(socio, socio2, biblio);
-				}
-				else
-					System.out.println("El libro ya esta prestado, prueba mas tarde");
-
-			}
-			else
-				System.out.println("El libro no existe, introduce un id de libro valido");
-		}
-		else			
-			System.out.println("El usuario no se encuentra en la base de datos, intrudzca un id valido");
-	}
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException **/
 	
 	/**
 	 * Metodo que cambia el estado del libro en la base de datos
@@ -190,24 +157,6 @@ public class Libros implements Comparable<Libros>{
 		}
 	}
 	
-	/**
-	 * Metodo que devuelve 
-	 * @return
-	 */
-
-	public String[] devuelveFecha(){
-		java.util.Date date = Calendar.getInstance().getTime();  
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
-		String strDate = dateFormat.format(date); 
-		Calendar cal=Calendar.getInstance();
-		cal.add(cal.MONTH, 1);
-		java.util.Date date2 = cal.getTime();  
-		DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");  
-		String strDate2 = dateFormat2.format(date2); 
-		String [] devolver= {strDate,strDate2};
-		return devolver;
-
-	}
 	
 	/**
 	 * Metodo que busca un libro en la biblioteca
@@ -246,22 +195,13 @@ public class Libros implements Comparable<Libros>{
 		return null;
 
 	}
-	/**
-	public  boolean libroExiste(Biblioteca biblio,Libros libro) {
-		if(biblio.getLista_libros().contains(libro))
-			return true;
-		else
-			return false;
-
-	}
-
-	public  boolean socioExiste(Biblioteca biblio,Socio socio) {
-		if(biblio.getLista_socios().contains(socio))
-			return true;
-		return false;
-	}**/
 	
-	//Metodo devolver un libro
+	/**
+	 * 
+	 * @param socio_id
+	 * @param id_libro
+	 * @param biblio
+	 */
 	public void DevolverLibro(int socio_id,int id_libro,Biblioteca biblio) {
 		Socio socio=buscarSocio(socio_id, biblio);
 		Libros libro= buscaLibro(id_libro, biblio);

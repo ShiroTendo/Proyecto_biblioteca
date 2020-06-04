@@ -149,10 +149,14 @@ public class Biblioteca {
 	public void setLista_prestamos(HashSet<Prestamos> lista_prestamos) {
 		this.lista_prestamos = lista_prestamos;
 	}
+	public Biblioteca recargar() throws ClassNotFoundException, SQLException {
+		return new Biblioteca();
+	}
 
 	//hola
-	public void mostrar_libros(){
-		ArrayList<Libros> orden= new ArrayList<Libros>(this.lista_libros);
+	public void mostrar_libros() throws ClassNotFoundException, SQLException{
+		Biblioteca aux=recargar();
+		ArrayList<Libros> orden= new ArrayList<Libros>(aux.lista_libros);
 		Collections.sort(orden);
 		System.out.println("Listado de libros:");
 		for (Libros Libros : orden) {
@@ -160,8 +164,9 @@ public class Biblioteca {
 		}
 	}
 	//ajajajajajajajaj
-	public void mostar_Socios() {
-		ArrayList<Socio> orden= new ArrayList<Socio>(this.lista_socios);
+	public void mostar_Socios() throws ClassNotFoundException, SQLException {
+		Biblioteca aux=recargar();
+		ArrayList<Socio> orden= new ArrayList<Socio>(aux.lista_socios);
 		Collections.sort(orden);
 		System.out.println("Listado de socios:");
 		for (Socio Socio : orden) {
@@ -170,8 +175,9 @@ public class Biblioteca {
 		}
 	}
 	
-	public void mostrar_Prestamos() {
-		ArrayList<Prestamos> orden= new ArrayList<Prestamos>(this.lista_prestamos);
+	public void mostrar_Prestamos() throws ClassNotFoundException, SQLException {
+		Biblioteca aux=recargar();
+		ArrayList<Prestamos> orden= new ArrayList<Prestamos>(aux.lista_prestamos);
 		Collections.sort(orden);
 		System.out.println("Listado de prestamos:");
 		for(Prestamos Prestamo : orden) {
@@ -179,8 +185,9 @@ public class Biblioteca {
 		}
 	}
 	
-	public void mostrar_bibliotecarios() {
-		ArrayList<Bibliotecario> orden = new ArrayList<Bibliotecario>(this.lista_bibliotecarios);
+	public void mostrar_bibliotecarios() throws ClassNotFoundException, SQLException {
+		Biblioteca aux=recargar();
+		ArrayList<Bibliotecario> orden = new ArrayList<Bibliotecario>(aux.lista_bibliotecarios);
 		Collections.sort(orden);
 		System.out.println("Listado de bibliotecarios:");
 		for (Bibliotecario bibliotecario : orden) {
