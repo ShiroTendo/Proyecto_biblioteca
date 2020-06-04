@@ -185,18 +185,21 @@ public class Libros implements Comparable<Libros>{
 	 * @param socio_id
 	 * @param id_libro
 	 * @param biblio
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public void DevolverLibro(int socio_id,int id_libro,Biblioteca biblio) {
+	public void DevolverLibro(int socio_id,int id_libro,Biblioteca biblio) throws ClassNotFoundException, SQLException {
 		Socio socio=buscarSocio(socio_id, biblio);
 		Libros libro= buscaLibro(id_libro, biblio);
 		Prestamos prestamo=existePrestamo(socio_id, id_libro, biblio);
 		if(prestamo!=null) {
-			//eliminarPrestamosBd
-			eliminarPrestamoBiblio(prestamo, biblio);
-			eliminarLibroenSocio(socio, libro);
-			updateStatusLibroFalse(libro, biblio);
-			Socio socio2=eliminarLibroenSocio(socio, libro);
-			//updateSocioenBiblio(socio, socio2, biblio);
+			prestamo.eliminarPrestamoBD();
+			biblio.eliminarPrestamoBiblio(prestamo);
+			socio.eliminarLibroenSocio(libro);
+			libro.updateStatusLibroFalse(biblio);
+			libro.updateFalseBd();
+			Socio socio2=socio.eliminarLibroenSocio(libro);
+			socio2.updateSocioenBiblio(socio,biblio);
 
 
 		}
@@ -212,12 +215,15 @@ public class Libros implements Comparable<Libros>{
 	 * @return devuelve el socio ya modificado
 	 */
 	
-	public Socio eliminarLibroenSocio(Socio socio, Libros libro) {
-		libro.setPrestado(false);
-		socio.getLibros_Tiene().remove(libro);
-		return socio;
-
-
+	public void updateFalseBd() throws ClassNotFoundException, SQLException {
+		try {
+			String insert="update libros set estado=0 where id_libro ="+this.getId_libro();
+			Statement st=Conector.conectar().createStatement();
+			st.executeUpdate(insert);
+			}finally {
+				Conector.cerrar();
+			}
+		
 	}
 
 	/**
@@ -226,11 +232,11 @@ public class Libros implements Comparable<Libros>{
 	 * @param biblio Biblioteca
 	 */
 	
-	public void updateStatusLibroFalse(Libros libro,Biblioteca biblio) {
-		if(biblio.getLista_libros().contains(libro)) {
-			biblio.getLista_libros().remove(libro);
-			libro.setPrestado(false);
-			biblio.getLista_libros().add(libro);
+	public void updateStatusLibroFalse(Biblioteca biblio) {
+		if(biblio.getLista_libros().contains(this)) {
+			biblio.getLista_libros().remove(this);
+			this.setPrestado(false);
+			biblio.getLista_libros().add(this);
 		}
 	}
 	
@@ -240,11 +246,6 @@ public class Libros implements Comparable<Libros>{
 	 * @param biblio Biblioteca
 	 */
 	
-	public void eliminarPrestamoBiblio(Prestamos presta,Biblioteca biblio) {
-		if(biblio.getLista_prestamos().contains(presta)) {
-			biblio.getLista_prestamos().remove(presta);
-		}
-	}
 	
 	/**
 	 * Metodo que comprueba si existe un prestamo

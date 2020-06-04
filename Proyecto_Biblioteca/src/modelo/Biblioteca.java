@@ -206,6 +206,22 @@ public class Biblioteca {
 		return null;
 
 	}
+	public Prestamos existePrestamo(int socio_id,int id_libro) {
+		Iterator it=this.getLista_prestamos().iterator();
+		Prestamos retornar;
+		while(it.hasNext()) {
+			Prestamos aux=(Prestamos)it.next();
+			if(aux.getLibro_asociado()==id_libro && aux.getSocio_asocidado()==socio_id)
+				return retornar=aux;
+		}
+		return null;
+
+	}
+	public void eliminarPrestamoBiblio(Prestamos presta) {
+		if(this.getLista_prestamos().contains(presta)) {
+			this.getLista_prestamos().remove(presta);
+		}
+	}
 	
 	/**
 	 * Método get lista_prestamos.

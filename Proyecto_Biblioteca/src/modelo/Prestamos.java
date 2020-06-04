@@ -3,6 +3,7 @@ package modelo;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Objects;
 
 /**
@@ -65,6 +66,17 @@ public class Prestamos implements Comparable<Prestamos>{
 		}
 		
 	}
+	public void eliminarPrestamoBD() throws SQLException, ClassNotFoundException {
+		try {
+		String insert = " delete from prestamos where cod_socio =" + this.getSocio_asocidado()+" and id_libro="+this.getLibro_asociado();
+		Statement st = Conector.conectar().createStatement();
+		st.executeUpdate(insert);
+		}finally {
+			Conector.cerrar();
+		}
+	}
+	
+	
 
 	@Override
 	public int hashCode() {

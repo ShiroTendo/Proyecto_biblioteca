@@ -22,7 +22,7 @@ public  class Conector {
 	
 	/**
 	 * Metodo encargado de conectar con la base de datos.
-	 * @return
+	 * @return una conexion, referente a la conexion a nustra base de datos
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */

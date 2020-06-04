@@ -106,6 +106,13 @@ public class Socio extends Personas implements Comparable<Socio>{
 
 		}
 		
+		public Socio eliminarLibroenSocio( Libros libro) {
+			this.getLibros_Tiene().remove(libro);
+			return this;
+
+
+		}
+		
 		/**
 		 * Método encargado de añadir o eliminar un socio en biblioteca.
 		 * 

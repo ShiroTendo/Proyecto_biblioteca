@@ -98,6 +98,35 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 		else			
 			System.out.println("El usuario no se encuentra en la base de datos, intrudzca un id valido");
 	}
+	
+	public void DevolverLibro(int socio_id,int id_libro,Biblioteca biblio) throws ClassNotFoundException, SQLException {
+		Socio socio=biblio.buscarSocio(socio_id);
+		Libros libro= biblio.buscaLibro(id_libro);
+		Prestamos prestamo=biblio.existePrestamo(socio_id, id_libro);
+		if(prestamo!=null) {
+			prestamo.eliminarPrestamoBD();
+			biblio.eliminarPrestamoBiblio(prestamo);
+			libro.updateStatusLibroFalse(biblio);
+			
+			Socio socio2=socio.eliminarLibroenSocio(libro);
+			socio2.updateSocioenBiblio(socio,biblio);
+
+
+		}
+		else
+			System.out.println("Introduzca unos datos validos, puesto que los introducidos no son referentes a ningun prestamo");
+
+	}
+	public void eliminarPrestamoBD() throws SQLException, ClassNotFoundException {
+		try {
+		String insert = " delete from prestamos where cod_socio =" + this.getSocio_asocidado()+" and id_libro="+this.getLibro_asociado();
+		Statement st = Conector.conectar().createStatement();
+		st.executeUpdate(insert);
+		}finally {
+			Conector.cerrar();
+		}
+	}
+	
 	/**Metodo encargado de darnos la fecha en la que se hace el prestamo y la mecha de devolucion maxima del mismo.
 	 * Se calcula la fecha actual con la clase java.util.date y con Calendar, ademas de la fecha pasado un mes de la actual
 	 * 
