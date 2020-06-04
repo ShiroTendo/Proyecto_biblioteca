@@ -1,0 +1,2 @@
+Lista de prestamoss: 
+Datos del prestamo: Dia del prestamo 2020-06-04, Fecha limite del prestamo 2020-07-04, ID del libro prestado 1, ID del socio 1

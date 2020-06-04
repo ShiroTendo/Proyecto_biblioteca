@@ -20,7 +20,6 @@ import java.util.Iterator;
  *
  */
 public class Biblioteca {
-	static File impsocios= new File("./impresiones/socios.txt");
 	private HashSet<Libros> lista_libros;
 	private HashSet<Socio> lista_socios;
 	private HashSet<Bibliotecario> lista_bibliotecarios;
@@ -331,11 +330,45 @@ public class Biblioteca {
 	}
 	
 	public void imprimirSocios() throws IOException {
-		BufferedWriter bw= new BufferedWriter(new FileWriter(impsocios));
+		 File f= new File("./impresiones/socios.txt");
+		BufferedWriter bw= new BufferedWriter(new FileWriter(f));
 		Iterator it= this.lista_socios.iterator();
 		bw.write("Lista de socios: "+"\n");
 		while(it.hasNext()) {
 			Socio aux=(Socio)it.next();
+			bw.write(aux.toString()+"\n");
+		}
+		bw.close();
+	}
+	public void imprimirBibliotecarios() throws IOException {
+		 File f= new File("./impresiones/bibliotecarios.txt");
+		BufferedWriter bw= new BufferedWriter(new FileWriter(f));
+		Iterator it= this.lista_bibliotecarios.iterator();
+		bw.write("Lista de bibliotecarios: "+"\n");
+		while(it.hasNext()) {
+			Bibliotecario aux=(Bibliotecario)it.next();
+			bw.write(aux.toString()+"\n");
+		}
+		bw.close();
+	}
+	public void imprimirLibros() throws IOException {
+		 File f= new File("./impresiones/libros.txt");
+		BufferedWriter bw= new BufferedWriter(new FileWriter(f));
+		Iterator it= this.lista_libros.iterator();
+		bw.write("Lista de libros: "+"\n");
+		while(it.hasNext()) {
+			Libros aux=(Libros)it.next();
+			bw.write(aux.toString()+"\n");
+		}
+		bw.close();
+	}
+	public void imprimirPrestamos() throws IOException {
+		 File f= new File("./impresiones/prestamos.txt");
+		BufferedWriter bw= new BufferedWriter(new FileWriter(f));
+		Iterator it= this.lista_prestamos.iterator();
+		bw.write("Lista de prestamoss: "+"\n");
+		while(it.hasNext()) {
+			Prestamos aux=(Prestamos)it.next();
 			bw.write(aux.toString()+"\n");
 		}
 		bw.close();

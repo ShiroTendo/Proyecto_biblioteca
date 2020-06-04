@@ -1,0 +1,3 @@
+Lista de libros: 
+Libro: 4, con titulo Morta Platino, cuyo autor/a es Romualdo y cuyo genero es fantasia, y estado: disponible
+Libro: 1, con titulo EL cid campeador, cuyo autor/a es Maritn y cuyo genero es accion, y estado: prestado
