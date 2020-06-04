@@ -196,10 +196,9 @@ public class Libros implements Comparable<Libros>{
 	}
 
 	/**
-	 * Metodo que cambia el estado del libro y lo elimina de los libros que tenia prestados el socio
-	 * @param socio Socio
-	 * @param libro Libros
-	 * @return devuelve el socio ya modificado
+	 * Metodo que cambia el estado del libro a false en la base de datos
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
 	 */
 	
 	public void updateFalseBd() throws ClassNotFoundException, SQLException {

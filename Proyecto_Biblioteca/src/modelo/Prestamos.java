@@ -66,6 +66,12 @@ public class Prestamos implements Comparable<Prestamos>{
 		}
 		
 	}
+	
+	/**
+	 * Metodo que elimina un prestamo de la base de datos
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public void eliminarPrestamoBD() throws SQLException, ClassNotFoundException {
 		try {
 		String insert = " delete from prestamos where cod_socio =" + this.getSocio_asocidado()+" and id_libro="+this.getLibro_asociado();

@@ -30,14 +30,13 @@ public  class Conector {
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		conexion=DriverManager.getConnection(url, login, pass);
 		return conexion;
-		
-		
 	}
 	
 	/**
 	 * Metodo encargado de cerrar todos los Statement y los ResulSet.
 	 * @throws SQLException
 	 */
+	
 	public static void cerrar() throws SQLException {
 		if(rs!=null)
 			rs.close();
