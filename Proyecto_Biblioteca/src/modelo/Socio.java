@@ -1,5 +1,6 @@
 package modelo;
 
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +14,6 @@ import java.util.Objects;
  *
  */
 public class Socio extends Personas implements Comparable<Socio>{
-		
 		private int Cod_Socio;
 		private HashSet<Libros> Libros_Tiene;
 		

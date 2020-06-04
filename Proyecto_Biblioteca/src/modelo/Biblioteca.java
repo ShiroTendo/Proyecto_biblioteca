@@ -1,4 +1,8 @@
 package modelo;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +12,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 
+
 /**
  * Clase dedicada a la gestión de la biblioteca añadiendo socios, libros y bibliotecarios.
  * 
@@ -15,6 +20,7 @@ import java.util.Iterator;
  *
  */
 public class Biblioteca {
+	static File impsocios= new File("./impresiones/socios.txt");
 	private HashSet<Libros> lista_libros;
 	private HashSet<Socio> lista_socios;
 	private HashSet<Bibliotecario> lista_bibliotecarios;
@@ -322,6 +328,17 @@ public class Biblioteca {
 			return lista_libros.remove(libro);
 		}
 		return false;
+	}
+	
+	public void imprimirSocios() throws IOException {
+		BufferedWriter bw= new BufferedWriter(new FileWriter(impsocios));
+		Iterator it= this.lista_socios.iterator();
+		bw.write("Lista de socios: "+"\n");
+		while(it.hasNext()) {
+			Socio aux=(Socio)it.next();
+			bw.write(aux.toString()+"\n");
+		}
+		bw.close();
 	}
 
 	/**

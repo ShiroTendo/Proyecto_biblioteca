@@ -186,7 +186,7 @@ public class pruebas_Clases_bbdd implements Generos{
 		Libros l4= new Libros(4, "Morta Platino", "Romualdo","fantasia");
 		Prestamos p1= new Prestamos(Date.valueOf(strDate), Date.valueOf(strDate2), s1.getCod_Socio(),l1.getId_libro());
 		conectar();
-		l1.insertarLibroBD(bi1);
+		/*l1.insertarLibroBD(bi1);
 		l4.insertarLibroBD(bi1);
 		s1.insertarSocioBD(bi1);
 		b2.insertarBibliotecarioBD(bi1);
@@ -210,6 +210,7 @@ public class pruebas_Clases_bbdd implements Generos{
 		bi1.mostrar_Prestamos();
 		/*System.out.println(s1.getLibros_Tiene().toString());
 		System.out.println(s1.getLibros_Tiene().size());*/
+		bi1.imprimirSocios();
 		
 		cerrar();
 		}catch (SQLIntegrityConstraintViolationException e) {
@@ -218,6 +219,8 @@ public class pruebas_Clases_bbdd implements Generos{
 			e.printStackTrace();
 		}catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		}catch (Exception e) {
+			// TODO: handle exception
 		}
 		
 
