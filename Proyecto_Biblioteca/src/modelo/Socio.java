@@ -1,6 +1,7 @@
 package modelo;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
@@ -30,6 +31,11 @@ public class Socio extends Personas implements Comparable<Socio>{
 			Cod_Socio = cod_Socio;
 			Libros_Tiene = new HashSet<Libros>();
 		}
+		public Socio(String Dni, String Nombre, String Apellidos, int N_telefono) throws ClassNotFoundException, SQLException {
+			super(Dni, Nombre, Apellidos, N_telefono);
+			Cod_Socio = buscaMaxCod()+1;
+			Libros_Tiene = new HashSet<Libros>();
+		}
 
 		/**
 		 * Método encargado de mostrar los libros que tiene el socio.
@@ -39,6 +45,16 @@ public class Socio extends Personas implements Comparable<Socio>{
 				System.out.println(libros.toString());
 			}
 			
+		}
+		
+		public int buscaMaxCod() throws ClassNotFoundException, SQLException {
+			int num=0;
+			Statement st = Conector.conectar().createStatement();
+			ResultSet rs = st.executeQuery("select max(cod_socio) from socios");
+			if(rs.next()) {
+				num=rs.getInt(1);
+			}
+			return num;
 		}
 		
 		/**

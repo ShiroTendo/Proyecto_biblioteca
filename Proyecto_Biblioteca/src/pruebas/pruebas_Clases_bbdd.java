@@ -175,8 +175,9 @@ public class pruebas_Clases_bbdd implements Generos{
         DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");  
         String strDate2 = dateFormat.format(date2); 
         Biblioteca bi1 = new Biblioteca();
-        Socio s1= new Socio("021584Q", "Mortador", "RJ", 85964217, 5);
-        Socio s2= new Socio("025554A", "Oswaldo", "Willy", 65465654, 6);
+        Socio s1= new Socio("021584Q", "Mortador", "RJ", 85964217);
+        Socio s2= new Socio("025554A", "Oswaldo", "Willy", 65465654);
+        Socio s3= new Socio("0978271Q", "Carla", "MEdia", 659741236);
 		Bibliotecario b1= new Bibliotecario("2241183V", "Gemma", "Gonzalez", 657895127, 1);
 		Bibliotecario b2= new Bibliotecario("2362576A", "Luis", "Reyes", 665448485, 2);
 		Libros l1= new Libros(1234, "EL cid campeador", "Maritn","accion");
@@ -188,8 +189,8 @@ public class pruebas_Clases_bbdd implements Generos{
 		//l2.insertarLibroBD(bi1);
 		//System.out.println("");
 		//b1.PrestarLibro(s1.getCod_Socio(),l2.getId_libro(), bi1);
-		b1.DevolverLibro(s1.getCod_Socio(), l1.getId_libro(), bi1);
-		bi1.mostrar_Prestamos();
+		s3.insertarSocioBD(bi1);
+		bi1.mostrar_Socios();
 		//System.out.println(bi1.getLista_prestamos().size());
 		//bi1.mostrar_Prestamos();
 		

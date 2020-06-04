@@ -273,7 +273,7 @@ public class Biblioteca {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public void mostar_Socios() throws ClassNotFoundException, SQLException {
+	public void mostrar_Socios() throws ClassNotFoundException, SQLException {
 		Biblioteca aux=recargar();
 		ArrayList<Socio> orden= new ArrayList<Socio>(aux.lista_socios);
 		Collections.sort(orden);
