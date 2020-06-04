@@ -187,7 +187,8 @@ public class pruebas_Clases_bbdd implements Generos{
 		//bi1.mostrar_libros();
 		//l2.insertarLibroBD(bi1);
 		//System.out.println("");
-		b1.PrestarLibro(s1.getCod_Socio(),l2.getId_libro(), bi1);
+		//b1.PrestarLibro(s1.getCod_Socio(),l2.getId_libro(), bi1);
+		b1.DevolverLibro(s1.getCod_Socio(), l1.getId_libro(), bi1);
 		bi1.mostrar_Prestamos();
 		//System.out.println(bi1.getLista_prestamos().size());
 		//bi1.mostrar_Prestamos();
