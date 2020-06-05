@@ -49,7 +49,7 @@ public class Biblioteca {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public  HashSet<Libros> volcarLibros() throws SQLException, ClassNotFoundException {
+	public   HashSet<Libros> volcarLibros() throws SQLException, ClassNotFoundException {
 		int id_libro=0;
 		String titulo="";
 		String autor="";
@@ -120,7 +120,7 @@ public class Biblioteca {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public HashSet<Prestamos> volcarPrestamos() throws SQLException, ClassNotFoundException{
+	public  HashSet<Prestamos> volcarPrestamos() throws SQLException, ClassNotFoundException{
 		Date fecha_ini;
 		Date fecha_fin;
 		int socio_asociado;

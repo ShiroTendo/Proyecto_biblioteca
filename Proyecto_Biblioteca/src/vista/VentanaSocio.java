@@ -150,7 +150,6 @@ public class VentanaSocio extends JFrame implements ActionListener, WindowListen
 		if(e.getSource().equals(botonLibrosPrestados)) {
 			limpiarTabla(tabla, modelo);
 			if(socio.getLibros_Tiene().size()!=0) {
-				
 				for (Libros i : socio.getLibros_Tiene()) {
 					introducirLibro(i.getId_libro());
 				}

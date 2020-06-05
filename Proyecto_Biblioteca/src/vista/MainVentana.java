@@ -14,6 +14,7 @@ public class MainVentana {
 			new VentanaInicio();
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			
 		}
 

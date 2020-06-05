@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 
 /**
@@ -34,11 +35,13 @@ public class Socio extends Personas implements Comparable<Socio>{
 		 * @param Apellidos String
 		 * @param N_telefono int
 		 * @param cod_Socio int
+		 * @throws SQLException 
+		 * @throws ClassNotFoundException 
 		 */
-		public Socio(String Dni, String Nombre, String Apellidos, int N_telefono, int cod_Socio) {
+		public Socio(String Dni, String Nombre, String Apellidos, int N_telefono, int cod_Socio) throws ClassNotFoundException, SQLException {
 			super(Dni, Nombre, Apellidos, N_telefono);
 			Cod_Socio = cod_Socio;
-			Libros_Tiene = new HashSet<Libros>();
+			Libros_Tiene = new HashSet<Libros>(cargaPrestamos());
 		}
 		
 		/**
@@ -54,7 +57,7 @@ public class Socio extends Personas implements Comparable<Socio>{
 		public Socio(String Dni, String Nombre, String Apellidos, int N_telefono) throws ClassNotFoundException, SQLException {
 			super(Dni, Nombre, Apellidos, N_telefono);
 			Cod_Socio = num_socio+1;
-			Libros_Tiene = new HashSet<Libros>();
+			Libros_Tiene = new HashSet<Libros>(cargaPrestamos());
 			num_socio++;
 		}
 		
@@ -70,16 +73,44 @@ public class Socio extends Personas implements Comparable<Socio>{
 			}
 			return num;
 			};
-
-		/**
-		 * Método encargado de mostrar los libros que tiene el socio.
-		 */
-		public void show_libros() {
-			for (Libros libros : Libros_Tiene) {
-				System.out.println(libros.toString());
-			}
 			
-		}
+			
+			public   HashSet<Libros> cargaPrestamos() throws SQLException, ClassNotFoundException {
+				int id_libro=0;
+				String titulo="";
+				String autor="";
+				String genero="";
+				int aux=0;
+				boolean estado=false;
+				Libros libro;
+				HashSet<Libros> lista= new HashSet<Libros>();
+				 Statement st=Conector.conectar().createStatement();
+				 ResultSet rs=st.executeQuery("select libros.id_libro,titulo,autor,genero,estado from libros,prestamos,socios"
+				 		+ " where libros.id_libro=prestamos.id_libro and prestamos.cod_socio=socios.cod_socio and socios.cod_socio="+this.Cod_Socio);
+				while(rs.next()) {
+					id_libro=rs.getInt("id_libro");
+					titulo=rs.getString("titulo");
+					autor=rs.getString("autor");
+					genero=rs.getString("genero");
+					aux=rs.getInt("estado");
+					if(aux==0)
+						estado=false;
+					if(aux==1)
+						estado=true;
+					libro= new Libros(id_libro, titulo, autor, genero,estado);
+					lista.add(libro);
+						
+				}
+				Conector.cerrar();
+				return lista;
+				
+			}
+
+		
+			
+			
+			
+		
 		
 		/**
 		 * Constructor de copia.
