@@ -211,6 +211,14 @@ public class Biblioteca {
 		return null;
 
 	}
+	
+	/**
+	 * Método encargado de comprobar si existe un préstamo en un socio.
+	 * 
+	 * @param socio_id ID del socio que se quiere comprobar si tiene un prestamo
+	 * @param id_libro ID del libro que se quiere comprobar si está prestado
+	 * @return la información del libro prestado
+	 */
 	public Prestamos existePrestamo(int socio_id,int id_libro) {
 		Iterator it=this.getLista_prestamos().iterator();
 		Prestamos retornar;
@@ -222,6 +230,12 @@ public class Biblioteca {
 		return null;
 
 	}
+	
+	/**
+	 * Método encargado de eliminar un préstamo.
+	 * 
+	 * @param presta un objeto de tipo Prestamos que se quiere eliminar
+	 */
 	public void eliminarPrestamoBiblio(Prestamos presta) {
 		if(this.getLista_prestamos().contains(presta)) {
 			this.getLista_prestamos().remove(presta);
@@ -329,6 +343,11 @@ public class Biblioteca {
 		return false;
 	}
 	
+	/**
+	 * Método encargado de imprimir los socios en un archivo de texto.
+	 * 
+	 * @throws IOException
+	 */
 	public void imprimirSocios() throws IOException {
 		 File f= new File("./impresiones/socios.txt");
 		BufferedWriter bw= new BufferedWriter(new FileWriter(f));
@@ -340,6 +359,12 @@ public class Biblioteca {
 		}
 		bw.close();
 	}
+	
+	/**
+	 * Método encargado de imprimir los bibliotecarios en un archivo de texto.
+	 * 
+	 * @throws IOException
+	 */
 	public void imprimirBibliotecarios() throws IOException {
 		 File f= new File("./impresiones/bibliotecarios.txt");
 		BufferedWriter bw= new BufferedWriter(new FileWriter(f));
@@ -351,6 +376,12 @@ public class Biblioteca {
 		}
 		bw.close();
 	}
+	
+	/**
+	 * Método encargado de imprimir los libros en un archivo de texto.
+	 * 
+	 * @throws IOException
+	 */
 	public void imprimirLibros() throws IOException {
 		 File f= new File("./impresiones/libros.txt");
 		BufferedWriter bw= new BufferedWriter(new FileWriter(f));
@@ -362,6 +393,12 @@ public class Biblioteca {
 		}
 		bw.close();
 	}
+	
+	/**
+	 * Método encargado de imprimir los préstamos en un archivo de texto.
+	 * 
+	 * @throws IOException
+	 */
 	public void imprimirPrestamos() throws IOException {
 		 File f= new File("./impresiones/prestamos.txt");
 		BufferedWriter bw= new BufferedWriter(new FileWriter(f));

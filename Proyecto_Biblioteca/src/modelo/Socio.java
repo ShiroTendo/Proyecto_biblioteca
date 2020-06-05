@@ -35,6 +35,17 @@ public class Socio extends Personas implements Comparable<Socio>{
 			Cod_Socio = cod_Socio;
 			Libros_Tiene = new HashSet<Libros>();
 		}
+		
+		/**
+		 * Constructor de la clase con el cod_socio automático.
+		 * 
+		 * @param Dni String
+		 * @param Nombre String
+		 * @param Apellidos String
+		 * @param N_telefono int
+		 * @throws ClassNotFoundException
+		 * @throws SQLException
+		 */
 		public Socio(String Dni, String Nombre, String Apellidos, int N_telefono) throws ClassNotFoundException, SQLException {
 			super(Dni, Nombre, Apellidos, N_telefono);
 			Cod_Socio = num_socio+1;
@@ -51,19 +62,6 @@ public class Socio extends Personas implements Comparable<Socio>{
 			}
 			
 		}
-		
-		/*public int buscaMaxCod() throws ClassNotFoundException, SQLException {
-			int num=0;
-			Statement st = Conector.conectar().createStatement();
-			ResultSet rs = st.executeQuery("select max(cod_socio) from socios");
-			if(rs.next()) {
-				num=rs.getInt(1);
-			}
-			if(String.valueOf(num)==null) {
-				return 0;
-			}
-			return num;
-		}*/
 		
 		/**
 		 * Constructor de copia.
@@ -119,7 +117,7 @@ public class Socio extends Personas implements Comparable<Socio>{
 		/**
 		 * Método encargado de añadir un libro a un socio.
 		 * 
-		 * @param libro un objeto de tipo Libros que se le quiera añadir al socio.
+		 * @param libro un objeto de tipo Libros que se le quiera añadir al socio
 		 * @return
 		 */
 		public Socio insertarLibroenSocio( Libros libro) {
@@ -131,6 +129,12 @@ public class Socio extends Personas implements Comparable<Socio>{
 
 		}
 		
+		/**
+		 * Método encargado de eliminar un libro a un socio.
+		 * 
+		 * @param libro un objeto de tipo libro que se le quiera eliminar al socio
+		 * @return el libro que se elimina
+		 */
 		public Socio eliminarLibroenSocio( Libros libro) {
 			this.getLibros_Tiene().remove(libro);
 			return this;
