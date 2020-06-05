@@ -18,6 +18,12 @@ import modelo.Bibliotecario;
 import modelo.Socio;
 import net.miginfocom.swing.MigLayout;
 
+/**
+ * Clase dedicada a la interfaz de la ventana principal.
+ * 
+ * @author Ivan, Luis y Sergio
+ *
+ */
 public class VentanaInicio extends JFrame implements ActionListener, WindowListener {
 	
 	private JPanel panel;
@@ -34,11 +40,19 @@ public class VentanaInicio extends JFrame implements ActionListener, WindowListe
 	
 	private Biblioteca biblioteca;
 	
+	/**
+	 * Constructor de la clase.
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public VentanaInicio() throws ClassNotFoundException, SQLException {
 		biblioteca = new Biblioteca();
 		crearAlgo();
 	}
 	
+	/**
+	 * Método encargado de crear la interfaz.
+	 */
 	public void crearAlgo() {
 		
 		panel = new JPanel();
@@ -120,6 +134,9 @@ public class VentanaInicio extends JFrame implements ActionListener, WindowListe
 		
 	}
 
+	/**
+	 * Método encargado de hacer que los botones funcionen dependiendo del botoón que hagamos click.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(botonSocio)) {

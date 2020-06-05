@@ -24,6 +24,12 @@ import modelo.Libros;
 import modelo.Socio;
 import net.miginfocom.swing.MigLayout;
 
+/**
+ * Clase dedicada a la interfaz de la ventana Socios.
+ * 
+ * @author Ivan, Luis, Sergio
+ *
+ */
 public class VentanaSocio extends JFrame implements ActionListener, WindowListener{
 	
 	private JPanel panelSocio;
@@ -39,11 +45,19 @@ public class VentanaSocio extends JFrame implements ActionListener, WindowListen
 	
 	private Socio socio;
 	
+	/**
+	 * Constructor de la clase.
+	 * 
+	 * @param s un objeto de tipo Socio
+	 */
 	public VentanaSocio(Socio s) {
 		socio = new Socio(s);
 		crearAlgo();
 	}
 	
+	/**
+	 * Método encargado de crear la interfaz.
+	 */
 	public void crearAlgo() {
 		
 		panelSocio = new JPanel();
@@ -124,6 +138,9 @@ public class VentanaSocio extends JFrame implements ActionListener, WindowListen
 		
 	}
 
+	/**
+	 * Método encargado de hacer que los botones funcionen dependiendo del botón que hagamos click.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(botonLibro)) {
@@ -157,6 +174,11 @@ public class VentanaSocio extends JFrame implements ActionListener, WindowListen
 		}
 	}
 
+	/**
+	 * Método encargado de introducir un libro a la tabla.
+	 * 
+	 * @param id ID del libro
+	 */
 	public void introducirLibro(int id) {
 		Libros aux = MainVentana.biblioteca.buscaLibro(id);
 		if(aux!=null) {
@@ -175,6 +197,12 @@ public class VentanaSocio extends JFrame implements ActionListener, WindowListen
 			JOptionPane.showMessageDialog(this, "No se ha encontrado un libro con ese ID en la base de datos");
 	}
 	
+	/**
+	 * Método encargado de borrar la tabla.
+	 * 
+	 * @param tabla la tabla que le queramos pasar
+	 * @param modelo el modelo que le queramos pasar
+	 */
 	public static void limpiarTabla(JTable tabla, DefaultTableModel modelo) {
         int filas = tabla.getRowCount()-1;
         for (int i = filas; i >= 0; i--)
