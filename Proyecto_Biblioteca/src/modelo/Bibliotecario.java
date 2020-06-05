@@ -46,7 +46,13 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 	super(Dni, Nombre, Apellidos, N_telefono);
 	this.Cod_Emple=num_biblio+1;
 	num_biblio++;
-}
+	}
+	
+	public Bibliotecario(Bibliotecario obj) {
+		super(obj);
+		this.Cod_Emple=obj.getCod_Emple();
+	}
+	
 	//Posiblemente sera borrado
 	public static  int buscaMaxCod() throws ClassNotFoundException, SQLException {
 		int num=0;

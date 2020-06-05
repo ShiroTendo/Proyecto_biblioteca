@@ -209,7 +209,17 @@ public class Biblioteca {
 				return retornar=new Socio(aux);
 		}
 		return null;
-
+	}
+	
+	public Bibliotecario buscarBibliotecario(int id) {
+		Iterator it=this.getLista_bibliotecarios().iterator();
+		Bibliotecario retornar;
+		while(it.hasNext()) {
+			Bibliotecario aux=(Bibliotecario) it.next();
+			if(aux.getCod_Emple()==id)
+				return retornar=new Bibliotecario(aux);
+		}
+		return null;
 	}
 	
 	/**
