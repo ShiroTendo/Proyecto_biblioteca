@@ -19,6 +19,10 @@ import java.util.Objects;
 
 public class Bibliotecario extends Personas implements Comparable<Bibliotecario>{
 	private int Cod_Emple;
+	private static int num_biblio;
+	static {
+		num_biblio=0;
+	}
 	/**
 	 * Constructor de la clase.
 	 * @param Dni String
@@ -33,10 +37,11 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 		super(Dni, Nombre, Apellidos, N_telefono);
 		this.Cod_Emple=Cod_Emple;
 	}
-	/*public Bibliotecario(String Dni, String Nombre, String Apellidos, int N_telefono) throws ClassNotFoundException, SQLException {
+	public Bibliotecario(String Dni, String Nombre, String Apellidos, int N_telefono) throws ClassNotFoundException, SQLException {
 	super(Dni, Nombre, Apellidos, N_telefono);
-	this.Cod_Emple=buscaMaxCod()+1;
-}*/
+	this.Cod_Emple=num_biblio+1;
+	num_biblio++;
+}
 	//Posiblemente sera borrado
 	/*public int buscaMaxCod() throws ClassNotFoundException, SQLException {
 		int num=0;

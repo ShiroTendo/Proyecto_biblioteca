@@ -25,7 +25,11 @@ public class Libros implements Comparable<Libros>{
 	private String autor;
 	private String genero;
 	private boolean prestado;
-
+	private static int num_libro;
+	
+	static {
+		num_libro=0;
+	}
 	/**
 	 * Constructor de la clase al que no se le pasa el estado.
 	 * @param id int
@@ -36,12 +40,13 @@ public class Libros implements Comparable<Libros>{
 	 * @throws ClassNotFoundException 
 	 */
 
-	public Libros(int id, String titulo,String autor,String genero) throws ClassNotFoundException, SQLException{
-		this.id_libro=id;
+	public Libros(String titulo,String autor,String genero) throws ClassNotFoundException, SQLException{
+		this.id_libro=num_libro+1;
 		this.titulo=titulo;
 		this.autor=autor;
 		this.genero=genero;
 		this.prestado=false;
+		num_libro++;
 	}
 	
 	/**
@@ -252,7 +257,7 @@ public class Libros implements Comparable<Libros>{
 
 	@Override
 	public String toString() {
-		String aux = "Libro: " + id_libro + ", con titulo " + titulo + ", cuyo autor/a es " + autor + " y cuyo genero es " + genero;
+		String aux = "Libro: Id: " + id_libro + ", con titulo " + titulo + ", cuyo autor/a es " + autor + " y cuyo genero es " + genero;
 		if(this.isPrestado()) {
 			return aux+= ", y estado: prestado";
 		}

@@ -16,6 +16,10 @@ import java.util.Objects;
 public class Socio extends Personas implements Comparable<Socio>{
 		private int Cod_Socio;
 		private HashSet<Libros> Libros_Tiene;
+		private static int  num_socio;
+		static {
+			num_socio=0;
+		}
 		
 		
 		/**
@@ -31,11 +35,12 @@ public class Socio extends Personas implements Comparable<Socio>{
 			Cod_Socio = cod_Socio;
 			Libros_Tiene = new HashSet<Libros>();
 		}
-		/*public Socio(String Dni, String Nombre, String Apellidos, int N_telefono) throws ClassNotFoundException, SQLException {
+		public Socio(String Dni, String Nombre, String Apellidos, int N_telefono) throws ClassNotFoundException, SQLException {
 			super(Dni, Nombre, Apellidos, N_telefono);
-			Cod_Socio = buscaMaxCod()+1;
+			Cod_Socio = num_socio+1;
 			Libros_Tiene = new HashSet<Libros>();
-		}*/
+			num_socio++;
+		}
 
 		/**
 		 * Método encargado de mostrar los libros que tiene el socio.
