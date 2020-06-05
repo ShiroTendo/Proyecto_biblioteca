@@ -28,8 +28,8 @@ public class VentanaInicio extends JFrame implements ActionListener, WindowListe
 	private JLabel bibliotecario;
 	private JTextField escribirIdSocio;
 	private JTextField escribirIdBibliotecario;
-	private JButton accesoSocio;
-	private JButton accesoBibliotecario;
+	private JButton botonSocio;
+	private JButton botonBibliotecario;
 	private JButton exit;
 	
 	private Biblioteca biblioteca;
@@ -52,12 +52,12 @@ public class VentanaInicio extends JFrame implements ActionListener, WindowListe
 		
 		escribirIdSocio = new JTextField(10);
 		escribirIdBibliotecario = new JTextField(10);
-		accesoSocio = new JButton("Acceso socio");
-		accesoBibliotecario = new JButton("Acceso bibliotecario");
+		botonSocio = new JButton("Acceso socio");
+		botonBibliotecario = new JButton("Acceso bibliotecario");
 		exit = new JButton("EXIT");
 		
-		accesoSocio.addActionListener(this);
-		accesoBibliotecario.addActionListener(this);
+		botonSocio.addActionListener(this);
+		botonBibliotecario.addActionListener(this);
 		exit.addActionListener(this);
 		
 		panel.add(titulo, "skip, align center, wrap");
@@ -67,8 +67,8 @@ public class VentanaInicio extends JFrame implements ActionListener, WindowListe
 		panel.add(escribirIdSocio);
 		panel.add(idBibliotecario, "skip, split2");
 		panel.add(escribirIdBibliotecario, "wrap");
-		panel.add(accesoSocio);
-		panel.add(accesoBibliotecario, "skip, align right, wrap");
+		panel.add(botonSocio);
+		panel.add(botonBibliotecario, "skip, align right, wrap");
 		panel.add(exit, "skip, growx, pushx");
 		add(panel);
 		setVisible(true);
@@ -122,20 +122,33 @@ public class VentanaInicio extends JFrame implements ActionListener, WindowListe
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource().equals(accesoSocio)) {
-			Socio aux = MainVentana.biblioteca.buscarSocio(Integer.parseInt(escribirIdSocio.getText()));
-			if(aux!=null)
-				new VentanaSocio(aux);
-			else
-				JOptionPane.showMessageDialog(this, "No se ha encontrado un socio con ese ID en la base de datos");
+		if(e.getSource().equals(botonSocio)) {
+			if(escribirIdSocio.getText().equals("")) {
+				JOptionPane.showMessageDialog(this, "Introduce un valor válido");
+			}
 			
+			else {
+				Socio aux = MainVentana.biblioteca.buscarSocio(Integer.parseInt(escribirIdSocio.getText()));
+				if(aux!=null)
+					new VentanaSocio(aux);
+				else
+					JOptionPane.showMessageDialog(this, "No se ha encontrado un socio con ese ID en la base de datos");
+			}
+				
 		}
-		if(e.getSource().equals(accesoBibliotecario)) {
-			Bibliotecario aux = MainVentana.biblioteca.buscarBibliotecario(Integer.parseInt(escribirIdBibliotecario.getText()));
-			if(aux!=null)
-				System.out.println("existe el bibliotecario");
-			else
-				JOptionPane.showMessageDialog(this, "No se ha encontrado un bibliotecario con ese ID en la base de datos");
+		
+		if(e.getSource().equals(botonBibliotecario)) {
+			if(escribirIdBibliotecario.getText().equals("")) {
+				JOptionPane.showMessageDialog(this, "Introduce un valor válido");
+			}
+			else {
+				Bibliotecario aux = MainVentana.biblioteca.buscarBibliotecario(Integer.parseInt(escribirIdBibliotecario.getText()));
+				if(aux!=null)
+					System.out.println("existe el bibliotecario");
+				else
+					JOptionPane.showMessageDialog(this, "No se ha encontrado un bibliotecario con ese ID en la base de datos");
+			}
+			
 		}
 		if(e.getSource().equals(exit)) {
 			System.exit(0);

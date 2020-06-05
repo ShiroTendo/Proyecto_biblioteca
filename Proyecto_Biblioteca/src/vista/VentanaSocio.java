@@ -4,24 +4,38 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
+import modelo.Libros;
 import modelo.Socio;
 import net.miginfocom.swing.MigLayout;
 
 public class VentanaSocio extends JFrame implements ActionListener, WindowListener{
 	
-	private Panel panel;
-	private JTextArea texto;
-	private JTextField titulo;
-	private JLabel idLibro;
-	private JButton existenciaLibro;
+	private JPanel panelSocio;
+	private JLabel titulo;
+	private JLabel libro;
+	private JTextField escribirLibro;
+	private JButton botonLibro;
+	private JButton botonLibrosPrestados;
+	private JButton botonLibrosBiblioteca;
+	private DefaultTableModel modelo;
+	private JScrollPane scrollTabla;
+	private JTable tabla;
 	
 	private Socio socio;
 	
@@ -32,12 +46,40 @@ public class VentanaSocio extends JFrame implements ActionListener, WindowListen
 	
 	public void crearAlgo() {
 		
-		panel = new Panel();
-		panel.setLayout(new MigLayout("align center"));
+		panelSocio = new JPanel();
+		panelSocio.setLayout(new MigLayout("align center"));
 		
+		titulo = new JLabel("BIENVENIDO " + socio.getNombre());
+		libro = new JLabel("ID del libro: ");
+		escribirLibro = new JTextField(10);
 		
+		botonLibro = new JButton("Introducir ID");
+		botonLibrosPrestados = new JButton("Mostrar libros en pertenencia");
+		botonLibrosBiblioteca = new JButton("Mostrar libros en biblioteca");
 		
+		tabla = new JTable();
+		String lista[] = {"id", "titulo", "autor", "genero", "estado"};
+		modelo = new DefaultTableModel(null, lista);
+		tabla.setModel(modelo);
+		scrollTabla = new JScrollPane(tabla);
 		
+		botonLibro.addActionListener(this);
+		botonLibrosPrestados.addActionListener(this);
+		botonLibrosBiblioteca.addActionListener(this);
+		
+		panelSocio.add(titulo, "align center, wrap");
+		panelSocio.add(libro, "split3");
+		panelSocio.add(escribirLibro, "align center");
+		panelSocio.add(botonLibro, "wrap");
+		panelSocio.add(botonLibrosPrestados);
+		panelSocio.add(botonLibrosBiblioteca, "wrap");
+		panelSocio.add(scrollTabla, "span2, align center");
+		add(panelSocio);
+		setVisible(true);
+		setTitle("Socios");
+		setResizable(false);
+		pack();
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
 	@Override
@@ -84,7 +126,58 @@ public class VentanaSocio extends JFrame implements ActionListener, WindowListen
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		if(e.getSource().equals(botonLibro)) {
+			limpiarTabla(tabla, modelo);
+			introducirLibro(Integer.parseInt(escribirLibro.getText()));
+		}
+		if(e.getSource().equals(botonLibrosPrestados)) {
+			limpiarTabla(tabla, modelo);
+			if(socio.getLibros_Tiene().size()!=0) {
+				
+				for (Libros i : socio.getLibros_Tiene()) {
+					introducirLibro(i.getId_libro());
+				}
+			
+			}
+			else
+				JOptionPane.showMessageDialog(this, "Este socio no tiene ningún libro prestado.");
+		}
+		if(e.getSource().equals(botonLibrosBiblioteca)) {
+			limpiarTabla(tabla, modelo);
+			if(MainVentana.biblioteca.getLista_libros().size()!=0) {
+				ArrayList<Libros> orden= new ArrayList<Libros>(MainVentana.biblioteca.getLista_libros());
+				Collections.sort(orden);
+				for (Libros i : orden) {
+					introducirLibro(i.getId_libro());
+				}
+			
+			}
+			else
+				JOptionPane.showMessageDialog(this, "La biblioteca no tiene libros.");
+		}
 	}
+
+	public void introducirLibro(int id) {
+		Libros aux = MainVentana.biblioteca.buscaLibro(id);
+		if(aux!=null) {
+			Object lista[] = new Object[5];
+			lista [0] = aux.getId_libro();
+			lista [1] = aux.getTitulo();
+			lista [2] = aux.getAutor();
+			lista [3] = aux.getGenero();
+			if(aux.isPrestado())
+				lista [4] = "prestado";
+			else
+				lista [4] = "disponible";
+			modelo.addRow(lista);
+		}
+		else
+			JOptionPane.showMessageDialog(this, "No se ha encontrado un libro con ese ID en la base de datos");
+	}
+	
+	public static void limpiarTabla(JTable tabla, DefaultTableModel modelo) {
+        int filas = tabla.getRowCount()-1;
+        for (int i = filas; i >= 0; i--)
+            modelo.removeRow(i);
+    }
 }
