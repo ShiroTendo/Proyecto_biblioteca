@@ -21,7 +21,12 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 	private int Cod_Emple;
 	private static int num_biblio;
 	static {
-		num_biblio=0;
+		try {
+			num_biblio=buscaMaxCod() ;
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * Constructor de la clase.
@@ -43,7 +48,7 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 	num_biblio++;
 }
 	//Posiblemente sera borrado
-	/*public int buscaMaxCod() throws ClassNotFoundException, SQLException {
+	public static  int buscaMaxCod() throws ClassNotFoundException, SQLException {
 		int num=0;
 		Statement st = Conector.conectar().createStatement();
 		ResultSet rs = st.executeQuery("select max(cod_emple) from bibliotecarios");
@@ -54,7 +59,7 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 			return 0;
 		}
 		return num;
-	}*/
+	}
 	
 	/**Metodo encargado de insertar el bibliotecario en la base de datos.
 	 * Despues de insertarlo en la base, tambien sera insertdo en la bilioteca pasada como parametro

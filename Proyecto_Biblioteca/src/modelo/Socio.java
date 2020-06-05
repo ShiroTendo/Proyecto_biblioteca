@@ -18,7 +18,12 @@ public class Socio extends Personas implements Comparable<Socio>{
 		private HashSet<Libros> Libros_Tiene;
 		private static int  num_socio;
 		static {
-			num_socio=0;
+			try {
+				num_socio= buscaMaxCod();
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		
@@ -52,6 +57,19 @@ public class Socio extends Personas implements Comparable<Socio>{
 			Libros_Tiene = new HashSet<Libros>();
 			num_socio++;
 		}
+		
+		public static  int buscaMaxCod() throws ClassNotFoundException, SQLException {
+			int num=0;
+			Statement st = Conector.conectar().createStatement();
+			ResultSet rs = st.executeQuery("select max(cod_socio) from socios");
+			if(rs.next()) {
+			num=rs.getInt(1);
+			}
+			if(String.valueOf(num)==null) {
+			return 0;
+			}
+			return num;
+			};
 
 		/**
 		 * Método encargado de mostrar los libros que tiene el socio.

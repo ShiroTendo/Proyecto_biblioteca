@@ -28,7 +28,12 @@ public class Libros implements Comparable<Libros>{
 	private static int num_libro;
 	
 	static {
-		num_libro=0;
+		try {
+			num_libro=buscaMaxID();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * Constructor de la clase al que no se le pasa el estado.
@@ -65,7 +70,7 @@ public class Libros implements Comparable<Libros>{
 		this.genero=genero;
 		this.prestado=estado;
 	}
-	/*public int buscaMaxID() throws ClassNotFoundException, SQLException {
+	public static  int buscaMaxID() throws ClassNotFoundException, SQLException {
 		int num=0;
 		Statement st = Conector.conectar().createStatement();
 		ResultSet rs = st.executeQuery("select nvl(max(id_libro),0) max_id from libros");
@@ -76,7 +81,7 @@ public class Libros implements Comparable<Libros>{
 			return 0;
 		}
 		return num;
-	}*/
+	}
 	
 	/**
 	 * Constructor de copia de Libros
