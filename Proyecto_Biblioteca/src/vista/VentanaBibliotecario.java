@@ -1,5 +1,7 @@
 package vista;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,8 +31,6 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 	private JButton imprimirLibros;
 	private JButton imprimirPrestamos;
 	private JButton imprimirSocios;
-	private DefaultTableModel modeloImprimir;
-	private JTable tablaImprimir;
 	
 	//PESTAÑA MOSTRARTODO
 	private JLabel tituloMostrar;
@@ -48,13 +48,15 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 	private JLabel tituloLibro;
 	private JLabel autorLibro;
 	private JLabel generoLibro;
-	private TextField escribirTitulo;
-	private TextField escribirAutor;
-	private TextField escribirGenero;
+	private JLabel idLibroBorrar;
+	private JTextField escribirTitulo;
+	private JTextField escribirAutor;
+	private JTextField escribirGenero;
+	private JTextField borrarTitulo;
+	private JTextField borrarAutor;
+	private JTextField borrarGenero;
 	private JButton anadirLibro;
 	private JButton borrarLibro;
-	private DefaultTableModel modeloAnadirBorrar;
-	private JTable tablaAnadirBorrar;
 	
 	//PESTAÑA PRESTAR/DEVOLVER
 	private JLabel tituloPrestarDevolver;
@@ -66,8 +68,6 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 	private TextField escribirIdLibro;
 	private JButton prestar;
 	private JButton devolver;
-	private DefaultTableModel modeloPrestarDevolver;
-	private JTable tablaPrestarDevolver;
 	
 	//PANELES
 	private JTabbedPane pestanas;
@@ -82,6 +82,8 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 	
 	private Bibliotecario bibliotecario;
 	
+	private JLabel algo;
+	
 	public VentanaBibliotecario(Bibliotecario b) {
 		bibliotecario = new Bibliotecario(b);
 		crearAlgo();
@@ -89,11 +91,14 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 	
 	public void crearAlgo() {
 		
+		//CREAR PESTAÑA
 		pestanas = new JTabbedPane();
 		
+		//CREAR PANEL IMPRIMIR
 		panelImprimir = new JPanel();
 		panelImprimir.setLayout(new MigLayout());
 		
+		//DATOS PANEL IMPRIMIR
 		tituloImprimir = new JLabel("BIENVENIDO " + bibliotecario.getNombre());
 		
 		imprimirBibliotecarios = new JButton("Imprimir bibliotecarios");
@@ -112,13 +117,17 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelImprimir.add(imprimirPrestamos);
 		panelImprimir.add(imprimirSocios, "skip");
 		
+		//AÑADIR PANEL IMPRIMIR A LA PESTAÑA
 		pestanas.addTab("pestaña1", panelImprimir);
 		
-		//
+		//CREAR PANEL MOSTRAR
 		panelMostrar = new JPanel();
-		pestanas.addTab("pestaña2", panelMostrar);
-		tablaMostrar = new JTable();
+		panelMostrar.setLayout(new MigLayout());
 		
+		//AÑADIR PANEL A PESTAÑA
+		pestanas.addTab("pestaña2", panelMostrar);
+		
+		//DATOS PANEL MOSTRAR
 		tituloMostrar = new JLabel("BIENVENIDO " + bibliotecario.getNombre());
 		
 		mostrarBibliotecarios = new JButton("Mostrar bibliotecarios");
@@ -137,12 +146,66 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelMostrar.add(mostrarPrestamos);
 		panelMostrar.add(mostrarSocios, "skip");
 		
+		//CREAR PANEL AÑADIR/BORRAR LIBRO
+		panelAnadirBorrar = new JPanel();
+		panelAnadirBorrar.setLayout(new MigLayout());
+		
+		//AÑADIR PANEL A PESTAÑA
+		pestanas.addTab("pestaña3", panelAnadirBorrar);
+		
+		//DATOS PANEL MOSTRAR
+		
+		tituloAnadirBorrar = new JLabel("BIENVENIDO " + bibliotecario.getNombre());
+		
+		anadir = new JLabel("AÑADIR LIBROS");
+		borrar = new JLabel("BORRAR LIBROS");
+		tituloLibro = new JLabel("Título del libro: ");
+		autorLibro = new JLabel("Autor del libro: ");
+		generoLibro = new JLabel("Género del libro: ");
+		idLibroBorrar = new JLabel("ID del libro: ");
+		algo = new JLabel();
+		
+		escribirTitulo = new JTextField(10);
+		escribirAutor = new JTextField(10);
+		escribirGenero = new JTextField(10);
+		borrarTitulo = new JTextField(10);
+		borrarAutor = new JTextField(10);
+		borrarGenero = new JTextField(10);
+		
+		anadirLibro = new JButton("Añadir libro");
+		borrarLibro = new JButton("Borrar libro");
+		
+		anadirLibro.addActionListener(this);
+		borrarLibro.addActionListener(this);
+		
+		panelAnadirBorrar.add(tituloAnadirBorrar, "skip2, align center, wrap");
+		panelAnadirBorrar.add(anadir, "span2, align center,");
+		panelAnadirBorrar.add(borrar, "skip2, align center, wrap");
+		panelAnadirBorrar.add(tituloLibro);
+		panelAnadirBorrar.add(escribirTitulo, "wrap");
+		panelAnadirBorrar.add(autorLibro);
+		panelAnadirBorrar.add(escribirAutor);
+		panelAnadirBorrar.add(idLibroBorrar, "skip");
+		panelAnadirBorrar.add(borrarAutor, "wrap");
+		panelAnadirBorrar.add(generoLibro);
+		panelAnadirBorrar.add(escribirGenero, "wrap");
+		panelAnadirBorrar.add(anadirLibro, "span2, align center");
+		panelAnadirBorrar.add(borrarLibro, "skip2");
+		
+		
+		
+		
+		//XD
 		this.add(pestanas);
 		setVisible(true);
 		setTitle("Imprimir");
 		setResizable(false);
 		pack();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = pantalla.height;
+        int width = pantalla.width;
+        this.setSize(width/3, height/2);
 	}
 
 	@Override
