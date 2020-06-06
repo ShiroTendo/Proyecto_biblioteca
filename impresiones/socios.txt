@@ -1,9 +1,5 @@
 Lista de socios: 
 Socio: 1 Nombre: Mortador RJ, cuyo numero de telefono es: 85964217  y con dni: 021584Q, y sus libros en pertenencia son: 
-[]
-Socio: 4 Nombre: Oswaldo Willy, cuyo numero de telefono es: 65465654  y con dni: 025554A, y sus libros en pertenencia son: 
-[Libro: Id: 6, con titulo El perro, cuyo autor/a es Clase1 y cuyo genero es animales, y estado: prestado]
-Socio: 3 Nombre: Mortador RJ, cuyo numero de telefono es: 85964217  y con dni: 021584Q, y sus libros en pertenencia son: 
-[Libro: Id: 4, con titulo EL cid campeador, cuyo autor/a es Maritn y cuyo genero es accion, y estado: prestado]
+[Libro: Id: 1, con titulo EL cid campeador, cuyo autor/a es Maritn y cuyo genero es accion, y estado: prestado]
 Socio: 2 Nombre: Oswaldo Willy, cuyo numero de telefono es: 65465654  y con dni: 025554A, y sus libros en pertenencia son: 
 []

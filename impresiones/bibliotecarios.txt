@@ -1,5 +1,3 @@
 Lista de bibliotecarios: 
 Bibliotecario: 1 Nombre: Gemma Gonzalez, cuyo numero de telefono es: 657895127  y con dni: 2241183V
 Bibliotecario: 2 Nombre: Luis Reyes, cuyo numero de telefono es: 665448485  y con dni: 2362576A
-Bibliotecario: 3 Nombre: Gemma Gonzalez, cuyo numero de telefono es: 657895127  y con dni: 2241183V
-Bibliotecario: 4 Nombre: Luis Reyes, cuyo numero de telefono es: 665448485  y con dni: 2362576A

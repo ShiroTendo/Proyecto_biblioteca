@@ -161,7 +161,7 @@ public class VentanaInicio extends JFrame implements ActionListener, WindowListe
 			else {
 				Bibliotecario aux = MainVentana.biblioteca.buscarBibliotecario(Integer.parseInt(escribirIdBibliotecario.getText()));
 				if(aux!=null)
-					System.out.println("existe el bibliotecario");
+					new VentanaBibliotecario(aux);
 				else
 					JOptionPane.showMessageDialog(this, "No se ha encontrado un bibliotecario con ese ID en la base de datos");
 			}
