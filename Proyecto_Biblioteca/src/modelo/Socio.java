@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 
 /**
@@ -201,6 +202,20 @@ public class Socio extends Personas implements Comparable<Socio>{
 				biblio.getLista_socios().add(this);
 			}
 
+		}
+		
+		public String devuelveID() {
+			if(this.Libros_Tiene.size()!=0) {		
+				Iterator it = this.Libros_Tiene.iterator();
+				String retorno = " ";
+				while(it.hasNext()) {
+					Libros aux = (Libros) it.next();
+					retorno+= String.valueOf(aux.getId_libro());
+				}
+				return retorno;
+			}
+			else
+				return "Ningun libro";
 		}
 		
 		/**

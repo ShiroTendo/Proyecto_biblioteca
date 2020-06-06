@@ -383,6 +383,14 @@ public class Libros implements Comparable<Libros>{
 		this.prestado = prestado;
 	}
 	
+	public static int getNum_libro() {
+		return num_libro;
+	}
+
+	public static void setNum_libro(int num_libro) {
+		Libros.num_libro = num_libro;
+	}
+
 	/**
 	 * Metodo por defecto de ordenacion de los libros
 	 */

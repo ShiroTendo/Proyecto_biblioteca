@@ -353,6 +353,12 @@ public class Biblioteca {
 		return false;
 	}
 	
+	public void borradoTotalLibro(Libros libro) throws ClassNotFoundException, SQLException {
+		libro.eliminarLibroBD();
+		eliminar_libro(libro);
+		if(libro.getId_libro()==Libros.buscaMaxID())
+			Libros.setNum_libro(Libros.getNum_libro()-1);
+	}
 	/**
 	 * Método encargado de imprimir los socios en un archivo de texto.
 	 * 

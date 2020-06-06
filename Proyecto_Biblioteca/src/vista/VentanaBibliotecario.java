@@ -8,6 +8,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,6 +24,9 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import modelo.Bibliotecario;
+import modelo.Libros;
+import modelo.Prestamos;
+import modelo.Socio;
 import net.miginfocom.swing.MigLayout;
 
 public class VentanaBibliotecario extends JFrame implements ActionListener, WindowListener{
@@ -52,9 +58,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 	private JTextField escribirTitulo;
 	private JTextField escribirAutor;
 	private JTextField escribirGenero;
-	private JTextField borrarTitulo;
-	private JTextField borrarAutor;
-	private JTextField borrarGenero;
+	private JTextField borrarIdLibro;
 	private JButton anadirLibro;
 	private JButton borrarLibro;
 	
@@ -130,6 +134,9 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		//DATOS PANEL MOSTRAR
 		tituloMostrar = new JLabel("BIENVENIDO " + bibliotecario.getNombre());
 		
+		tablaMostrar = new JTable();
+		scrollMostrar = new JScrollPane(tablaMostrar);
+		
 		mostrarBibliotecarios = new JButton("Mostrar bibliotecarios");
 		mostrarLibros = new JButton("Mostrar libros");
 		mostrarPrestamos = new JButton("Mostrar préstamos");
@@ -144,7 +151,8 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelMostrar.add(mostrarBibliotecarios);
 		panelMostrar.add(mostrarLibros, "skip, wrap");
 		panelMostrar.add(mostrarPrestamos);
-		panelMostrar.add(mostrarSocios, "skip");
+		panelMostrar.add(mostrarSocios, "skip, wrap");
+		panelMostrar.add(scrollMostrar, "span2, align center");
 		
 		//CREAR PANEL AÑADIR/BORRAR LIBRO
 		panelAnadirBorrar = new JPanel();
@@ -165,12 +173,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		idLibroBorrar = new JLabel("ID del libro: ");
 		algo = new JLabel();
 		
-		escribirTitulo = new JTextField(10);
-		escribirAutor = new JTextField(10);
-		escribirGenero = new JTextField(10);
-		borrarTitulo = new JTextField(10);
-		borrarAutor = new JTextField(10);
-		borrarGenero = new JTextField(10);
+		escribirTitulo = new JTextField(30);
+		escribirAutor = new JTextField(25);
+		escribirGenero = new JTextField(15);
+		borrarIdLibro = new JTextField(25);
 		
 		anadirLibro = new JButton("Añadir libro");
 		borrarLibro = new JButton("Borrar libro");
@@ -186,13 +192,21 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelAnadirBorrar.add(autorLibro);
 		panelAnadirBorrar.add(escribirAutor);
 		panelAnadirBorrar.add(idLibroBorrar, "skip");
-		panelAnadirBorrar.add(borrarAutor, "wrap");
+		panelAnadirBorrar.add(borrarIdLibro, "wrap");
 		panelAnadirBorrar.add(generoLibro);
 		panelAnadirBorrar.add(escribirGenero, "wrap");
 		panelAnadirBorrar.add(anadirLibro, "span2, align center");
 		panelAnadirBorrar.add(borrarLibro, "skip2");
 		
+		//CREAR PANEL PRESTAR/DEVOLVER LIBRO
+		panelPrestarDevolver = new JPanel();
+		panelPrestarDevolver.setLayout(new MigLayout());
 		
+		//AÑADIR PANEL A PESTAÑA
+		pestanas.addTab("pestaña4", panelPrestarDevolver);
+		
+		//DATOS PANEL PRESTAR DEVOLVER
+		tituloPrestarDevolver = new JLabel("BIENVENIDO " + bibliotecario.getNombre());
 		
 		
 		//XD
@@ -287,9 +301,155 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 			}
 		}
 		if(e.getSource().equals(mostrarBibliotecarios)) {
-			JOptionPane.showMessageDialog(this, "Funciona");
+			String listaBibliotecarios[] = {"Cod", "Nombre", "Apellidos", "Teléfono", "DNI"};
+			modeloMostrar = new DefaultTableModel(null, listaBibliotecarios);
+			tablaMostrar.setModel(modeloMostrar);
+			if(MainVentana.biblioteca.getLista_bibliotecarios().size()!=0) {
+				ArrayList<Bibliotecario> orden= new ArrayList<Bibliotecario>(MainVentana.biblioteca.getLista_bibliotecarios());
+				Collections.sort(orden);
+				for (Bibliotecario i : orden) {
+					introducirBibliotecario(i);
+				}
+			
+			}
+		}
+		if(e.getSource().equals(mostrarLibros)) {
+			String listaLibros[] = {"ID", "Título", "Autor", "Género", "Estado"};
+			limpiarTabla(tablaMostrar, modeloMostrar);
+			modeloMostrar = new DefaultTableModel(null, listaLibros);
+			tablaMostrar.setModel(modeloMostrar);
+			if(MainVentana.biblioteca.getLista_libros().size()!=0) {
+				ArrayList<Libros> orden= new ArrayList<Libros>(MainVentana.biblioteca.getLista_libros());
+				Collections.sort(orden);
+				for (Libros i : orden) {
+					introducirLibro(i);
+				}
+			}
+		}
+		if(e.getSource().equals(mostrarPrestamos)) {
+			String listaPrestamos[] = {"Fecha_Inicio", "Fecha_Fin", "Cod_Socio", "ID_Libro"};
+			limpiarTabla(tablaMostrar, modeloMostrar);
+			modeloMostrar = new DefaultTableModel(null, listaPrestamos);
+			tablaMostrar.setModel(modeloMostrar);
+			if(MainVentana.biblioteca.getLista_prestamos().size()!=0) {
+				ArrayList<Prestamos> orden = new ArrayList<Prestamos>(MainVentana.biblioteca.getLista_prestamos());
+				Collections.sort(orden);
+				for (Prestamos i : orden) {
+					introducirPrestamos(i);
+				}
+			}
+		}
+		if(e.getSource().equals(mostrarSocios)) {
+			String listaSocios[] = {"Cod", "Nombre", "Apellidos", "Teléfono", "DNI", "ID_Libro"};
+			limpiarTabla(tablaMostrar, modeloMostrar);
+			modeloMostrar = new DefaultTableModel(null, listaSocios);
+			tablaMostrar.setModel(modeloMostrar);
+			if(MainVentana.biblioteca.getLista_socios().size()!=0) {
+				ArrayList<Socio> orden = new ArrayList<Socio>(MainVentana.biblioteca.getLista_socios());
+				Collections.sort(orden);
+				for (Socio i : orden) {
+					introducirSocios(i);
+				}
+			}
+		}
+		
+		if(e.getSource().equals(anadirLibro)) {
+			try {
+				if(escribirTitulo.getText().equals("") && escribirAutor.getText().equals("") && escribirGenero.getText().equals("")) {
+					JOptionPane.showMessageDialog(this, "Rellene los campos por favor");
+				}
+				else {
+					Libros aux = new Libros(escribirTitulo.getText(), escribirAutor.getText(), escribirGenero.getText());
+					aux.insertarLibroBD(MainVentana.biblioteca);
+					JOptionPane.showMessageDialog(this, "Libro añadidio con éxito");
+				}
+			} catch (ClassNotFoundException | SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		if(e.getSource().equals(borrarLibro)) {
+			if(borrarIdLibro.getText().equals(""))
+				JOptionPane.showMessageDialog(this, "Rellene el campo por favor");
+			else {
+				Libros aux = MainVentana.biblioteca.buscaLibro(Integer.parseInt(borrarIdLibro.getText()));
+				try {
+					MainVentana.biblioteca.borradoTotalLibro(aux);
+				} catch (ClassNotFoundException | SQLException e1) {
+					e1.printStackTrace();
+				}
+				JOptionPane.showMessageDialog(this, "Libro borrado con éxito");
+			}
 		}
 		
 	}
+	
+	public void introducirBibliotecario(Bibliotecario b) {
+		Bibliotecario aux;
+		if(b!=null) {
+			Object lista[] = new Object[5];
+			lista [0] = b.getCod_Emple();
+			lista [1] = b.getNombre();
+			lista [2] = b.getApellidos();
+			lista [3] = b.getN_telefono();
+			lista [4] = b.getDni();
+			modeloMostrar.addRow(lista);
+		}
+		else
+			JOptionPane.showMessageDialog(this, "No se ha encontrado nada en la base.");
+	}
+	
+	public void introducirLibro(Libros l) {
+		Libros aux;
+		if(l!=null) {
+			Object lista[] = new Object[5];
+			lista [0] = l.getId_libro();
+			lista [1] = l.getTitulo();
+			lista [2] = l.getAutor();
+			lista [3] = l.getGenero();
+			if(l.isPrestado())
+				lista [4] = "prestado";
+			else
+				lista [4] = "disponible";
+			modeloMostrar.addRow(lista);
+		}
+		else
+			JOptionPane.showMessageDialog(this, "No se ha encontrado un libro con ese ID en la base de datos");
+	}
+	
+	public void introducirPrestamos(Prestamos p) {
+		Prestamos aux;
+		if(p!=null) {
+			Object lista[] = new Object[5];
+			lista [0] = p.getFecha_inicio();
+			lista [1] = p.getFecha_fin();
+			lista [2] = p.getSocio_asocidado();
+			lista [3] = p.getLibro_asociado();
+			modeloMostrar.addRow(lista);
+		}
+		else
+			JOptionPane.showMessageDialog(this, "No se ha encontrado nada en la base.");
+	}
+	
+	public void introducirSocios(Socio s) {
+		Socio aux;
+		if(s!=null) {
+			Object lista[] = new Object[6];
+			lista [0] = s.getCod_Socio();
+			lista [1] = s.getNombre();
+			lista [2] = s.getApellidos();
+			lista [3] = s.getN_telefono();
+			lista [4] = s.getDni();
+			lista [5] = s.devuelveID();
+			modeloMostrar.addRow(lista);
+		}
+		else
+			JOptionPane.showMessageDialog(this, "No se ha encontrado nada en la base.");
+	}
+	
+	public static void limpiarTabla(JTable tabla, DefaultTableModel modelo) {
+        int filas = tabla.getRowCount()-1;
+        for (int i = filas; i >= 0; i--)
+            modelo.removeRow(i);
+    }
 	
 }
