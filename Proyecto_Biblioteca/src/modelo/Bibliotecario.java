@@ -93,7 +93,8 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 		try {
 			String insert="delete from bibliotecarios where cod_emple ="+this.getCod_Emple();
 			Statement st=Conector.conectar().createStatement();
-			st.executeUpdate(insert);		
+			st.executeUpdate(insert);
+			bi1.getLista_bibliotecarios().remove(this);
 		}finally {
 			Conector.cerrar();
 		}
@@ -207,8 +208,8 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 		if (this == obj)
 			return true;
 		if(obj instanceof Bibliotecario) {
-			Socio aux=(Socio)obj;
-			if(this.Cod_Emple==aux.getCod_Socio())
+			Bibliotecario aux=(Bibliotecario)obj;
+			if(this.Cod_Emple==aux.getCod_Emple())
 				return(true);
 		}
 		return false;
