@@ -210,7 +210,7 @@ public class Socio extends Personas implements Comparable<Socio>{
 				String retorno = " ";
 				while(it.hasNext()) {
 					Libros aux = (Libros) it.next();
-					retorno+= String.valueOf(aux.getId_libro());
+					retorno+= String.valueOf(aux.getId_libro())+" ";
 				}
 				return retorno;
 			}

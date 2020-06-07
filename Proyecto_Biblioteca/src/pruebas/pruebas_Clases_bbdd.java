@@ -185,36 +185,7 @@ public class pruebas_Clases_bbdd implements Generos{
 		Libros l3= new Libros("El perro", "Clase1","animales");
 		Prestamos p1= new Prestamos(Date.valueOf(strDate), Date.valueOf(strDate2), s1.getCod_Socio(),l1.getId_libro());
 		conectar();
-		l1.insertarLibroBD(bi1);
-		l2.insertarLibroBD(bi1);
-		l3.insertarLibroBD(bi1);
-		s1.insertarSocioBD(bi1);
-		b2.insertarBibliotecarioBD(bi1);
-		b1.insertarBibliotecarioBD(bi1);
-		s2.insertarSocioBD(bi1);
-		bi1.mostrar_libros();
-		b1.PrestarLibro(s1.getCod_Socio(), l1.getId_libro(), bi1);
-		b1.PrestarLibro(s2.getCod_Socio(), l3.getId_libro(), bi1);
-		b1.PrestarLibro(s1.getCod_Socio(), l3.getId_libro(), bi1);
-		System.out.println();
-		bi1.mostrar_bibliotecarios();
-		System.out.println();
-		bi1.mostrar_libros();
-		System.out.println();
-		bi1.mostrar_Prestamos();
-		System.out.println();
-		bi1.mostrar_Socios();
-		b1.DevolverLibro(s2.getCod_Socio(), l3.getId_libro(), bi1);
-		System.out.println();
-		bi1.mostrar_libros();
-		System.out.println();
-		bi1.mostrar_Prestamos();
-		System.out.println(s1.getLibros_Tiene().toString());
-		System.out.println(s1.getLibros_Tiene().size());
-		bi1.imprimirSocios();
-		bi1.imprimirBibliotecarios();
-		bi1.imprimirLibros();
-		bi1.imprimirPrestamos();
+		b1.PrestarLibro(1, 2, bi1);
 		
 		cerrar();
 		}catch (SQLIntegrityConstraintViolationException e) {
