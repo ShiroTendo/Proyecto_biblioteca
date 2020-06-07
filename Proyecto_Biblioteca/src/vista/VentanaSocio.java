@@ -144,8 +144,12 @@ public class VentanaSocio extends JFrame implements ActionListener, WindowListen
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(botonLibro)) {
+			if(escribirLibro.getText().equals(""))
+				JOptionPane.showMessageDialog(this, "Introduzca un valor en el campo");
+			else {
 			limpiarTabla(tabla, modelo);
 			introducirLibro(Integer.parseInt(escribirLibro.getText()));
+			}
 		}
 		if(e.getSource().equals(botonLibrosPrestados)) {
 			limpiarTabla(tabla, modelo);
