@@ -197,7 +197,8 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 
 		anadirLibro = new JButton("Añadir libro");
 		borrarLibro = new JButton("Borrar libro");
-
+		
+		//BOTONES
 		anadirLibro.addActionListener(this);
 		borrarLibro.addActionListener(this);
 
