@@ -43,16 +43,16 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 		this.Cod_Emple=Cod_Emple;
 	}
 	public Bibliotecario(String Dni, String Nombre, String Apellidos, int N_telefono) throws ClassNotFoundException, SQLException {
-	super(Dni, Nombre, Apellidos, N_telefono);
-	this.Cod_Emple=num_biblio+1;
-	num_biblio++;
+		super(Dni, Nombre, Apellidos, N_telefono);
+		this.Cod_Emple=num_biblio+1;
+		num_biblio++;
 	}
-	
+
 	public Bibliotecario(Bibliotecario obj) {
 		super(obj);
 		this.Cod_Emple=obj.getCod_Emple();
 	}
-	
+
 	//Posiblemente sera borrado
 	public static  int buscaMaxCod() throws ClassNotFoundException, SQLException {
 		int num=0;
@@ -66,7 +66,7 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 		}
 		return num;
 	}
-	
+
 	/**Metodo encargado de insertar el bibliotecario en la base de datos.
 	 * Despues de insertarlo en la base, tambien sera insertdo en la bilioteca pasada como parametro
 	 * @param bi1 la biblioteca que usaremos
@@ -75,7 +75,7 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 	 */
 	public void insertarBibliotecarioBD(Biblioteca bi1) throws ClassNotFoundException, SQLException {
 		try {
-			String insert = " Insert into bibliotecarios values(?,?,?,?,?)";
+			String insert = " insert into bibliotecarios values(?,?,?,?,?)";
 			PreparedStatement st2 = Conector.conectar().prepareStatement(insert);
 			st2.setString(1, this.getDni());
 			st2.setString(2, this.getNombre());
@@ -84,16 +84,16 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 			st2.setInt(5, this.getCod_Emple());
 			st2.executeUpdate();
 			bi1.getLista_bibliotecarios().add(this);
-			}finally {
+		}finally {
 			Conector.cerrar();
 		}
 	}
 	//Mirar y eliminar 90% seguro
 	public void eliminarBibliotecarioBD(Biblioteca bi1) throws SQLException, ClassNotFoundException {
 		try {
-		String insert="delete from bibliotecarios where cod_emple ="+this.getCod_Emple();
-		Statement st=Conector.conectar().createStatement();
-		st.executeUpdate(insert);		
+			String insert="delete from bibliotecarios where cod_emple ="+this.getCod_Emple();
+			Statement st=Conector.conectar().createStatement();
+			st.executeUpdate(insert);		
 		}finally {
 			Conector.cerrar();
 		}
@@ -109,30 +109,38 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public  void PrestarLibro(int socio_id, int id_libro,Biblioteca biblio) throws ClassNotFoundException, SQLException {
+	public int PrestarLibro(int socio_id, int id_libro,Biblioteca biblio) throws ClassNotFoundException, SQLException {
 		Socio socio=biblio.buscarSocio(socio_id);
 		Libros libro=biblio.buscaLibro(id_libro);
 		if(socio!=null){
-			if(libro!=null){
-				if(!libro.isPrestado()) {			
-					String[] fechas=devuelveFecha();
-					Prestamos prestamo= new Prestamos(Date.valueOf(fechas[0]), Date.valueOf(fechas[1]), socio.getCod_Socio(), libro.getId_libro());
-					prestamo.insertarPrestamo();
-					biblio.getLista_prestamos().add(prestamo);
-					libro.updateStatusLibroTrue(biblio);
-					libro.updateTrueBd();
-					Socio socio2=socio.insertarLibroenSocio(libro);
-					socio2.updateSocioenBiblio(socio, biblio);
+			if(socio.getLibros_Tiene().size()<3) {
+				if(libro!=null){
+					if(!libro.isPrestado()) {			
+						String[] fechas=devuelveFecha();
+						Prestamos prestamo= new Prestamos(Date.valueOf(fechas[0]), Date.valueOf(fechas[1]), socio.getCod_Socio(), libro.getId_libro());
+						prestamo.insertarPrestamo();
+						biblio.getLista_prestamos().add(prestamo);
+						libro.updateStatusLibroTrue(biblio);
+						libro.updateTrueBd();
+						Socio socio2=socio.insertarLibroenSocio(libro);
+						socio2.updateSocioenBiblio(socio, biblio);
+						return 0;
+					}
+					else
+						//System.out.println("El libro ya esta prestado, prueba mas tarde");
+						return 1;
+
 				}
 				else
-					System.out.println("El libro ya esta prestado, prueba mas tarde");
-
+					//System.out.println("El libro no existe, introduce un id de libro valido");
+					return 2;
 			}
-			else
-				System.out.println("El libro no existe, introduce un id de libro valido");
+			else			
+				//System.out.println("El usuario no se encuentra en la base de datos, intrudzca un id valido");
+				return 3;
 		}
-		else			
-			System.out.println("El usuario no se encuentra en la base de datos, intrudzca un id valido");
+		else
+			return 4;
 	}
 	/**Metodo centrado en menejar la devolucion y los elementos asociados con la devolucion.
 	 * Este metodo funciona de manera que tras recuperar el socio y el libro( si existen), busca si existe el prestamo con los datos dados.
@@ -145,26 +153,27 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public void DevolverLibro(int socio_id,int id_libro,Biblioteca biblio) throws ClassNotFoundException, SQLException {
+	public int DevolverLibro(int socio_id,int id_libro,Biblioteca biblio) throws ClassNotFoundException, SQLException {
 		Socio socio=biblio.buscarSocio(socio_id);
 		Libros libro= biblio.buscaLibro(id_libro);
 		Prestamos prestamo=biblio.existePrestamo(socio_id, id_libro);
 		if(prestamo!=null) {
 			prestamo.eliminarPrestamoBD();
 			biblio.eliminarPrestamoBiblio(prestamo);
-			libro.updateStatusLibroFalse(biblio);
-			libro.updateFalseBd();
 			Socio socio2=socio.eliminarLibroenSocio(libro);
 			socio2.updateSocioenBiblio(socio,biblio);
+			libro.updateStatusLibroFalse(biblio);
+			libro.updateFalseBd();
+			return 0;
 
 
 		}
 		else
-			System.out.println("Introduzca unos datos validos, puesto que los introducidos no son referentes a ningun prestamo");
-
+			//System.out.println("Introduzca unos datos validos, puesto que los introducidos no son referentes a ningun prestamo");
+			return 1;
 	}
-	
-	
+
+
 	/**Metodo encargado de darnos la fecha en la que se hace el prestamo y la mecha de devolucion maxima del mismo.
 	 * Se calcula la fecha actual con la clase java.util.date y con Calendar, ademas de la fecha pasado un mes de la actual
 	 * 
@@ -204,7 +213,7 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 		}
 		return false;
 	}
-	
+
 	/**Metodo get cod_empleado
 	 * 	
 	 * @return retorna el codigo del  empleado
@@ -234,5 +243,5 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 		return "Bibliotecario: " + Cod_Emple + " " + super.toString();
 	}
 
-	
+
 }

@@ -340,6 +340,10 @@ public class Biblioteca {
 		return lista_libros.add(libro);
 	}
 	
+	public void anadirBibliotecario(Bibliotecario b) {
+		this.getLista_bibliotecarios().add(b);
+	}
+	
 	/**
 	 * Método encargado de eliminar un libro de la lista de libros.
 	 * 
@@ -351,6 +355,10 @@ public class Biblioteca {
 			return lista_libros.remove(libro);
 		}
 		return false;
+	}
+	
+	public void anadidoTotalBibliotecario(Bibliotecario b) throws ClassNotFoundException, SQLException {
+		b.insertarBibliotecarioBD(this);
 	}
 	
 	public void borradoTotalLibro(Libros libro) throws ClassNotFoundException, SQLException {

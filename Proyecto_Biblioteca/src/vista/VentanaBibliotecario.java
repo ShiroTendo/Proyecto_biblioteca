@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -66,12 +67,33 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 	private JLabel tituloPrestarDevolver;
 	private JLabel tituloPrestar;
 	private JLabel tituloDevolver;
-	private JLabel idSocio;
-	private JLabel idLibro;
-	private TextField escribirIdSocio;
-	private TextField escribirIdLibro;
+	private JLabel idSocioPrestar;
+	private JLabel idLibroPrestar;
+	private JLabel idSocioDevolver;
+	private JLabel idLibroDevolver;
+	private JTextField escribirIdSocioPrestar;
+	private JTextField escribirIdLibroPrestar;
+	private JTextField escribirIdSocioDevolver;
+	private JTextField escribirIdLibroDevolver;
 	private JButton prestar;
 	private JButton devolver;
+	
+	//PESTAÑA AÑADIR/ELIMINAR BIBLIOTECARIOS
+	private JLabel tituloAnadirEliminarBibiliotecarios;
+	private JLabel tituloAnadirBibiliotecarios;
+	private JLabel tituloEliminarBibliotecarios;
+	private JLabel nombreBibliotecario;
+	private JLabel apellidosBibliotecario;
+	private JLabel telefonoBibliotecario;
+	private JLabel dniBibliotecario;
+	private JLabel idBibliotecario;
+	private JTextField escribirNombreBibliotecario;
+	private JTextField escribirApellidosBibliotecario;
+	private JTextField escribirTelefonoBibliotecario;
+	private JTextField escribirDniBibliotecario;
+	private JTextField escribirIdBibliotecario;
+	private JButton anadirBibliotecario;
+	private JButton eliminarBibliotecario;
 	
 	//PANELES
 	private JTabbedPane pestanas;
@@ -79,14 +101,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 	private JPanel panelMostrar;
 	private JPanel panelAnadirBorrar;
 	private JPanel panelPrestarDevolver;
-	private JScrollPane scrollImprimir;
+	private JPanel panelAnadirEliminarBibliotecarios;
 	private JScrollPane scrollMostrar;
-	private JScrollPane scrollAnadirBorrar;
-	private JScrollPane scrollPrestarDevolver;
 	
 	private Bibliotecario bibliotecario;
-	
-	private JLabel algo;
 	
 	public VentanaBibliotecario(Bibliotecario b) {
 		bibliotecario = new Bibliotecario(b);
@@ -103,7 +121,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelImprimir.setLayout(new MigLayout());
 		
 		//DATOS PANEL IMPRIMIR
-		tituloImprimir = new JLabel("BIENVENIDO " + bibliotecario.getNombre());
+		tituloImprimir = new JLabel("BIENVENIDO/A " + bibliotecario.getNombre().toUpperCase());
 		
 		imprimirBibliotecarios = new JButton("Imprimir bibliotecarios");
 		imprimirLibros = new JButton("Imprimir libros");
@@ -132,7 +150,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		pestanas.addTab("pestaña2", panelMostrar);
 		
 		//DATOS PANEL MOSTRAR
-		tituloMostrar = new JLabel("BIENVENIDO " + bibliotecario.getNombre());
+		tituloMostrar = new JLabel("BIENVENIDO/A " + bibliotecario.getNombre().toUpperCase().toUpperCase());
 		
 		tablaMostrar = new JTable();
 		scrollMostrar = new JScrollPane(tablaMostrar);
@@ -163,7 +181,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		
 		//DATOS PANEL MOSTRAR
 		
-		tituloAnadirBorrar = new JLabel("BIENVENIDO " + bibliotecario.getNombre());
+		tituloAnadirBorrar = new JLabel("BIENVENIDO/A " + bibliotecario.getNombre().toUpperCase());
 		
 		anadir = new JLabel("AÑADIR LIBROS");
 		borrar = new JLabel("BORRAR LIBROS");
@@ -171,7 +189,6 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		autorLibro = new JLabel("Autor del libro: ");
 		generoLibro = new JLabel("Género del libro: ");
 		idLibroBorrar = new JLabel("ID del libro: ");
-		algo = new JLabel();
 		
 		escribirTitulo = new JTextField(30);
 		escribirAutor = new JTextField(25);
@@ -185,7 +202,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		borrarLibro.addActionListener(this);
 		
 		panelAnadirBorrar.add(tituloAnadirBorrar, "skip2, align center, wrap");
-		panelAnadirBorrar.add(anadir, "span2, align center,");
+		panelAnadirBorrar.add(anadir, "span2, align center");
 		panelAnadirBorrar.add(borrar, "skip2, align center, wrap");
 		panelAnadirBorrar.add(tituloLibro);
 		panelAnadirBorrar.add(escribirTitulo, "wrap");
@@ -196,8 +213,8 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelAnadirBorrar.add(generoLibro);
 		panelAnadirBorrar.add(escribirGenero, "wrap");
 		panelAnadirBorrar.add(anadirLibro, "span2, align center");
-		panelAnadirBorrar.add(borrarLibro, "skip2");
-		
+		panelAnadirBorrar.add(borrarLibro, "skip2, align left");
+	
 		//CREAR PANEL PRESTAR/DEVOLVER LIBRO
 		panelPrestarDevolver = new JPanel();
 		panelPrestarDevolver.setLayout(new MigLayout());
@@ -206,10 +223,83 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		pestanas.addTab("pestaña4", panelPrestarDevolver);
 		
 		//DATOS PANEL PRESTAR DEVOLVER
-		tituloPrestarDevolver = new JLabel("BIENVENIDO " + bibliotecario.getNombre());
+		tituloPrestarDevolver = new JLabel("BIENVENIDO/A " + bibliotecario.getNombre().toUpperCase());
 		
+		tituloPrestar = new JLabel("PRÉSTAMO DE LIBROS");
+		tituloDevolver = new JLabel("DEVOLUCIÓN DE LIBROS");
+		idSocioPrestar = new JLabel("ID del socio: ");
+		idLibroPrestar = new JLabel("ID del libro: ");
+		idSocioDevolver = new JLabel("ID del socio: ");
+		idLibroDevolver = new JLabel("ID del libro: ");
 		
-		//XD
+		escribirIdSocioPrestar = new JTextField(10);
+		escribirIdLibroPrestar = new JTextField(10);
+		escribirIdSocioDevolver = new JTextField(10);
+		escribirIdLibroDevolver = new JTextField(10);
+		
+		prestar = new JButton("Prestar libro");
+		devolver = new JButton("Devolver libro");
+		prestar.addActionListener(this);
+		devolver.addActionListener(this);
+		
+		panelPrestarDevolver.add(tituloPrestarDevolver, "skip2, align center, wrap");
+		panelPrestarDevolver.add(tituloPrestar, "span2, align center");
+		panelPrestarDevolver.add(tituloDevolver, "skip2, align center, wrap");
+		panelPrestarDevolver.add(idSocioPrestar);
+		panelPrestarDevolver.add(escribirIdSocioPrestar);
+		panelPrestarDevolver.add(idSocioDevolver, "skip");
+		panelPrestarDevolver.add(escribirIdSocioDevolver, "wrap");
+		panelPrestarDevolver.add(idLibroPrestar);
+		panelPrestarDevolver.add(escribirIdLibroPrestar);
+		panelPrestarDevolver.add(idLibroDevolver, "skip");
+		panelPrestarDevolver.add(escribirIdLibroDevolver, "wrap");
+		panelPrestarDevolver.add(prestar, "span2, align center");
+		panelPrestarDevolver.add(devolver, "skip2");
+		
+		//CREAR PANEL AÑADIR/ELIMINAR BIBLIOTECARIOS
+		panelAnadirEliminarBibliotecarios = new JPanel();
+		panelAnadirEliminarBibliotecarios.setLayout(new MigLayout());
+		
+		//AÑADIR PANEL A PESTAÑA
+		pestanas.addTab("pestaña5", panelAnadirEliminarBibliotecarios);
+		
+		//DATOS PANEL AÑADIR/ELIMINAR BIBLIOTECARIOS
+		tituloAnadirEliminarBibiliotecarios = new JLabel("BIENVENIDO/A " + bibliotecario.getNombre().toUpperCase());
+		tituloAnadirBibiliotecarios = new JLabel("AÑADIR BIBLIOTECARIOS");
+		tituloEliminarBibliotecarios = new JLabel("ELIMINAR BIBLIOTECARIOS");
+		nombreBibliotecario = new JLabel("Nombre: ");
+		apellidosBibliotecario = new JLabel("Apellidos: ");
+		telefonoBibliotecario = new JLabel("Teléfono: ");
+		dniBibliotecario = new JLabel("DNI: ");
+		idBibliotecario = new JLabel("Id bibliotecario: ");
+		
+		escribirNombreBibliotecario = new JTextField(15);
+		escribirApellidosBibliotecario = new JTextField(20);
+		escribirTelefonoBibliotecario = new JTextField(9);
+		escribirDniBibliotecario = new JTextField(8);
+		escribirIdBibliotecario = new JTextField(10);
+		
+		anadirBibliotecario = new JButton("Añadir");
+		eliminarBibliotecario = new JButton("Eliminar");
+		anadirBibliotecario.addActionListener(this);
+		eliminarBibliotecario.addActionListener(this);
+		
+		panelAnadirEliminarBibliotecarios.add(tituloAnadirEliminarBibiliotecarios, "skip2, align center, wrap");
+		panelAnadirEliminarBibliotecarios.add(tituloAnadirBibiliotecarios, "span4");
+		panelAnadirEliminarBibliotecarios.add(tituloEliminarBibliotecarios, "wrap");
+		panelAnadirEliminarBibliotecarios.add(nombreBibliotecario);
+		panelAnadirEliminarBibliotecarios.add(escribirNombreBibliotecario, "wrap");
+		panelAnadirEliminarBibliotecarios.add(apellidosBibliotecario);
+		panelAnadirEliminarBibliotecarios.add(escribirApellidosBibliotecario);
+		panelAnadirEliminarBibliotecarios.add(idBibliotecario, "skip");
+		panelAnadirEliminarBibliotecarios.add(escribirIdBibliotecario, "wrap");
+		panelAnadirEliminarBibliotecarios.add(telefonoBibliotecario);
+		panelAnadirEliminarBibliotecarios.add(escribirTelefonoBibliotecario, "wrap");
+		panelAnadirEliminarBibliotecarios.add(dniBibliotecario);
+		panelAnadirEliminarBibliotecarios.add(escribirDniBibliotecario, "wrap");
+		panelAnadirEliminarBibliotecarios.add(anadirBibliotecario);
+		panelAnadirEliminarBibliotecarios.add(eliminarBibliotecario, "skip3, align left");
+		
 		this.add(pestanas);
 		setVisible(true);
 		setTitle("Imprimir");
@@ -380,8 +470,60 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 				JOptionPane.showMessageDialog(this, "Libro borrado con éxito");
 			}
 		}
+		if(e.getSource().equals(prestar)) {
+			if(escribirIdSocioPrestar.getText().equals("") && escribirIdLibroPrestar.getText().equals("")) {
+				JOptionPane.showMessageDialog(this, "Rellene los campos por favor");
+			}
+			else {
+				try {
+					int aux = bibliotecario.PrestarLibro(Integer.parseInt(escribirIdSocioPrestar.getText()), Integer.parseInt(escribirIdLibroPrestar.getText()), MainVentana.biblioteca);
+					opcionesPrestar(aux);
+				} catch (NumberFormatException | ClassNotFoundException | SQLException e1) {
+					e1.printStackTrace();
+				}
+				
+			}
+		}
+		if(e.getSource().equals(devolver)) {
+			if(escribirIdSocioDevolver.getText().equals("") && escribirIdLibroDevolver.getText().equals("")) {
+				JOptionPane.showMessageDialog(this, "Rellene los campos por favor");
+			}
+			else {
+				try {
+					int aux = bibliotecario.DevolverLibro(Integer.parseInt(escribirIdSocioDevolver.getText()), Integer.parseInt(escribirIdLibroDevolver.getText()), MainVentana.biblioteca);
+					opcionesDevolver(aux);
+				} catch (NumberFormatException | ClassNotFoundException | SQLException e1) {
+					e1.printStackTrace();
+				}
+				
+			}
+		}
+		if(e.getSource().equals(anadirBibliotecario)) {
+			if(escribirNombreBibliotecario.getText().equals("") && escribirApellidosBibliotecario.getText().equals("") && escribirTelefonoBibliotecario.getText().equals("") && escribirDniBibliotecario.getText().equals("")) {
+				JOptionPane.showMessageDialog(this, "Rellene los campos por favor");
+			}
+			else {
+				String dni =comprobarDni(escribirDniBibliotecario.getText());
+				try {
+					Bibliotecario aux = new Bibliotecario(dni, escribirNombreBibliotecario.getText(), escribirApellidosBibliotecario.getText(), Integer.parseInt(escribirTelefonoBibliotecario.getText()));
+					aux.insertarBibliotecarioBD(MainVentana.biblioteca);
+					JOptionPane.showMessageDialog(this, "Bibliotecario añadido con éxito");
+				} catch (NumberFormatException | ClassNotFoundException | SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
 		
 	}
+	
+	public String comprobarDni(String comdni) {
+        String regex = "\\d{7}[a-zA-Z]";
+        if(Pattern.matches(regex, comdni)) {
+            return comdni.toUpperCase();
+        }
+        JOptionPane.showMessageDialog(this, "DNI no válido, respete el formato");
+        return null;
+    }
 	
 	public void introducirBibliotecario(Bibliotecario b) {
 		Bibliotecario aux;
@@ -427,7 +569,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 			modeloMostrar.addRow(lista);
 		}
 		else
-			JOptionPane.showMessageDialog(this, "No se ha encontrado nada en la base.");
+			JOptionPane.showMessageDialog(this, "No se ha encontrado nada en la base");
 	}
 	
 	public void introducirSocios(Socio s) {
@@ -443,7 +585,31 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 			modeloMostrar.addRow(lista);
 		}
 		else
-			JOptionPane.showMessageDialog(this, "No se ha encontrado nada en la base.");
+			JOptionPane.showMessageDialog(this, "No se ha encontrado nada en la base");
+	}
+	
+	public void opcionesPrestar(int x) {
+		switch(x) {
+			case 0: JOptionPane.showMessageDialog(this, "Préstamo realizado con éxito");
+					break;
+			case 1: JOptionPane.showMessageDialog(this, "El libro ya está prestado, pruebe más tarde");
+					break;
+			case 2: JOptionPane.showMessageDialog(this, "El libro no existe, introduzca un ID válido");
+					break;
+			case 3: JOptionPane.showMessageDialog(this, "Has alcanzado el límite de libros prestados, devuelve alguno");
+					break;
+			case 4: JOptionPane.showMessageDialog(this, "El usuario no se encuentra en la base de datos. introduzca un ID válido");
+					break;
+		}
+	}
+	
+	public void opcionesDevolver(int x) {
+		switch(x) {
+			case 0: JOptionPane.showMessageDialog(this, "Devolución realizada con éxito");
+					break;
+			case 1: JOptionPane.showMessageDialog(this, "Introduzca unos datos validos, puesto que los introducidos no son referentes a ningun prestamo");
+					break;
+		}
 	}
 	
 	public static void limpiarTabla(JTable tabla, DefaultTableModel modelo) {
