@@ -306,7 +306,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		escribirNombreBibliotecario = new JTextField(15);
 		escribirApellidosBibliotecario = new JTextField(20);
 		escribirTelefonoBibliotecario = new JTextField(9);
-		escribirDniBibliotecario = new JTextField(8);
+		escribirDniBibliotecario = new JTextField(9);
 		escribirIdBibliotecario = new JTextField(10);
 
 		anadirBibliotecario = new JButton("Añadir");
@@ -350,7 +350,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		escribirNombreSocios = new JTextField(15);
 		escribirApellidosSocios = new JTextField(20);
 		escribirTelefonoSocios = new JTextField(9);
-		escribirDniSocios = new JTextField(8);
+		escribirDniSocios = new JTextField(9);
 		escribirIdSocios = new JTextField(10);
 
 		anadirSocios = new JButton("Añadir socio");
@@ -729,7 +729,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 	 * @return el dni si cumple el patrón o null si no cumple el patrón
 	 */
 	public String comprobarDni(String comdni) {
-		String regex = "\\d{7}[a-zA-Z]";
+		String regex = "\\d{8}[a-zA-Z]";
 		if(Pattern.matches(regex, comdni)) {
 			return comdni.toUpperCase();
 		}
