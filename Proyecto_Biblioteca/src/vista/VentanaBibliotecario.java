@@ -2,7 +2,6 @@ package vista;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -153,7 +152,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelImprimir.setLayout(new MigLayout());
 
 		//AÑADIR PANEL IMPRIMIR A LA PESTAÑA
-		pestanas.addTab("pestaña1", panelImprimir);
+		pestanas.addTab("IMPRIMIR", panelImprimir);
 
 		//DATOS PANEL IMPRIMIR
 		tituloImprimir = new JLabel("BIENVENIDO/A " + bibliotecario.getNombre().toUpperCase());
@@ -168,18 +167,18 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		imprimirPrestamos.addActionListener(this);
 		imprimirSocios.addActionListener(this);
 
-		panelImprimir.add(tituloImprimir, "align center, wrap");
+		panelImprimir.add(tituloImprimir, "skip, split2, align right, wrap");
 		panelImprimir.add(imprimirBibliotecarios);
-		panelImprimir.add(imprimirLibros, "skip, wrap");
+		panelImprimir.add(imprimirLibros, "skip2, align right, wrap");
 		panelImprimir.add(imprimirPrestamos);
-		panelImprimir.add(imprimirSocios, "skip");
+		panelImprimir.add(imprimirSocios, "skip2, align right");
 
 		//CREAR PANEL MOSTRAR
 		panelMostrar = new JPanel();
 		panelMostrar.setLayout(new MigLayout());
 
 		//AÑADIR PANEL MOSTRAR A PESTAÑA
-		pestanas.addTab("pestaña2", panelMostrar);
+		pestanas.addTab("LISTADO", panelMostrar);
 
 		//CREAR LA TABLA PARA MOSTRAR
 		tablaMostrar = new JTable();
@@ -209,8 +208,8 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelAnadirBorrar = new JPanel();
 		panelAnadirBorrar.setLayout(new MigLayout());
 
-		//AÑADIR PANEL AÑADIR/BORRAR A PESTAÑA
-		pestanas.addTab("pestaña3", panelAnadirBorrar);
+		//AÑADIR PANEL AÑADIR/BORRAR LIBRO A PESTAÑA
+		pestanas.addTab("AÑADIR/BORRAR LIBRO", panelAnadirBorrar);
 
 		//DATOS PANEL MOSTRAR
 
@@ -225,7 +224,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		escribirTitulo = new JTextField(30);
 		escribirAutor = new JTextField(25);
 		escribirGenero = new JTextField(15);
-		borrarIdLibro = new JTextField(25);
+		borrarIdLibro = new JTextField(3);
 
 		anadirLibro = new JButton("Añadir libro");
 		borrarLibro = new JButton("Borrar libro");
@@ -251,7 +250,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelPrestarDevolver.setLayout(new MigLayout());
 
 		//AÑADIR PANEL PRESTAR/DEVOLVER A PESTAÑA
-		pestanas.addTab("pestaña4", panelPrestarDevolver);
+		pestanas.addTab("PRESTAR/DEVOLVER", panelPrestarDevolver);
 
 		//DATOS PANEL PRESTAR/DEVOLVER
 		tituloPrestarDevolver = new JLabel("BIENVENIDO/A " + bibliotecario.getNombre().toUpperCase());
@@ -262,10 +261,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		idSocioDevolver = new JLabel("ID del socio: ");
 		idLibroDevolver = new JLabel("ID del libro: ");
 
-		escribirIdSocioPrestar = new JTextField(10);
-		escribirIdLibroPrestar = new JTextField(10);
-		escribirIdSocioDevolver = new JTextField(10);
-		escribirIdLibroDevolver = new JTextField(10);
+		escribirIdSocioPrestar = new JTextField(4);
+		escribirIdLibroPrestar = new JTextField(4);
+		escribirIdSocioDevolver = new JTextField(4);
+		escribirIdLibroDevolver = new JTextField(4);
 
 		prestar = new JButton("Prestar libro");
 		devolver = new JButton("Devolver libro");
@@ -291,7 +290,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelAnadirEliminarBibliotecarios.setLayout(new MigLayout());
 
 		//AÑADIR PANEL AÑADIR/ELIMINAR BIBLIOTECARIOS A PESTAÑA
-		pestanas.addTab("pestaña5", panelAnadirEliminarBibliotecarios);
+		pestanas.addTab("AÑADIR/ELIMINAR BIBLIOTECARIOS", panelAnadirEliminarBibliotecarios);
 
 		//DATOS PANEL AÑADIR/ELIMINAR BIBLIOTECARIOS
 		tituloAnadirEliminarBibiliotecarios = new JLabel("BIENVENIDO/A " + bibliotecario.getNombre().toUpperCase());
@@ -304,10 +303,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		idBibliotecario = new JLabel("Id bibliotecario: ");
 
 		escribirNombreBibliotecario = new JTextField(15);
-		escribirApellidosBibliotecario = new JTextField(20);
+		escribirApellidosBibliotecario = new JTextField(40);
 		escribirTelefonoBibliotecario = new JTextField(9);
 		escribirDniBibliotecario = new JTextField(9);
-		escribirIdBibliotecario = new JTextField(10);
+		escribirIdBibliotecario = new JTextField(4);
 
 		anadirBibliotecario = new JButton("Añadir");
 		eliminarBibliotecario = new JButton("Eliminar");
@@ -335,7 +334,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelAnadirEliminarSocios.setLayout(new MigLayout());
 
 		//AÑADIR PANEL AÑADIR/ELIMINAR SOCIOS A PESTAÑA
-		pestanas.addTab("pestaña6", panelAnadirEliminarSocios);
+		pestanas.addTab("AÑADIR/ELIMINAR SOCIOS", panelAnadirEliminarSocios);
 
 		//DATOS PANEL AÑADIR/ELIMINAR SOCIOS
 		tituloAnadirEliminarSocios = new JLabel("BIENVENIDO/A " + bibliotecario.getNombre().toUpperCase());
@@ -348,10 +347,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		idSocios = new JLabel("ID del socio: ");
 
 		escribirNombreSocios = new JTextField(15);
-		escribirApellidosSocios = new JTextField(20);
+		escribirApellidosSocios = new JTextField(40);
 		escribirTelefonoSocios = new JTextField(9);
 		escribirDniSocios = new JTextField(9);
-		escribirIdSocios = new JTextField(10);
+		escribirIdSocios = new JTextField(4);
 
 		anadirSocios = new JButton("Añadir socio");
 		eliminarSocios = new JButton("Eliminar socio");
