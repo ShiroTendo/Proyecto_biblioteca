@@ -1,6 +1,7 @@
 package pruebas;
 
 import java.sql.Connection;
+
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,12 +16,11 @@ import java.util.Scanner;
 
 import modelo.Biblioteca;
 import modelo.Bibliotecario;
-import modelo.Generos;
 import modelo.Libros;
 import modelo.Prestamos;
 import modelo.Socio;
 
-public class pruebas_Clases_bbdd implements Generos{
+public class pruebas_Clases_bbdd {
 	public static String bd="xe";
 	public static String login="biblio";
 	public static String pass="biblio";
