@@ -31,7 +31,7 @@ import net.miginfocom.swing.MigLayout;
  *
  */
 public class VentanaSocio extends JFrame implements ActionListener, WindowListener{
-	
+
 	private JPanel panelSocio;
 	private JLabel titulo;
 	private JLabel libro;
@@ -42,9 +42,9 @@ public class VentanaSocio extends JFrame implements ActionListener, WindowListen
 	private DefaultTableModel modelo;
 	private JScrollPane scrollTabla;
 	private JTable tabla;
-	
+
 	private Socio socio;
-	
+
 	/**
 	 * Constructor de la clase.
 	 * 
@@ -54,33 +54,36 @@ public class VentanaSocio extends JFrame implements ActionListener, WindowListen
 		socio = new Socio(s);
 		crearAlgo();
 	}
-	
+
 	/**
-	 * Método encargado de crear la interfaz.
+	 * Método encargado de crear la interfaz de la ventana.
 	 */
 	public void crearAlgo() {
-		
+
+		//CREAR PANEL SOCIO
 		panelSocio = new JPanel();
 		panelSocio.setLayout(new MigLayout("align center"));
-		
-		titulo = new JLabel("BIENVENIDO " + socio.getNombre());
-		libro = new JLabel("ID del libro: ");
-		escribirLibro = new JTextField(10);
-		
-		botonLibro = new JButton("Introducir ID");
-		botonLibrosPrestados = new JButton("Mostrar libros en pertenencia");
-		botonLibrosBiblioteca = new JButton("Mostrar libros en biblioteca");
-		
+
+		//CREAR TABLA SOCIOS
 		tabla = new JTable();
 		String lista[] = {"id", "titulo", "autor", "genero", "estado"};
 		modelo = new DefaultTableModel(null, lista);
 		tabla.setModel(modelo);
 		scrollTabla = new JScrollPane(tabla);
-		
+
+		//DATOS PANEL SOCIO
+		titulo = new JLabel("BIENVENIDO " + socio.getNombre());
+		libro = new JLabel("ID del libro: ");
+		escribirLibro = new JTextField(10);
+
+		botonLibro = new JButton("Introducir ID");
+		botonLibrosPrestados = new JButton("Mostrar libros en pertenencia");
+		botonLibrosBiblioteca = new JButton("Mostrar libros en biblioteca");
+
 		botonLibro.addActionListener(this);
 		botonLibrosPrestados.addActionListener(this);
 		botonLibrosBiblioteca.addActionListener(this);
-		
+
 		panelSocio.add(titulo, "align center, wrap");
 		panelSocio.add(libro, "split3");
 		panelSocio.add(escribirLibro, "align center");
@@ -88,6 +91,7 @@ public class VentanaSocio extends JFrame implements ActionListener, WindowListen
 		panelSocio.add(botonLibrosPrestados);
 		panelSocio.add(botonLibrosBiblioteca, "wrap");
 		panelSocio.add(scrollTabla, "span2, align center");
+
 		add(panelSocio);
 		setVisible(true);
 		setTitle("Socios");
@@ -99,43 +103,43 @@ public class VentanaSocio extends JFrame implements ActionListener, WindowListen
 	@Override
 	public void windowActivated(WindowEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowClosed(WindowEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowDeactivated(WindowEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowIconified(WindowEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowOpened(WindowEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	/**
@@ -143,25 +147,37 @@ public class VentanaSocio extends JFrame implements ActionListener, WindowListen
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
+		/**
+		 * Botón encargado de mostrar un libro según el ID que le pases.
+		 */
 		if(e.getSource().equals(botonLibro)) {
 			if(escribirLibro.getText().equals("") ||escribirLibro.getText().equals(" "))
 				JOptionPane.showMessageDialog(this, "Introduzca un valor en el campo");
 			else {
-			limpiarTabla(tabla, modelo);
-			introducirLibro(Integer.parseInt(escribirLibro.getText()));
+				limpiarTabla(tabla, modelo);
+				introducirLibro(Integer.parseInt(escribirLibro.getText()));
 			}
 		}
+
+		/**
+		 * Botón encargado de mostrar los libros que tiene un socio prestado.
+		 */
 		if(e.getSource().equals(botonLibrosPrestados)) {
 			limpiarTabla(tabla, modelo);
 			if(socio.getLibros_Tiene().size()!=0) {
 				for (Libros i : socio.getLibros_Tiene()) {
 					introducirLibro(i.getId_libro());
 				}
-			
+
 			}
 			else
 				JOptionPane.showMessageDialog(this, "Este socio no tiene ningún libro prestado.");
 		}
+
+		/**
+		 * Botón encargado de mostrar los libros que tiene la biblioteca.
+		 */
 		if(e.getSource().equals(botonLibrosBiblioteca)) {
 			limpiarTabla(tabla, modelo);
 			if(MainVentana.biblioteca.getLista_libros().size()!=0) {
@@ -170,7 +186,7 @@ public class VentanaSocio extends JFrame implements ActionListener, WindowListen
 				for (Libros i : orden) {
 					introducirLibro(i.getId_libro());
 				}
-			
+
 			}
 			else
 				JOptionPane.showMessageDialog(this, "La biblioteca no tiene libros.");
@@ -199,16 +215,16 @@ public class VentanaSocio extends JFrame implements ActionListener, WindowListen
 		else
 			JOptionPane.showMessageDialog(this, "No se ha encontrado un libro con ese ID en la base de datos");
 	}
-	
+
 	/**
-	 * Método encargado de borrar la tabla.
+	 * Método encargado de limpiar el contenido de la tabla.
 	 * 
-	 * @param tabla la tabla que le queramos pasar
-	 * @param modelo el modelo que le queramos pasar
+	 * @param tabla la tabla que se quiere limpiar
+	 * @param modelo el modelo que se quiere limpiar
 	 */
 	public static void limpiarTabla(JTable tabla, DefaultTableModel modelo) {
-        int filas = tabla.getRowCount()-1;
-        for (int i = filas; i >= 0; i--)
-            modelo.removeRow(i);
-    }
+		int filas = tabla.getRowCount()-1;
+		for (int i = filas; i >= 0; i--)
+			modelo.removeRow(i);
+	}
 }

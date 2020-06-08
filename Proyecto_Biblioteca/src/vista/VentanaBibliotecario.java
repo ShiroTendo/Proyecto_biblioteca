@@ -30,6 +30,11 @@ import modelo.Prestamos;
 import modelo.Socio;
 import net.miginfocom.swing.MigLayout;
 
+/**
+ * Clase dedicada a la interfaz de la ventana bibliotecario con sus respectivas pestañas
+ * @author Ivan, Luis y Sergio
+ *
+ */
 public class VentanaBibliotecario extends JFrame implements ActionListener, WindowListener{
 
 	//PESTAÑA IMPRIMIR
@@ -125,11 +130,19 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 
 	private Bibliotecario bibliotecario;
 
+	/**
+	 * Constructor de la clase
+	 * 
+	 * @param b un objeto de tipo bibliotecario
+	 */
 	public VentanaBibliotecario(Bibliotecario b) {
 		bibliotecario = new Bibliotecario(b);
 		crearAlgo();
 	}
 
+	/**
+	 * Método encargado de crear la interfaz de la ventana con las diferentes pestañas
+	 */
 	public void crearAlgo() {
 
 		//CREAR PESTAÑA
@@ -138,6 +151,9 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		//CREAR PANEL IMPRIMIR
 		panelImprimir = new JPanel();
 		panelImprimir.setLayout(new MigLayout());
+
+		//AÑADIR PANEL IMPRIMIR A LA PESTAÑA
+		pestanas.addTab("pestaña1", panelImprimir);
 
 		//DATOS PANEL IMPRIMIR
 		tituloImprimir = new JLabel("BIENVENIDO/A " + bibliotecario.getNombre().toUpperCase());
@@ -158,21 +174,19 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelImprimir.add(imprimirPrestamos);
 		panelImprimir.add(imprimirSocios, "skip");
 
-		//AÑADIR PANEL IMPRIMIR A LA PESTAÑA
-		pestanas.addTab("pestaña1", panelImprimir);
-
 		//CREAR PANEL MOSTRAR
 		panelMostrar = new JPanel();
 		panelMostrar.setLayout(new MigLayout());
 
-		//AÑADIR PANEL A PESTAÑA
+		//AÑADIR PANEL MOSTRAR A PESTAÑA
 		pestanas.addTab("pestaña2", panelMostrar);
 
-		//DATOS PANEL MOSTRAR
-		tituloMostrar = new JLabel("BIENVENIDO/A " + bibliotecario.getNombre().toUpperCase().toUpperCase());
-
+		//CREAR LA TABLA PARA MOSTRAR
 		tablaMostrar = new JTable();
 		scrollMostrar = new JScrollPane(tablaMostrar);
+
+		//DATOS PANEL MOSTRARTODO
+		tituloMostrar = new JLabel("BIENVENIDO/A " + bibliotecario.getNombre().toUpperCase().toUpperCase());
 
 		mostrarBibliotecarios = new JButton("Mostrar bibliotecarios");
 		mostrarLibros = new JButton("Mostrar libros");
@@ -195,13 +209,12 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelAnadirBorrar = new JPanel();
 		panelAnadirBorrar.setLayout(new MigLayout());
 
-		//AÑADIR PANEL A PESTAÑA
+		//AÑADIR PANEL AÑADIR/BORRAR A PESTAÑA
 		pestanas.addTab("pestaña3", panelAnadirBorrar);
 
 		//DATOS PANEL MOSTRAR
 
 		tituloAnadirBorrar = new JLabel("BIENVENIDO/A " + bibliotecario.getNombre().toUpperCase());
-
 		anadir = new JLabel("AÑADIR LIBROS");
 		borrar = new JLabel("BORRAR LIBROS");
 		tituloLibro = new JLabel("Título del libro: ");
@@ -216,8 +229,6 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 
 		anadirLibro = new JButton("Añadir libro");
 		borrarLibro = new JButton("Borrar libro");
-
-		//BOTONES
 		anadirLibro.addActionListener(this);
 		borrarLibro.addActionListener(this);
 
@@ -239,12 +250,11 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelPrestarDevolver = new JPanel();
 		panelPrestarDevolver.setLayout(new MigLayout());
 
-		//AÑADIR PANEL A PESTAÑA
+		//AÑADIR PANEL PRESTAR/DEVOLVER A PESTAÑA
 		pestanas.addTab("pestaña4", panelPrestarDevolver);
 
-		//DATOS PANEL PRESTAR DEVOLVER
+		//DATOS PANEL PRESTAR/DEVOLVER
 		tituloPrestarDevolver = new JLabel("BIENVENIDO/A " + bibliotecario.getNombre().toUpperCase());
-
 		tituloPrestar = new JLabel("PRÉSTAMO DE LIBROS");
 		tituloDevolver = new JLabel("DEVOLUCIÓN DE LIBROS");
 		idSocioPrestar = new JLabel("ID del socio: ");
@@ -280,7 +290,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelAnadirEliminarBibliotecarios = new JPanel();
 		panelAnadirEliminarBibliotecarios.setLayout(new MigLayout());
 
-		//AÑADIR PANEL A PESTAÑA
+		//AÑADIR PANEL AÑADIR/ELIMINAR BIBLIOTECARIOS A PESTAÑA
 		pestanas.addTab("pestaña5", panelAnadirEliminarBibliotecarios);
 
 		//DATOS PANEL AÑADIR/ELIMINAR BIBLIOTECARIOS
@@ -324,7 +334,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelAnadirEliminarSocios = new JPanel();
 		panelAnadirEliminarSocios.setLayout(new MigLayout());
 
-		//AÑADIR PANEL A PESTAÑA
+		//AÑADIR PANEL AÑADIR/ELIMINAR SOCIOS A PESTAÑA
 		pestanas.addTab("pestaña6", panelAnadirEliminarSocios);
 
 		//DATOS PANEL AÑADIR/ELIMINAR SOCIOS
@@ -419,7 +429,14 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 	}
 
 	@Override
+	/**
+	 * Método encargado de hacer que los botones funcionen dependiendo del botón que hagamos click.
+	 */
 	public void actionPerformed(ActionEvent e) {
+
+		/**
+		 * Botón encargado de imprimir en un archivo de texto los bibliotecarios de la biblioteca.
+		 */
 		if(e.getSource().equals(imprimirBibliotecarios)) {
 			try {
 				MainVentana.biblioteca.imprimirBibliotecarios();
@@ -428,6 +445,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 				e1.printStackTrace();
 			}
 		}
+
+		/**
+		 * Botón encargado de imprimir en un archivo de texto los libros de la biblioteca.
+		 */
 		if(e.getSource().equals(imprimirLibros)) {
 			try {
 				MainVentana.biblioteca.imprimirLibros();
@@ -436,6 +457,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 				e1.printStackTrace();
 			}
 		}
+
+		/**
+		 * Botón encargado de imprimir en un archivo de texto los préstamos de la biblioteca.
+		 */
 		if(e.getSource().equals(imprimirPrestamos)) {
 			try {
 				MainVentana.biblioteca.imprimirPrestamos();
@@ -445,6 +470,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 				e1.printStackTrace();
 			}
 		}
+
+		/**
+		 * Botón encargado de imprimir en un archivo de texto los socios de la biblioteca.
+		 */
 		if(e.getSource().equals(imprimirSocios)) {
 			try {
 				MainVentana.biblioteca.imprimirSocios();
@@ -454,6 +483,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 				e1.printStackTrace();
 			}
 		}
+
+		/**
+		 * Botón encargado de mostrar en una tabla los bibliotecarios de la biblioteca.
+		 */
 		if(e.getSource().equals(mostrarBibliotecarios)) {
 			String listaBibliotecarios[] = {"Cod", "Nombre", "Apellidos", "Teléfono", "DNI"};
 			modeloMostrar = new DefaultTableModel(null, listaBibliotecarios);
@@ -467,6 +500,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 
 			}
 		}
+
+		/**
+		 * Botón encargado de mostrar en una tabla los libros de la biblioteca.
+		 */
 		if(e.getSource().equals(mostrarLibros)) {
 			String listaLibros[] = {"ID", "Título", "Autor", "Género", "Estado"};
 			limpiarTabla(tablaMostrar, modeloMostrar);
@@ -480,6 +517,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 				}
 			}
 		}
+
+		/**
+		 * Botón encargado de mostrar en una tabla los préstamos de la biblioteca.
+		 */
 		if(e.getSource().equals(mostrarPrestamos)) {
 			String listaPrestamos[] = {"Fecha_Inicio", "Fecha_Fin", "Cod_Socio", "ID_Libro"};
 			limpiarTabla(tablaMostrar, modeloMostrar);
@@ -493,6 +534,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 				}
 			}
 		}
+
+		/**
+		 * Botón encargado de mostrar en una tabla los socios de la biblioteca.
+		 */
 		if(e.getSource().equals(mostrarSocios)) {
 			String listaSocios[] = {"Cod", "Nombre", "Apellidos", "Teléfono", "DNI", "ID_Libro"};
 			limpiarTabla(tablaMostrar, modeloMostrar);
@@ -507,6 +552,9 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 			}
 		}
 
+		/**
+		 * Botón encargado de añadir un libro a la biblioteca.
+		 */
 		if(e.getSource().equals(anadirLibro)) {
 			try {
 				if(escribirTitulo.getText().equals("") && escribirAutor.getText().equals("") && escribirGenero.getText().equals("")) {
@@ -521,6 +569,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 				e1.printStackTrace();
 			}
 		}
+
+		/**
+		 * Botón encargado de eliminar un libro de la biblioteca.
+		 */
 		if(e.getSource().equals(borrarLibro)) {
 			if(borrarIdLibro.getText().equals(""))
 				JOptionPane.showMessageDialog(this, "Rellene el campo por favor");
@@ -534,6 +586,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 				JOptionPane.showMessageDialog(this, "Libro borrado con éxito");
 			}
 		}
+
+		/**
+		 * Botón encargado de prestar un libro a un socio.
+		 */
 		if(e.getSource().equals(prestar)) {
 			if(escribirIdSocioPrestar.getText().equals("") && escribirIdLibroPrestar.getText().equals("")) {
 				JOptionPane.showMessageDialog(this, "Rellene los campos por favor");
@@ -548,6 +604,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 
 			}
 		}
+
+		/**
+		 * Botón encargado de devolver un libro prestado a la biblioteca.
+		 */
 		if(e.getSource().equals(devolver)) {
 			if(escribirIdSocioDevolver.getText().equals("") && escribirIdLibroDevolver.getText().equals("")) {
 				JOptionPane.showMessageDialog(this, "Rellene los campos por favor");
@@ -562,6 +622,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 
 			}
 		}
+
+		/**
+		 * Botón encargado de añadir un bibliotecario a la biblioteca.
+		 */
 		if(e.getSource().equals(anadirBibliotecario)) {
 			if(escribirNombreBibliotecario.getText().equals("") && escribirApellidosBibliotecario.getText().equals("") && escribirTelefonoBibliotecario.getText().equals("") && escribirDniBibliotecario.getText().equals("")) {
 				JOptionPane.showMessageDialog(this, "Rellene los campos por favor");
@@ -580,6 +644,11 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 				}
 			}
 		}
+
+		/**
+		 * Botón encargado de eliminar un bibliotecario de la biblioteca.
+		 * Se tiene en cuenta que no se puede eliminar un bibliotecario que esté en uso.
+		 */
 		if(e.getSource().equals(eliminarBibliotecario)) {
 			if(escribirIdBibliotecario.getText().equals("")) {
 				JOptionPane.showMessageDialog(this, "Rellene el campo por favor");
@@ -605,6 +674,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 				}
 			}
 		}
+
+		/**
+		 * Botón encargado de añadir un socio a la biblioteca.
+		 */
 		if(e.getSource().equals(anadirSocios)) {
 			if(escribirNombreSocios.getText().equals("") && escribirApellidosSocios.getText().equals("") && escribirTelefonoSocios.getText().equals("") && escribirDniSocios.getText().equals("")) {
 				JOptionPane.showMessageDialog(this, "Rellene los campos por favor");
@@ -623,6 +696,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 				}
 			}
 		}
+
+		/**
+		 * Botón encargado de eliminar un socio de la biblioteca.
+		 */
 		if(e.getSource().equals(eliminarSocios)) {
 			if(escribirIdSocios.getText().equals("")) {
 				JOptionPane.showMessageDialog(this, "Rellene el campo por favor");
@@ -645,6 +722,12 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 
 	}
 
+	/**
+	 * Método encargado de comprobar si un dni cumple el patrón.
+	 * 
+	 * @param comdni el dni que se quiera comprobar
+	 * @return el dni si cumple el patrón o null si no cumple el patrón
+	 */
 	public String comprobarDni(String comdni) {
 		String regex = "\\d{7}[a-zA-Z]";
 		if(Pattern.matches(regex, comdni)) {
@@ -654,6 +737,12 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		return null;
 	}
 
+	/**
+	 * Método encargado de comprobar si un número cumple el patrón.
+	 * 
+	 * @param num el número que se quiera comprobar
+	 * @return el número si cumple el patrón o null si no cumple el patrón.
+	 */
 	public String comprobarNum(String num) {
 		String regex = "\\d{9}";
 		if(Pattern.matches(regex, num)) {
@@ -663,6 +752,11 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		return null;
 	}
 
+	/**
+	 * Método encargado de introducir un bibliotecario en la tabla.
+	 * 
+	 * @param b un objeto de tipo Bibliotecario
+	 */
 	public void introducirBibliotecario(Bibliotecario b) {
 		Bibliotecario aux;
 		if(b!=null) {
@@ -678,6 +772,11 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 			JOptionPane.showMessageDialog(this, "No se ha encontrado nada en la base.");
 	}
 
+	/**
+	 * Método encargado de introducir un libro en la tabla.
+	 * 
+	 * @param l un objeto de tipo Libros
+	 */
 	public void introducirLibro(Libros l) {
 		Libros aux;
 		if(l!=null) {
@@ -696,6 +795,11 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 			JOptionPane.showMessageDialog(this, "No se ha encontrado un libro con ese ID en la base de datos");
 	}
 
+	/**
+	 * Método encargado de introducri un préstamo en la tabla.
+	 * 
+	 * @param p un objeto de tipo Prestamos
+	 */
 	public void introducirPrestamos(Prestamos p) {
 		Prestamos aux;
 		if(p!=null) {
@@ -710,7 +814,11 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 			JOptionPane.showMessageDialog(this, "No se ha encontrado nada en la base");
 	}
 
-	//algo
+	/**
+	 * Método encargado de introducir un socio en la tabla.
+	 * 
+	 * @param s un objeto de tipo Socio
+	 */
 	public void introducirSocios(Socio s) {
 		Socio aux;
 		if(s!=null) {
@@ -727,6 +835,11 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 			JOptionPane.showMessageDialog(this, "No se ha encontrado nada en la base");
 	}
 
+	/**
+	 * Método encargado de enviarnos un mensaje según el parámetro tome un valor u otro.
+	 * 
+	 * @param x integer que será usado para la expresión del switch
+	 */
 	public void opcionesPrestar(int x) {
 		switch(x) {
 		case 0: JOptionPane.showMessageDialog(this, "Préstamo realizado con éxito");
@@ -742,6 +855,11 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		}
 	}
 
+	/**
+	 * Método encargado de enviarnos un mensaje según el parámetro tome un valor u otro.
+	 * 
+	 * @param x integer que será usado para la expresión del switch
+	 */
 	public void opcionesDevolver(int x) {
 		switch(x) {
 		case 0: JOptionPane.showMessageDialog(this, "Devolución realizada con éxito");
@@ -751,6 +869,12 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		}
 	}
 
+	/**
+	 * Método encargado de limpiar el contenido de la tabla.
+	 * 
+	 * @param tabla la tabla que se quiera limpiar
+	 * @param modelo el modelo que se quiera limpiar
+	 */
 	public static void limpiarTabla(JTable tabla, DefaultTableModel modelo) {
 		int filas = tabla.getRowCount()-1;
 		for (int i = filas; i >= 0; i--)
