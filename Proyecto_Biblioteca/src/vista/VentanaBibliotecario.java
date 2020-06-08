@@ -556,7 +556,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		 */
 		if(e.getSource().equals(anadirLibro)) {
 			try {
-				if(escribirTitulo.getText().equals("") && escribirAutor.getText().equals("") && escribirGenero.getText().equals("")) {
+				if((escribirTitulo.getText().equals("") || escribirTitulo.getText().equals(" ")) || (escribirAutor.getText().equals("") || escribirAutor.getText().equals(" ")) || (escribirGenero.getText().equals("") || escribirGenero.getText().equals(" "))) {
 					JOptionPane.showMessageDialog(this, "Rellene los campos por favor");
 				}
 				else {
@@ -594,7 +594,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		 * Botón encargado de prestar un libro a un socio.
 		 */
 		if(e.getSource().equals(prestar)) {
-			if(escribirIdSocioPrestar.getText().equals("") && escribirIdLibroPrestar.getText().equals("")) {
+			if((escribirIdSocioPrestar.getText().equals("") || escribirIdSocioPrestar.getText().equals(" ")) || escribirIdLibroPrestar.getText().equals("") || (escribirIdLibroPrestar.getText().equals(" "))) {
 				JOptionPane.showMessageDialog(this, "Rellene los campos por favor");
 			}
 			else {
@@ -612,7 +612,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		 * Botón encargado de devolver un libro prestado a la biblioteca.
 		 */
 		if(e.getSource().equals(devolver)) {
-			if(escribirIdSocioDevolver.getText().equals("") && escribirIdLibroDevolver.getText().equals("")) {
+			if((escribirIdSocioDevolver.getText().equals("") || escribirIdSocioDevolver.getText().equals(" ")) || (escribirIdLibroDevolver.getText().equals("") || escribirIdLibroDevolver.getText().equals(" "))) {
 				JOptionPane.showMessageDialog(this, "Rellene los campos por favor");
 			}
 			else {
@@ -630,7 +630,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		 * Botón encargado de añadir un bibliotecario a la biblioteca.
 		 */
 		if(e.getSource().equals(anadirBibliotecario)) {
-			if(escribirNombreBibliotecario.getText().equals("") && escribirApellidosBibliotecario.getText().equals("") && escribirTelefonoBibliotecario.getText().equals("") && escribirDniBibliotecario.getText().equals("")) {
+			if((escribirNombreBibliotecario.getText().equals("") || escribirNombreBibliotecario.getText().equals(" ")) || (escribirApellidosBibliotecario.getText().equals("") || escribirApellidosBibliotecario.getText().equals(" ")) || (escribirTelefonoBibliotecario.getText().equals("") || escribirTelefonoBibliotecario.getText().equals(" ")) || (escribirDniBibliotecario.getText().equals("") || escribirDniBibliotecario.getText().equals(" "))) {
 				JOptionPane.showMessageDialog(this, "Rellene los campos por favor");
 			}
 			else {
@@ -682,7 +682,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		 * Botón encargado de añadir un socio a la biblioteca.
 		 */
 		if(e.getSource().equals(anadirSocios)) {
-			if(escribirNombreSocios.getText().equals("") && escribirApellidosSocios.getText().equals("") && escribirTelefonoSocios.getText().equals("") && escribirDniSocios.getText().equals("")) {
+			if((escribirNombreSocios.getText().equals("") || escribirNombreSocios.getText().equals(" ")) || (escribirApellidosSocios.getText().equals("") || escribirApellidosSocios.getText().equals(" ")) || (escribirTelefonoSocios.getText().equals("") || escribirTelefonoSocios.getText().equals(" ")) || (escribirDniSocios.getText().equals("")) || escribirDniSocios.getText().equals(" ")) {
 				JOptionPane.showMessageDialog(this, "Rellene los campos por favor");
 			}
 			else {
