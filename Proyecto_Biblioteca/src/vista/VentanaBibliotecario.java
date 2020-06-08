@@ -710,6 +710,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 			JOptionPane.showMessageDialog(this, "No se ha encontrado nada en la base");
 	}
 
+	//algo
 	public void introducirSocios(Socio s) {
 		Socio aux;
 		if(s!=null) {
