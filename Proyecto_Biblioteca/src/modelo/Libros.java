@@ -360,6 +360,7 @@ public class Libros implements Comparable<Libros>{
 	
 	@Override
 	public int compareTo(Libros o) {
-		return String.valueOf(this.id_libro).compareTo(String.valueOf(o.getId_libro()));
+		int comparar=((Libros)o).getId_libro();
+		return this.id_libro-comparar;
 	}
 }
