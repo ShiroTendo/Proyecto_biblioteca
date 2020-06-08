@@ -28,7 +28,7 @@ public class pruebas_Clases_bbdd {
 		try {
 			Libros l1= new Libros("El Quijote", "Cervantes", "novela");
 			Libros l2= new Libros("Los juegos del Hambre", "Suzane Collins", "fantasia");
-			Libros l3= new Libros("El Lazarillo de Tormes", "Desconocido", "novela picaresca");
+			Libros l3= new Libros("El Lazarillo de Tormes", "Desconocido", "novela");
 			Libros l4= new Libros("La Biblia", "Desconocido", "fantasia");
 			Libros l5= new Libros("Harry Potter", "J.K Rollings", "fantasia");
 			Libros l6= new Libros("Señor de los Anillos", "J.R.R Tolkien", "fantasia");

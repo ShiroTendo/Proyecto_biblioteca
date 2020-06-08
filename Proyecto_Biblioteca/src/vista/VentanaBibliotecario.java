@@ -578,12 +578,16 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 				JOptionPane.showMessageDialog(this, "Rellene el campo por favor");
 			else {
 				Libros aux = MainVentana.biblioteca.buscaLibro(Integer.parseInt(borrarIdLibro.getText()));
-				try {
-					MainVentana.biblioteca.borradoTotalLibro(aux);
-				} catch (ClassNotFoundException | SQLException e1) {
-					e1.printStackTrace();
+				if(aux.isPrestado())
+					JOptionPane.showMessageDialog(this, "Error, el libro esta prestado, y por tanto no se puede eliminar");
+				else {
+					try {
+						MainVentana.biblioteca.borradoTotalLibro(aux);
+					} catch (ClassNotFoundException | SQLException e1) {
+						e1.printStackTrace();
+					}
+					JOptionPane.showMessageDialog(this, "Libro borrado con éxito");
 				}
-				JOptionPane.showMessageDialog(this, "Libro borrado con éxito");
 			}
 		}
 
