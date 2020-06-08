@@ -96,10 +96,10 @@ public class Socio extends Personas implements Comparable<Socio>{
 		return num;
 	}
 
-	/**
+	/**Metodo encargado de cargar los libros en pretencia de los socios de la base de datos.
+	 * Mediante una consulta sacamos los libros que pertenezacan al socio en el que estamos y lo introducimos a HashSet del solcio
 	 * 
-	 * 
-	 * @return
+	 * @return Un hashSet de los libros que el socio tiene prestados
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
@@ -244,9 +244,11 @@ public class Socio extends Personas implements Comparable<Socio>{
 	}
 	
 	/**
-	 * Metodo que devuelve 
+	 * Metodo que devuelve en un String los id de los libros en pertenencia del socio.
+	 * Se itera la lista de libros del socio y se devuelven los ids de los libros que tenga
 	 * 
-	 * @return
+	 * 
+	 * @return los ids si la lista tiene alguno, sino devuelve la cadena ningun libro
 	 */
 	
 	public String devuelveID() {

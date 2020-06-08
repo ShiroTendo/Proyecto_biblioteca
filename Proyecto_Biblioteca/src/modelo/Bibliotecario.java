@@ -42,18 +42,36 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 		super(Dni, Nombre, Apellidos, N_telefono);
 		this.Cod_Emple=Cod_Emple;
 	}
+	
+	/**
+	 * Constructor sobrecargado de la clase
+	 * @param Dni String
+	 * @param Nombre String 
+	 * @param Apellidos String
+	 * @param N_telefono int
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public Bibliotecario(String Dni, String Nombre, String Apellidos, int N_telefono) throws ClassNotFoundException, SQLException {
 		super(Dni, Nombre, Apellidos, N_telefono);
 		this.Cod_Emple=num_biblio+1;
 		num_biblio++;
 	}
-
+	/**Constructor de copia de la clase
+	 * 
+	 * @param obj objecto a copiar
+	 */
 	public Bibliotecario(Bibliotecario obj) {
 		super(obj);
 		this.Cod_Emple=obj.getCod_Emple();
 	}
-
-	//Posiblemente sera borrado
+	/**Metodo encargado de encontrar el cod_emple mas alto de la base de datos
+	 * Este metodo busca el numero mas alto en la base de datos, para devolverlo y que sirve de apoyo en el constructor
+	 * 
+	 * @return devuelve un int, correspondiente al cod mas alto
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static  int buscaMaxCod() throws ClassNotFoundException, SQLException {
 		int num=0;
 		Statement st = Conector.conectar().createStatement();
@@ -88,7 +106,15 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 			Conector.cerrar();
 		}
 	}
-	//Mirar y eliminar 90% seguro
+	/**Metodo encargado de eliminar un Bibliotecario de la base de datos y de la biblioteca.
+	 *
+	 * El metodo elimina de la base de datos el empleado que tenga el cod que se le pasa, eimediatamente despues se elimina de la biblioteca tambien.
+	 *
+	 * @param bi1 biblioteca de la que tambien sera eliminado
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	
 	public void eliminarBibliotecarioBD(Biblioteca bi1) throws SQLException, ClassNotFoundException {
 		try {
 			String insert="delete from bibliotecarios where cod_emple ="+this.getCod_Emple();
@@ -128,16 +154,13 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 						return 0;
 					}
 					else
-						//System.out.println("El libro ya esta prestado, prueba mas tarde");
 						return 1;
 
 				}
 				else
-					//System.out.println("El libro no existe, introduce un id de libro valido");
 					return 2;
 			}
 			else			
-				//System.out.println("El usuario no se encuentra en la base de datos, intrudzca un id valido");
 				return 3;
 		}
 		else
@@ -170,7 +193,6 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 
 		}
 		else
-			//System.out.println("Introduzca unos datos validos, puesto que los introducidos no son referentes a ningun prestamo");
 			return 1;
 	}
 

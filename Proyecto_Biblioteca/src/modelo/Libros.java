@@ -167,43 +167,6 @@ public class Libros implements Comparable<Libros>{
 	}
 	
 	
-	/**
-	 * Metodo que busca un libro en la biblioteca
-	 * @param id int
-	 * @param biblio Biblioteca
-	 * @return devuelve el libro si lo ha encontrado o null si no
-	 */
-	
-	public Libros buscaLibro(int id,Biblioteca biblio) {
-		Iterator it=biblio.getLista_libros().iterator();
-		Libros retornar;
-		while(it.hasNext()) {
-			Libros aux=(Libros) it.next();
-			if(aux.getId_libro()==id)
-				return retornar=new Libros(aux);
-		}
-		return null;
-
-	}
-	
-	/**
-	 * Metodo que busca un socio en la biblioteca
-	 * @param id int
-	 * @param biblio Biblioteca
-	 * @return devuelve sl socio si lo encuentra o null si no
-	 */
-
-	public Socio buscarSocio(int id,Biblioteca biblio) {
-		Iterator it=biblio.getLista_socios().iterator();
-		Socio retornar;
-		while(it.hasNext()) {
-			Socio aux=(Socio) it.next();
-			if(aux.getCod_Socio()==id)
-				return retornar=new Socio(aux);
-		}
-		return null;
-
-	}
 
 	/**
 	 * Metodo que cambia el estado del libro a false en la base de datos
@@ -257,7 +220,7 @@ public class Libros implements Comparable<Libros>{
 	}
 
 	/**
-	 * Metodo toString
+	 * Metodo toString de la clase
 	 */
 
 	@Override

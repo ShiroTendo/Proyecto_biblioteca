@@ -51,7 +51,7 @@ public class VentanaInicio extends JFrame implements ActionListener, WindowListe
 	}
 	
 	/**
-	 * Método encargado de crear la interfaz.
+	 * Método encargado de crear la interfaz de la ventana.
 	 */
 	public void crearAlgo() {
 		
@@ -139,6 +139,11 @@ public class VentanaInicio extends JFrame implements ActionListener, WindowListe
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		/**Metodo encargado de contolar el inicio de la ventana de los socios.
+		 * Revisa que el id del socio este en la base de datos, en cuyo caso carga la ventana socio.
+		 * En caso opuesta lanza un mensaje de error o si el campo se deja vacio.
+		 * 
+		 */
 		if(e.getSource().equals(botonSocio)) {
 			if(escribirIdSocio.getText().equals("")) {
 				JOptionPane.showMessageDialog(this, "Introduce un valor válido");
@@ -153,7 +158,11 @@ public class VentanaInicio extends JFrame implements ActionListener, WindowListe
 			}
 				
 		}
-		
+		/**Metodo encargado de contolar el inicio de la ventana de los bibliotecarios.
+		 * Revisa que el id del bibliotecario este en la base de datos, en cuyo caso carga la ventana bibliotecarios.
+		 * En caso opuesta lanza un mensaje de error o si el campo se deja vacio.
+		 * 
+		 */
 		if(e.getSource().equals(botonBibliotecario)) {
 			if(escribirIdBibliotecario.getText().equals("")) {
 				JOptionPane.showMessageDialog(this, "Introduce un valor válido");
@@ -167,6 +176,10 @@ public class VentanaInicio extends JFrame implements ActionListener, WindowListe
 			}
 			
 		}
+		/**
+		 * Metodo encargado de salir usando el botonexit.
+		 * Si se presiona el boton exit, se cierra el prorama entero
+		 */
 		if(e.getSource().equals(exit)) {
 			System.exit(0);
 		}
