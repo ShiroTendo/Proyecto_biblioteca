@@ -573,7 +573,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		 * Botón encargado de eliminar un libro de la biblioteca.
 		 */
 		if(e.getSource().equals(borrarLibro)) {
-			if(borrarIdLibro.getText().equals(""))
+			if(borrarIdLibro.getText().equals("") ||borrarIdLibro.getText().equals(" "))
 				JOptionPane.showMessageDialog(this, "Rellene el campo por favor");
 			else {
 				Libros aux = MainVentana.biblioteca.buscaLibro(Integer.parseInt(borrarIdLibro.getText()));
@@ -653,7 +653,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		 * Se tiene en cuenta que no se puede eliminar un bibliotecario que esté en uso.
 		 */
 		if(e.getSource().equals(eliminarBibliotecario)) {
-			if(escribirIdBibliotecario.getText().equals("")) {
+			if(escribirIdBibliotecario.getText().equals("") ||escribirIdBibliotecario.getText().equals(" ")) {
 				JOptionPane.showMessageDialog(this, "Rellene el campo por favor");
 			}
 			else {
@@ -704,7 +704,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		 * Botón encargado de eliminar un socio de la biblioteca.
 		 */
 		if(e.getSource().equals(eliminarSocios)) {
-			if(escribirIdSocios.getText().equals("")) {
+			if(escribirIdSocios.getText().equals("") ||escribirIdSocios.getText().equals(" ")) {
 				JOptionPane.showMessageDialog(this, "Rellene el campo por favor");
 			}
 			else {
