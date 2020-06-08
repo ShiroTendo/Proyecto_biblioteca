@@ -151,13 +151,28 @@ public class Socio extends Personas implements Comparable<Socio>{
 		 * @throws SQLException
 		 * @throws ClassNotFoundException
 		 */
-		public void eliminarSocioBD() throws SQLException, ClassNotFoundException {
+		public void eliminarSocioBD(Biblioteca bi1) throws SQLException, ClassNotFoundException {
 			try {
 			String insert = " delete from socios where cod_socio =" + this.getCod_Socio();
 			Statement st = Conector.conectar().createStatement();
 			st.executeUpdate(insert);
+			bi1.getLista_socios().remove(this);
 			}catch (SQLException e) {
 				System.out.println("El código de socio introducido no es válido, introduce otro");
+			}
+			
+		}
+		
+		public void eliminarSocioTotal(Biblioteca bi1, Bibliotecario b) throws ClassNotFoundException, SQLException {
+			if(this.getLibros_Tiene().size()==0) {
+				this.eliminarSocioBD(bi1);
+			}
+			else {
+				String [] split = this.devuelveID().split(" ");
+				for (int i = 0; i < split.length; i++) {
+					b.DevolverLibro(this.getCod_Socio(), Integer.parseInt(split[i]), bi1);
+				}
+				this.eliminarSocioBD(bi1);
 			}
 			
 		}
@@ -207,7 +222,7 @@ public class Socio extends Personas implements Comparable<Socio>{
 		public String devuelveID() {
 			if(this.Libros_Tiene.size()!=0) {		
 				Iterator it = this.Libros_Tiene.iterator();
-				String retorno = " ";
+				String retorno = "";
 				while(it.hasNext()) {
 					Libros aux = (Libros) it.next();
 					retorno+= String.valueOf(aux.getId_libro())+" ";

@@ -357,10 +357,6 @@ public class Biblioteca {
 		return false;
 	}
 	
-	public void anadidoTotalBibliotecario(Bibliotecario b) throws ClassNotFoundException, SQLException {
-		b.insertarBibliotecarioBD(this);
-	}
-	
 	public void borradoTotalLibro(Libros libro) throws ClassNotFoundException, SQLException {
 		libro.eliminarLibroBD();
 		eliminar_libro(libro);

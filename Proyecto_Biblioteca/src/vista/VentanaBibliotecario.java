@@ -95,6 +95,24 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 	private JButton anadirBibliotecario;
 	private JButton eliminarBibliotecario;
 
+	//PESTAÑA AÑADIR/ELIMINAR SOCIOS
+	private JLabel tituloAnadirEliminarSocios;
+	private JLabel tituloAnadirSocios;
+	private JLabel tituloEliminarSocios;
+	private JLabel nombreSocios;
+	private JLabel apellidosSocios;
+	private JLabel telefonoSocios;
+	private JLabel dniSocios;
+	private JLabel idSocios;
+	private JTextField escribirNombreSocios;
+	private JTextField escribirApellidosSocios;
+	private JTextField escribirTelefonoSocios;
+	private JTextField escribirDniSocios;
+	private JTextField escribirIdSocios;
+	private JButton anadirSocios;
+	private JButton eliminarSocios;
+
+
 	//PANELES
 	private JTabbedPane pestanas;
 	private JPanel panelImprimir;
@@ -102,6 +120,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 	private JPanel panelAnadirBorrar;
 	private JPanel panelPrestarDevolver;
 	private JPanel panelAnadirEliminarBibliotecarios;
+	private JPanel panelAnadirEliminarSocios;
 	private JScrollPane scrollMostrar;
 
 	private Bibliotecario bibliotecario;
@@ -197,7 +216,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 
 		anadirLibro = new JButton("Añadir libro");
 		borrarLibro = new JButton("Borrar libro");
-		
+
 		//BOTONES
 		anadirLibro.addActionListener(this);
 		borrarLibro.addActionListener(this);
@@ -300,6 +319,50 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelAnadirEliminarBibliotecarios.add(escribirDniBibliotecario, "wrap");
 		panelAnadirEliminarBibliotecarios.add(anadirBibliotecario);
 		panelAnadirEliminarBibliotecarios.add(eliminarBibliotecario, "skip3, align left");
+
+		//CREAR PANEL AÑADIR/ELIMINAR SOCIOS
+		panelAnadirEliminarSocios = new JPanel();
+		panelAnadirEliminarSocios.setLayout(new MigLayout());
+
+		//AÑADIR PANEL A PESTAÑA
+		pestanas.addTab("pestaña6", panelAnadirEliminarSocios);
+
+		//DATOS PANEL AÑADIR/ELIMINAR SOCIOS
+		tituloAnadirEliminarSocios = new JLabel("BIENVENIDO/A " + bibliotecario.getNombre().toUpperCase());
+		tituloAnadirSocios = new JLabel("AÑADIR SOCIOS");
+		tituloEliminarSocios = new JLabel("ELIMINAR SOCIOS");
+		nombreSocios = new JLabel("Nombre: ");
+		apellidosSocios = new JLabel("Apellidos: ");
+		telefonoSocios = new JLabel("Teléfono: ");
+		dniSocios = new JLabel("DNI: ");
+		idSocios = new JLabel("ID del socio: ");
+
+		escribirNombreSocios = new JTextField(15);
+		escribirApellidosSocios = new JTextField(20);
+		escribirTelefonoSocios = new JTextField(9);
+		escribirDniSocios = new JTextField(8);
+		escribirIdSocios = new JTextField(10);
+
+		anadirSocios = new JButton("Añadir socio");
+		eliminarSocios = new JButton("Eliminar socio");
+		anadirSocios.addActionListener(this);
+		eliminarSocios.addActionListener(this);
+
+		panelAnadirEliminarSocios.add(tituloAnadirEliminarSocios, "skip2, align center, wrap");
+		panelAnadirEliminarSocios.add(tituloAnadirSocios, "span4");
+		panelAnadirEliminarSocios.add(tituloEliminarSocios, "wrap");
+		panelAnadirEliminarSocios.add(nombreSocios);
+		panelAnadirEliminarSocios.add(escribirNombreSocios, "wrap");
+		panelAnadirEliminarSocios.add(apellidosSocios);
+		panelAnadirEliminarSocios.add(escribirApellidosSocios);
+		panelAnadirEliminarSocios.add(idSocios, "skip");
+		panelAnadirEliminarSocios.add(escribirIdSocios, "wrap");
+		panelAnadirEliminarSocios.add(telefonoSocios);
+		panelAnadirEliminarSocios.add(escribirTelefonoSocios, "wrap");
+		panelAnadirEliminarSocios.add(dniSocios);
+		panelAnadirEliminarSocios.add(escribirDniSocios, "wrap");
+		panelAnadirEliminarSocios.add(anadirSocios);
+		panelAnadirEliminarSocios.add(eliminarSocios, "skip3, align left");
 
 		this.add(pestanas);
 		setVisible(true);
@@ -505,12 +568,15 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 			}
 			else {
 				String dni =comprobarDni(escribirDniBibliotecario.getText());
-				try {
-					Bibliotecario aux = new Bibliotecario(dni, escribirNombreBibliotecario.getText(), escribirApellidosBibliotecario.getText(), Integer.parseInt(escribirTelefonoBibliotecario.getText()));
-					aux.insertarBibliotecarioBD(MainVentana.biblioteca);
-					JOptionPane.showMessageDialog(this, "Bibliotecario añadido con éxito");
-				} catch (NumberFormatException | ClassNotFoundException | SQLException e1) {
-					e1.printStackTrace();
+				String telefono = comprobarNum(escribirTelefonoBibliotecario.getText());
+				if(dni!=null && telefono!=null) {
+					try {
+						Bibliotecario aux = new Bibliotecario(dni, escribirNombreBibliotecario.getText(), escribirApellidosBibliotecario.getText(), Integer.parseInt(telefono));
+						aux.insertarBibliotecarioBD(MainVentana.biblioteca);
+						JOptionPane.showMessageDialog(this, "Bibliotecario añadido con éxito");
+					} catch (NumberFormatException | ClassNotFoundException | SQLException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 		}
@@ -539,6 +605,43 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 				}
 			}
 		}
+		if(e.getSource().equals(anadirSocios)) {
+			if(escribirNombreSocios.getText().equals("") && escribirApellidosSocios.getText().equals("") && escribirTelefonoSocios.getText().equals("") && escribirDniSocios.getText().equals("")) {
+				JOptionPane.showMessageDialog(this, "Rellene los campos por favor");
+			}
+			else {
+				String dni = comprobarDni(escribirDniSocios.getText());
+				String telefono = comprobarNum(escribirTelefonoSocios.getText());
+				if(dni!=null && telefono!=null) {
+					try {
+						Socio aux = new Socio(dni, escribirNombreSocios.getText(), escribirApellidosSocios.getText(), Integer.parseInt(telefono));
+						aux.insertarSocioBD(MainVentana.biblioteca);
+						JOptionPane.showMessageDialog(this, "Socio introducido con éxito");
+					} catch (ClassNotFoundException | SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+		if(e.getSource().equals(eliminarSocios)) {
+			if(escribirIdSocios.getText().equals("")) {
+				JOptionPane.showMessageDialog(this, "Rellene el campo por favor");
+			}
+			else {
+				Socio aux = MainVentana.biblioteca.buscarSocio(Integer.parseInt(escribirIdSocios.getText()));
+				if(aux == null) {
+					JOptionPane.showMessageDialog(this, "Socio no existe");
+				}
+				else {
+					try {
+						aux.eliminarSocioTotal(MainVentana.biblioteca, bibliotecario);
+						JOptionPane.showMessageDialog(this, "Socio eliminado con éxito");
+					} catch (ClassNotFoundException | SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
 
 	}
 
@@ -548,6 +651,15 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 			return comdni.toUpperCase();
 		}
 		JOptionPane.showMessageDialog(this, "DNI no válido, respete el formato");
+		return null;
+	}
+
+	public String comprobarNum(String num) {
+		String regex = "\\d{9}";
+		if(Pattern.matches(regex, num)) {
+			return num;
+		}
+		JOptionPane.showMessageDialog(this, "Número no válido, respete el formato");
 		return null;
 	}
 
