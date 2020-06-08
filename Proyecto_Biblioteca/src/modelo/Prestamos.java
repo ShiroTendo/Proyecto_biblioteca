@@ -32,13 +32,13 @@ public class Prestamos implements Comparable<Prestamos>{
 		this.fecha_fin=fin;
 		this.socio_asocidado=socio;
 		this.libro_asociado=libro;
-
 	}
 	
 	/**
 	 * Constructor de copia de Prestamos.
 	 * @param obj Prestamos
 	 */
+	
 	public Prestamos(Prestamos obj) {
 		this.fecha_inicio=obj.getFecha_inicio();
 		this.fecha_fin=obj.getFecha_fin();
@@ -64,7 +64,6 @@ public class Prestamos implements Comparable<Prestamos>{
 		}finally {
 			Conector.cerrar();
 		}
-		
 	}
 	
 	/**
@@ -72,6 +71,7 @@ public class Prestamos implements Comparable<Prestamos>{
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
+	
 	public void eliminarPrestamoBD() throws SQLException, ClassNotFoundException {
 		try {
 		String insert = " delete from prestamos where cod_socio =" + this.getSocio_asocidado()+" and id_libro="+this.getLibro_asociado();
@@ -81,8 +81,6 @@ public class Prestamos implements Comparable<Prestamos>{
 			Conector.cerrar();
 		}
 	}
-	
-	
 
 	@Override
 	public int hashCode() {
@@ -192,9 +190,9 @@ public class Prestamos implements Comparable<Prestamos>{
 	/**
 	 * Metodo por defecto de ordenacion de los prestamos
 	 */
+	
 	@Override
 	public int compareTo(Prestamos o) {
 		return String.valueOf(this.libro_asociado).compareTo(String.valueOf(o.getLibro_asociado()));
 	}
-
 }

@@ -76,7 +76,6 @@ public class Biblioteca {
 		}
 		Conector.cerrar();
 		return lista;
-		
 	}
 	
 	/**
@@ -139,7 +138,6 @@ public class Biblioteca {
 		}
 		Conector.cerrar();
 		return lista;
-		
 	}
 	
 	/**
@@ -151,6 +149,7 @@ public class Biblioteca {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
+	
 	public HashSet<Bibliotecario> volcarBibliotecario() throws ClassNotFoundException, SQLException {
 		String dni = " ";
 		String nombre = " ";
@@ -181,6 +180,7 @@ public class Biblioteca {
 	 * @param id ID del libro que se quiere buscar.
 	 * @return un objeto de tipo Libros si se encuentra el ID o null si no se encuentra el ID.
 	 */
+	
 	public Libros buscaLibro(int id) {
 		Iterator it=this.getLista_libros().iterator();
 		Libros retornar;
@@ -190,7 +190,6 @@ public class Biblioteca {
 				return retornar=new Libros(aux);
 		}
 		return null;
-
 	}
 
 	/**
@@ -200,6 +199,7 @@ public class Biblioteca {
 	 * @param id ID del socio que se quiere buscar
 	 * @return un objeto de tipo Socios si se encuentra el ID o null si no se encuentra el ID
 	 */
+	
 	public Socio buscarSocio(int id) {
 		Iterator it=this.getLista_socios().iterator();
 		Socio retornar;
@@ -210,6 +210,14 @@ public class Biblioteca {
 		}
 		return null;
 	}
+	
+	/**
+	 * Metodo encargado de buscar un bibliotecario mediante su ID.
+	 * Este metodo comprueba si en la lista de bibliotecarios hay alguno que tenga el mismo ID que se le pasa como parametro.
+	 * 
+	 * @param id ID del bibliotecario que se quiere buscar
+	 * @return un objeto de tipo Bibliotecarios si se encuentra el ID o null si no se encuentra el ID
+	 */
 	
 	public Bibliotecario buscarBibliotecario(int id) {
 		Iterator it=this.getLista_bibliotecarios().iterator();
@@ -229,6 +237,7 @@ public class Biblioteca {
 	 * @param id_libro ID del libro que se quiere comprobar si está prestado
 	 * @return la información del libro prestado
 	 */
+	
 	public Prestamos existePrestamo(int socio_id,int id_libro) {
 		Iterator it=this.getLista_prestamos().iterator();
 		Prestamos retornar;
@@ -238,7 +247,6 @@ public class Biblioteca {
 				return retornar=aux;
 		}
 		return null;
-
 	}
 	
 	/**
@@ -246,6 +254,7 @@ public class Biblioteca {
 	 * 
 	 * @param presta un objeto de tipo Prestamos que se quiere eliminar
 	 */
+	
 	public void eliminarPrestamoBiblio(Prestamos presta) {
 		if(this.getLista_prestamos().contains(presta)) {
 			this.getLista_prestamos().remove(presta);
@@ -253,103 +262,12 @@ public class Biblioteca {
 	}
 	
 	/**
-	 * Método get lista_prestamos.
-	 * 
-	 * @return la lista de prestamos
-	 */
-	public HashSet<Prestamos> getLista_prestamos() {
-		return lista_prestamos;
-	}
-
-	/**
-	 * Método set lista_prestamos.
-	 * 
-	 * @param lista_prestamos el valor que se le quiere dar a lista_prestamos
-	 */
-	public void setLista_prestamos(HashSet<Prestamos> lista_prestamos) {
-		this.lista_prestamos = lista_prestamos;
-	}
-
-	/**
-	 * Método encargado de mostrar la lista de Libros almacenados en la biblioteca.
-	 * 
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 */
-	public void mostrar_libros() throws ClassNotFoundException, SQLException{
-		ArrayList<Libros> orden= new ArrayList<Libros>(this.lista_libros);
-		Collections.sort(orden);
-		System.out.println("Listado de libros:");
-		for (Libros Libros : orden) {
-			System.out.println(Libros.toString());
-		}
-	}
-	
-	/**
-	 * Método encargado de mostrar la lista de Socios almacenados en la biblioteca.
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 */
-	public void mostrar_Socios() throws ClassNotFoundException, SQLException {
-		ArrayList<Socio> orden= new ArrayList<Socio>(this.lista_socios);
-		Collections.sort(orden);
-		System.out.println("Listado de socios:");
-		for (Socio Socio : orden) {
-			System.out.println(Socio.toString());
-			
-		}
-	}
-	
-	/**
-	 * Método encargado de mostrar la lista de Prestamos almacenados en la biblioteca.
-	 * 
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 */
-	public void mostrar_Prestamos() throws ClassNotFoundException, SQLException {
-		ArrayList<Prestamos> orden= new ArrayList<Prestamos>(this.lista_prestamos);
-		Collections.sort(orden);
-		System.out.println("Listado de prestamos:");
-		for(Prestamos Prestamo : orden) {
-			System.out.println(Prestamo.toString());
-		}
-	}
-	
-	/**
-	 * Método encargado de mostrar la lista de Bibliotecarios almacenados en la biblioteca.
-	 * 
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 */
-	public void mostrar_bibliotecarios() throws ClassNotFoundException, SQLException {
-		ArrayList<Bibliotecario> orden = new ArrayList<Bibliotecario>(this.lista_bibliotecarios);
-		Collections.sort(orden);
-		System.out.println("Listado de bibliotecarios:");
-		for (Bibliotecario bibliotecario : orden) {
-			System.out.println(bibliotecario.toString());
-		}
-	}
-	
-	/**
-	 * Método encargado de añadir un libro a la lista de libros.
-	 * 
-	 * @param libro un objeto de tipo Libros que se quiera añadir
-	 * @return
-	 */
-	public boolean aniade_libro(Libros libro) {
-		return lista_libros.add(libro);
-	}
-	
-	public void anadirBibliotecario(Bibliotecario b) {
-		this.getLista_bibliotecarios().add(b);
-	}
-	
-	/**
 	 * Método encargado de eliminar un libro de la lista de libros.
 	 * 
 	 * @param libro un objeto de tipo Libros que se quiera eliminar
-	 * @return
+	 * @return elimina el libro si existe en la biblioteca o devuelve false si no
 	 */
+	
 	public boolean eliminar_libro(Libros libro) {
 		if(lista_libros.contains(libro)) {
 			return lista_libros.remove(libro);
@@ -357,12 +275,20 @@ public class Biblioteca {
 		return false;
 	}
 	
+	/**
+	 * Metodo que elimina el libro pasado como parametro de la base de datos y de la lista de libros
+	 * @param libro un objeto de tipo libro que se quiere eliminar
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	
 	public void borradoTotalLibro(Libros libro) throws ClassNotFoundException, SQLException {
 		libro.eliminarLibroBD();
 		eliminar_libro(libro);
 		if(libro.getId_libro()==Libros.buscaMaxID())
 			Libros.setNum_libro(Libros.getNum_libro()-1);
 	}
+	
 	/**
 	 * Método encargado de imprimir los socios en un archivo de texto.
 	 * 
@@ -385,6 +311,7 @@ public class Biblioteca {
 	 * 
 	 * @throws IOException
 	 */
+	
 	public void imprimirBibliotecarios() throws IOException {
 		 File f= new File("./impresiones/bibliotecarios.txt");
 		BufferedWriter bw= new BufferedWriter(new FileWriter(f));
@@ -402,6 +329,7 @@ public class Biblioteca {
 	 * 
 	 * @throws IOException
 	 */
+	
 	public void imprimirLibros() throws IOException {
 		 File f= new File("./impresiones/libros.txt");
 		BufferedWriter bw= new BufferedWriter(new FileWriter(f));
@@ -419,6 +347,7 @@ public class Biblioteca {
 	 * 
 	 * @throws IOException
 	 */
+	
 	public void imprimirPrestamos() throws IOException {
 		 File f= new File("./impresiones/prestamos.txt");
 		BufferedWriter bw= new BufferedWriter(new FileWriter(f));
@@ -430,12 +359,33 @@ public class Biblioteca {
 		}
 		bw.close();
 	}
+	
+	/**
+	 * Método get lista_prestamos.
+	 * 
+	 * @return la lista de prestamos
+	 */
+	
+	public HashSet<Prestamos> getLista_prestamos() {
+		return lista_prestamos;
+	}
+
+	/**
+	 * Método set lista_prestamos.
+	 * 
+	 * @param lista_prestamos el valor que se le quiere dar a lista_prestamos
+	 */
+	
+	public void setLista_prestamos(HashSet<Prestamos> lista_prestamos) {
+		this.lista_prestamos = lista_prestamos;
+	}
 
 	/**
 	 * Método get lista_libros.
 	 * 
 	 * @return devuelve la lista de libros
 	 */
+	
 	public HashSet<Libros> getLista_libros() {
 		return lista_libros;
 	}
@@ -445,6 +395,7 @@ public class Biblioteca {
 	 * 
 	 * @param lista_libros el valor que se le quiera dar a lista_libros
 	 */
+	
 	public void setLista_libros(HashSet<Libros> lista_libros) {
 		this.lista_libros = lista_libros;
 	}
@@ -454,6 +405,7 @@ public class Biblioteca {
 	 * 
 	 * @return devuelve la lista de socios
 	 */
+	
 	public HashSet<Socio> getLista_socios() {
 		return lista_socios;
 	}
@@ -463,6 +415,7 @@ public class Biblioteca {
 	 * 
 	 * @param lista_socios el valor que le quiera dar a lista_socios
 	 */
+	
 	public void setLista_socios(HashSet<Socio> lista_socios) {
 		this.lista_socios = lista_socios;
 	}
@@ -472,6 +425,7 @@ public class Biblioteca {
 	 * 
 	 * @return devuelve la lista de bibliotecarios
 	 */
+	
 	public HashSet<Bibliotecario> getLista_bibliotecarios() {
 		return lista_bibliotecarios;
 	}
@@ -481,16 +435,8 @@ public class Biblioteca {
 	 * 
 	 * @param lista_bibliotecarios el valor que se le quiera dar a lista_bibliotecarios
 	 */
+	
 	public void setLista_bibliotecarios(HashSet<Bibliotecario> lista_bibliotecarios) {
 		this.lista_bibliotecarios = lista_bibliotecarios;
 	}
-
-
-	
-	
-	
-	
-	
-	
-
 }
