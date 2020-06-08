@@ -72,7 +72,7 @@ public class VentanaSocio extends JFrame implements ActionListener, WindowListen
 		scrollTabla = new JScrollPane(tabla);
 
 		//DATOS PANEL SOCIO
-		titulo = new JLabel("BIENVENIDO " + socio.getNombre());
+		titulo = new JLabel("BIENVENIDO " + socio.getNombre().toUpperCase());
 		libro = new JLabel("ID del libro: ");
 		escribirLibro = new JTextField(10);
 
