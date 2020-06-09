@@ -9,7 +9,7 @@ import org.junit.Test;
 import modelo.Libros;
 import modelo.Socio;
 
-public class SocioTest {
+public class SocioTest_DevolverID {
 	
 
 	@Test

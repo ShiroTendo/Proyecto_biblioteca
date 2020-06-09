@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import modelo.Biblioteca;
 
-public class BibliotecaTest {
+public class BibliotecaTest_BuscarLibro {
 
 	@Test
 	public void test() throws ClassNotFoundException, SQLException {
