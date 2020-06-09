@@ -416,10 +416,6 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		setResizable(false);
 		pack();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-		int height = pantalla.height;
-		int width = pantalla.width;
-		this.setSize(width/2, height/2);
 	}
 
 	@Override
