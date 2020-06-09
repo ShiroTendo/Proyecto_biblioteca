@@ -197,25 +197,7 @@ public class Libros implements Comparable<Libros>{
 		}
 	}
 	
-	/**
-	 * Metodo que comprueba si existe un prestamo
-	 * @param socio_id
-	 * @param id_libro
-	 * @param biblio
-	 * @return devuelve un prestamo si encuentra alguno con los parametros pasados o null si no
-	 */
-
-	public Prestamos existePrestamo(int socio_id,int id_libro,Biblioteca biblio) {
-		Iterator it=biblio.getLista_prestamos().iterator();
-		Prestamos retornar;
-		while(it.hasNext()) {
-			Prestamos aux=(Prestamos)it.next();
-			if(aux.getLibro_asociado()==id_libro && aux.getSocio_asocidado()==socio_id)
-				return retornar=aux;
-		}
-		return null;
-
-	}
+	
 
 	/**
 	 * Metodo toString de la clase
