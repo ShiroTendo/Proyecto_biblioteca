@@ -1,3 +1,3 @@
 Lista de bibliotecarios: 
-Bibliotecario: 1 Nombre: Gemma Gonzalez, cuyo numero de telefono es: 657895127  y con dni: 2241183V
-Bibliotecario: 2 Nombre: Luis Reyes, cuyo numero de telefono es: 665448485  y con dni: 2362576A
+Bibliotecario: 1 Nombre: Alfonso Milos, cuyo numero de telefono es: 632178945  y con dni: 97852461Z
+Bibliotecario: 2 Nombre: Ana Suarez, cuyo numero de telefono es: 654124896  y con dni: 45123657F

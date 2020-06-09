@@ -66,6 +66,11 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 	private JTextField borrarIdLibro;
 	private JButton anadirLibro;
 	private JButton borrarLibro;
+	
+	private JPanel panelTodo;
+	private JPanel panelAnadir;
+	private JPanel panelEliminar;
+	private JPanel panelTitulo;
 
 	//PESTAÑA PRESTAR/DEVOLVER
 	private JLabel tituloPrestarDevolver;
@@ -120,7 +125,8 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 	//PANELES
 	private JTabbedPane pestanas;
 	private JPanel panelImprimir;
-	private JPanel panelMostrar;
+	private JPanel panelTabla;
+	private JPanel mostrarBotones;
 	private JPanel panelAnadirBorrar;
 	private JPanel panelPrestarDevolver;
 	private JPanel panelAnadirEliminarBibliotecarios;
@@ -166,19 +172,25 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		imprimirLibros.addActionListener(this);
 		imprimirPrestamos.addActionListener(this);
 		imprimirSocios.addActionListener(this);
-
-		panelImprimir.add(tituloImprimir, "skip, split2, align right, wrap");
-		panelImprimir.add(imprimirBibliotecarios);
-		panelImprimir.add(imprimirLibros, "skip2, align right, wrap");
-		panelImprimir.add(imprimirPrestamos);
-		panelImprimir.add(imprimirSocios, "skip2, align right");
+		imprimirBibliotecarios.setPreferredSize(new Dimension(400,70));
+		imprimirLibros.setPreferredSize(new Dimension(400,70));
+		imprimirPrestamos.setPreferredSize(new Dimension(400,70));
+		imprimirSocios.setPreferredSize(new Dimension(400,70));
+		
+		panelImprimir.add(tituloImprimir, "pos 0.5al 0al");
+		panelImprimir.add(imprimirBibliotecarios, "pos 0al 0.2al");
+		panelImprimir.add(imprimirLibros, "pos 1al 0.2al");
+		panelImprimir.add(imprimirPrestamos, "pos 0al 0.6al");
+		panelImprimir.add(imprimirSocios, "pos 1al 0.6al");
 
 		//CREAR PANEL MOSTRAR
-		panelMostrar = new JPanel();
-		panelMostrar.setLayout(new MigLayout());
+		panelTabla = new JPanel();
+		mostrarBotones = new JPanel();
+		mostrarBotones.setLayout(new MigLayout());
+		panelTabla.setLayout(new MigLayout("align 50%"));
 
 		//AÑADIR PANEL MOSTRAR A PESTAÑA
-		pestanas.addTab("LISTADO", panelMostrar);
+		pestanas.addTab("LISTADO", panelTabla);
 
 		//CREAR LA TABLA PARA MOSTRAR
 		tablaMostrar = new JTable();
@@ -197,19 +209,28 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		mostrarPrestamos.addActionListener(this);
 		mostrarSocios.addActionListener(this);
 
-		panelMostrar.add(tituloMostrar, "align center, wrap");
-		panelMostrar.add(mostrarBibliotecarios);
-		panelMostrar.add(mostrarLibros, "skip, wrap");
-		panelMostrar.add(mostrarPrestamos);
-		panelMostrar.add(mostrarSocios, "skip, wrap");
-		panelMostrar.add(scrollMostrar, "span2, align center");
+		mostrarBotones.add(tituloMostrar, "align center, wrap");
+		mostrarBotones.add(mostrarBibliotecarios, "wrap");
+		mostrarBotones.add(mostrarLibros, "wrap");
+		mostrarBotones.add(mostrarPrestamos, "wrap");
+		mostrarBotones.add(mostrarSocios);
+		panelTabla.add(mostrarBotones, "growy, pushy");
+		panelTabla.add(scrollMostrar, "grow, push, shrink 0");
 
 		//CREAR PANEL AÑADIR/BORRAR LIBRO
 		panelAnadirBorrar = new JPanel();
 		panelAnadirBorrar.setLayout(new MigLayout());
+		panelTodo = new JPanel();
+		panelTodo.setLayout(new MigLayout());
+		panelAnadir = new JPanel();
+		panelAnadir.setLayout(new MigLayout());
+		panelEliminar = new JPanel();
+		panelEliminar.setLayout(new MigLayout());
+		panelTitulo = new JPanel();
+		panelTitulo.setLayout(new MigLayout());
 
 		//AÑADIR PANEL AÑADIR/BORRAR LIBRO A PESTAÑA
-		pestanas.addTab("AÑADIR/BORRAR LIBRO", panelAnadirBorrar);
+		pestanas.addTab("AÑADIR/BORRAR LIBRO", panelTodo);
 
 		//DATOS PANEL MOSTRAR
 
@@ -225,13 +246,29 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		escribirAutor = new JTextField(25);
 		escribirGenero = new JTextField(15);
 		borrarIdLibro = new JTextField(3);
-
+		
 		anadirLibro = new JButton("Añadir libro");
 		borrarLibro = new JButton("Borrar libro");
 		anadirLibro.addActionListener(this);
 		borrarLibro.addActionListener(this);
-
-		panelAnadirBorrar.add(tituloAnadirBorrar, "skip2, align center, wrap");
+		
+		panelTodo.add(panelTitulo, "pos 0.5al 0al");
+		panelTodo.add(panelAnadir, "pos 0.2al 0.35al");
+		panelTodo.add(panelEliminar, "pos 0.8al 0.295al");
+		panelTitulo.add(tituloAnadirBorrar, "align center");
+		panelAnadir.add(anadir, "align center, wrap");
+		panelAnadir.add(tituloLibro);
+		panelAnadir.add(escribirTitulo, "wrap");
+		panelAnadir.add(autorLibro);
+		panelAnadir.add(escribirAutor, "wrap");
+		panelAnadir.add(generoLibro);
+		panelAnadir.add(escribirGenero, "wrap");
+		panelAnadir.add(anadirLibro, "align center");
+		panelEliminar.add(borrar, "align center, wrap");
+		panelEliminar.add(idLibroBorrar, "split2");
+		panelEliminar.add(borrarIdLibro, "wrap");
+		panelEliminar.add(borrarLibro);
+		/*panelAnadirBorrar.add(tituloAnadirBorrar, "skip2, align center, wrap");
 		panelAnadirBorrar.add(anadir, "span2, align center");
 		panelAnadirBorrar.add(borrar, "skip2, align center, wrap");
 		panelAnadirBorrar.add(tituloLibro);
@@ -243,7 +280,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelAnadirBorrar.add(generoLibro);
 		panelAnadirBorrar.add(escribirGenero, "wrap");
 		panelAnadirBorrar.add(anadirLibro, "span2, align center");
-		panelAnadirBorrar.add(borrarLibro, "skip2, align left");
+		panelAnadirBorrar.add(borrarLibro, "skip2, align left");*/
 
 		//CREAR PANEL PRESTAR/DEVOLVER LIBRO
 		panelPrestarDevolver = new JPanel();
