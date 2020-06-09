@@ -37,7 +37,6 @@ public class Libros implements Comparable<Libros>{
 	}
 	/**
 	 * Constructor de la clase al que no se le pasa el estado.
-	 * @param id int
 	 * @param titulo String
 	 * @param autor String
 	 * @param genero String
@@ -187,7 +186,6 @@ public class Libros implements Comparable<Libros>{
 
 	/**
 	 * Metodo que modifica el estado de un libro a false
-	 * @param libro Libros
 	 * @param biblio Biblioteca
 	 */
 	

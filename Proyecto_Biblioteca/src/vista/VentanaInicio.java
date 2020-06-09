@@ -42,7 +42,7 @@ public class VentanaInicio extends JFrame implements ActionListener, WindowListe
 	
 	/**
 	 * Constructor de la clase.
-	 * @throws ClassNotFoundException
+	 * @throws ClassNotFoundException 
 	 * @throws SQLException
 	 */
 	public VentanaInicio() throws ClassNotFoundException, SQLException {

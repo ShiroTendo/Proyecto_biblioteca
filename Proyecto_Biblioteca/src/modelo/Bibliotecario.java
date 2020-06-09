@@ -35,8 +35,6 @@ public class Bibliotecario extends Personas implements Comparable<Bibliotecario>
 	 * @param Apellidos String
 	 * @param N_telefono int 
 	 * @param Cod_Emple int
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
 	 */
 	public Bibliotecario(String Dni, String Nombre, String Apellidos, int N_telefono, int Cod_Emple) {
 		super(Dni, Nombre, Apellidos, N_telefono);
