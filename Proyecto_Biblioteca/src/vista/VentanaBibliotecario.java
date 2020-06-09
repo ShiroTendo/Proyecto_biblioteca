@@ -382,7 +382,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
 		int height = pantalla.height;
 		int width = pantalla.width;
-		this.setSize(width/3, height/2);
+		this.setSize(width/2, height/2);
 	}
 
 	@Override
@@ -883,5 +883,4 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		for (int i = filas; i >= 0; i--)
 			modelo.removeRow(i);
 	}
-
 }
