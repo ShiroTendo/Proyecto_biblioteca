@@ -66,11 +66,6 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 	private JTextField borrarIdLibro;
 	private JButton anadirLibro;
 	private JButton borrarLibro;
-	
-	private JPanel panelTodo;
-	private JPanel panelAnadir;
-	private JPanel panelEliminar;
-	private JPanel panelTitulo;
 
 	//PESTAÑA PRESTAR/DEVOLVER
 	private JLabel tituloPrestarDevolver;
@@ -128,6 +123,9 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 	private JPanel panelTabla;
 	private JPanel mostrarBotones;
 	private JPanel panelAnadirBorrar;
+	private JPanel panelAnadirLibro;
+	private JPanel panelEliminarLibro;
+	private JPanel panelTituloLibro;
 	private JPanel panelPrestarDevolver;
 	private JPanel panelAnadirEliminarBibliotecarios;
 	private JPanel panelAnadirEliminarSocios;
@@ -220,17 +218,15 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		//CREAR PANEL AÑADIR/BORRAR LIBRO
 		panelAnadirBorrar = new JPanel();
 		panelAnadirBorrar.setLayout(new MigLayout());
-		panelTodo = new JPanel();
-		panelTodo.setLayout(new MigLayout());
-		panelAnadir = new JPanel();
-		panelAnadir.setLayout(new MigLayout());
-		panelEliminar = new JPanel();
-		panelEliminar.setLayout(new MigLayout());
-		panelTitulo = new JPanel();
-		panelTitulo.setLayout(new MigLayout());
+		panelAnadirLibro = new JPanel();
+		panelAnadirLibro.setLayout(new MigLayout());
+		panelEliminarLibro = new JPanel();
+		panelEliminarLibro.setLayout(new MigLayout());
+		panelTituloLibro = new JPanel();
+		panelTituloLibro.setLayout(new MigLayout());
 
 		//AÑADIR PANEL AÑADIR/BORRAR LIBRO A PESTAÑA
-		pestanas.addTab("AÑADIR/BORRAR LIBRO", panelTodo);
+		pestanas.addTab("AÑADIR/BORRAR LIBRO", panelAnadirBorrar);
 
 		//DATOS PANEL MOSTRAR
 
@@ -252,35 +248,22 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		anadirLibro.addActionListener(this);
 		borrarLibro.addActionListener(this);
 		
-		panelTodo.add(panelTitulo, "pos 0.5al 0al");
-		panelTodo.add(panelAnadir, "pos 0.2al 0.35al");
-		panelTodo.add(panelEliminar, "pos 0.8al 0.295al");
-		panelTitulo.add(tituloAnadirBorrar, "align center");
-		panelAnadir.add(anadir, "align center, wrap");
-		panelAnadir.add(tituloLibro);
-		panelAnadir.add(escribirTitulo, "wrap");
-		panelAnadir.add(autorLibro);
-		panelAnadir.add(escribirAutor, "wrap");
-		panelAnadir.add(generoLibro);
-		panelAnadir.add(escribirGenero, "wrap");
-		panelAnadir.add(anadirLibro, "align center");
-		panelEliminar.add(borrar, "align center, wrap");
-		panelEliminar.add(idLibroBorrar, "split2");
-		panelEliminar.add(borrarIdLibro, "wrap");
-		panelEliminar.add(borrarLibro);
-		/*panelAnadirBorrar.add(tituloAnadirBorrar, "skip2, align center, wrap");
-		panelAnadirBorrar.add(anadir, "span2, align center");
-		panelAnadirBorrar.add(borrar, "skip2, align center, wrap");
-		panelAnadirBorrar.add(tituloLibro);
-		panelAnadirBorrar.add(escribirTitulo, "wrap");
-		panelAnadirBorrar.add(autorLibro);
-		panelAnadirBorrar.add(escribirAutor);
-		panelAnadirBorrar.add(idLibroBorrar, "skip");
-		panelAnadirBorrar.add(borrarIdLibro, "wrap");
-		panelAnadirBorrar.add(generoLibro);
-		panelAnadirBorrar.add(escribirGenero, "wrap");
-		panelAnadirBorrar.add(anadirLibro, "span2, align center");
-		panelAnadirBorrar.add(borrarLibro, "skip2, align left");*/
+		panelAnadirBorrar.add(panelTituloLibro, "pos 0.5al 0al");
+		panelAnadirBorrar.add(panelAnadirLibro, "pos 0.2al 0.35al");
+		panelAnadirBorrar.add(panelEliminarLibro, "pos 0.8al 0.295al");
+		panelTituloLibro.add(tituloAnadirBorrar, "align center");
+		panelAnadirLibro.add(anadir, "align center, wrap");
+		panelAnadirLibro.add(tituloLibro);
+		panelAnadirLibro.add(escribirTitulo, "wrap");
+		panelAnadirLibro.add(autorLibro);
+		panelAnadirLibro.add(escribirAutor, "wrap");
+		panelAnadirLibro.add(generoLibro);
+		panelAnadirLibro.add(escribirGenero, "wrap");
+		panelAnadirLibro.add(anadirLibro, "align center");
+		panelEliminarLibro.add(borrar, "align center, wrap");
+		panelEliminarLibro.add(idLibroBorrar, "split2");
+		panelEliminarLibro.add(borrarIdLibro, "wrap");
+		panelEliminarLibro.add(borrarLibro);
 
 		//CREAR PANEL PRESTAR/DEVOLVER LIBRO
 		panelPrestarDevolver = new JPanel();
