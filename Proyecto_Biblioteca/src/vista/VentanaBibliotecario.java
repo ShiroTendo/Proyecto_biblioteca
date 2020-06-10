@@ -131,13 +131,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 	private JPanel panelPrestarLibro;
 	private JPanel panelDevolverLibro;
 	private JPanel panelAnadirEliminarBibliotecarios;
-	private JPanel panelAnadirEliminarBibliotecariosTitulo;
-	private JPanel panelAnadirBibliotecarios;
-	private JPanel panelEliminarBibliotecarios;
 	private JPanel panelAnadirEliminarSocios;
-	private JPanel panelAnadirEliminarSociosTitulo;
-	private JPanel panelAnadirSocios;
-	private JPanel panelEliminarSocios;
 	private JScrollPane scrollMostrar;
 
 	private Bibliotecario bibliotecario;
@@ -327,12 +321,6 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		//CREAR PANEL AÑADIR/ELIMINAR BIBLIOTECARIOS
 		panelAnadirEliminarBibliotecarios = new JPanel();
 		panelAnadirEliminarBibliotecarios.setLayout(new MigLayout());
-		panelAnadirEliminarBibliotecariosTitulo = new JPanel();
-		panelAnadirEliminarBibliotecariosTitulo.setLayout(new MigLayout());
-		panelAnadirBibliotecarios = new JPanel();
-		panelAnadirBibliotecarios.setLayout(new MigLayout());
-		panelEliminarBibliotecarios = new JPanel();
-		panelEliminarBibliotecarios.setLayout(new MigLayout());
 
 		//AÑADIR PANEL AÑADIR/ELIMINAR BIBLIOTECARIOS A PESTAÑA
 		pestanas.addTab("AÑADIR/ELIMINAR BIBLIOTECARIOS", panelAnadirEliminarBibliotecarios);
@@ -357,30 +345,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		eliminarBibliotecario = new JButton("Eliminar");
 		anadirBibliotecario.addActionListener(this);
 		eliminarBibliotecario.addActionListener(this);
-
 		
-		panelAnadirEliminarBibliotecarios.add(panelAnadirEliminarBibliotecariosTitulo, "pos 0.5al 0al");
-		panelAnadirEliminarBibliotecarios.add(panelAnadirBibliotecarios, "pos 0.1al 0.4al");
-		panelAnadirEliminarBibliotecarios.add(panelEliminarBibliotecarios, "pos 0.9al 0.4al");
-		panelAnadirEliminarBibliotecariosTitulo.add(tituloAnadirEliminarBibiliotecarios, "align center");
-		panelAnadirBibliotecarios.add(tituloAnadirBibiliotecarios, "span, align left, wrap");
-		panelAnadirBibliotecarios.add(nombreBibliotecario);
-		panelAnadirBibliotecarios.add(escribirNombreBibliotecario, "wrap");
-		panelAnadirBibliotecarios.add(apellidosBibliotecario);
-		panelAnadirBibliotecarios.add(escribirApellidosBibliotecario, "wrap");
-		panelAnadirBibliotecarios.add(telefonoBibliotecario);
-		panelAnadirBibliotecarios.add(escribirTelefonoBibliotecario, "wrap");
-		panelAnadirBibliotecarios.add(dniBibliotecario);
-		panelAnadirBibliotecarios.add(escribirDniBibliotecario, "wrap");
-		panelAnadirBibliotecarios.add(anadirBibliotecario);
-		panelEliminarBibliotecarios.add(tituloEliminarBibliotecarios, "align center, wrap");
-		panelEliminarBibliotecarios.add(idBibliotecario, "split2");
-		panelEliminarBibliotecarios.add(escribirIdBibliotecario, "wrap");
-		panelEliminarBibliotecarios.add(eliminarBibliotecario);
-		
-		/*panelAnadirEliminarBibliotecarios.add(tituloAnadirEliminarBibiliotecarios, "skip2, align center, wrap");
-		panelAnadirEliminarBibliotecarios.add(tituloAnadirBibiliotecarios, "span4");
-		panelAnadirEliminarBibliotecarios.add(tituloEliminarBibliotecarios, "wrap");
+		panelAnadirEliminarBibliotecarios.add(tituloAnadirEliminarBibiliotecarios, "skip2, align left, split2, wrap");
+		panelAnadirEliminarBibliotecarios.add(tituloAnadirBibiliotecarios, "span2, pos 0.1al 0.05al");
+		panelAnadirEliminarBibliotecarios.add(tituloEliminarBibliotecarios, "skip3, align right, wrap");
 		panelAnadirEliminarBibliotecarios.add(nombreBibliotecario);
 		panelAnadirEliminarBibliotecarios.add(escribirNombreBibliotecario, "wrap");
 		panelAnadirEliminarBibliotecarios.add(apellidosBibliotecario);
@@ -392,17 +360,11 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelAnadirEliminarBibliotecarios.add(dniBibliotecario);
 		panelAnadirEliminarBibliotecarios.add(escribirDniBibliotecario, "wrap");
 		panelAnadirEliminarBibliotecarios.add(anadirBibliotecario);
-		panelAnadirEliminarBibliotecarios.add(eliminarBibliotecario, "skip3, align left");*/
+		panelAnadirEliminarBibliotecarios.add(eliminarBibliotecario, "skip3, align left");
 
 		//CREAR PANEL AÑADIR/ELIMINAR SOCIOS
 		panelAnadirEliminarSocios = new JPanel();
 		panelAnadirEliminarSocios.setLayout(new MigLayout());
-		panelAnadirEliminarSociosTitulo = new JPanel();
-		panelAnadirEliminarSociosTitulo.setLayout(new MigLayout());
-		panelAnadirSocios = new JPanel();
-		panelAnadirSocios.setLayout(new MigLayout());
-		panelEliminarSocios = new JPanel();
-		panelEliminarSocios.setLayout(new MigLayout());
 
 		//AÑADIR PANEL AÑADIR/ELIMINAR SOCIOS A PESTAÑA
 		pestanas.addTab("AÑADIR/ELIMINAR SOCIOS", panelAnadirEliminarSocios);
@@ -427,30 +389,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		eliminarSocios = new JButton("Eliminar socio");
 		anadirSocios.addActionListener(this);
 		eliminarSocios.addActionListener(this);
-
 		
-		panelAnadirEliminarSocios.add(panelAnadirEliminarSociosTitulo, "pos 0.5al 0al");
-		panelAnadirEliminarSocios.add(panelAnadirSocios, "pos 0.1al 0.4al");
-		panelAnadirEliminarSocios.add(panelEliminarSocios, "pos 0.9al 0.4al");
-		panelAnadirEliminarSociosTitulo.add(tituloAnadirEliminarSocios, "align center");
-		panelAnadirSocios.add(tituloAnadirSocios, "span, align left, wrap");
-		panelAnadirSocios.add(nombreSocios);
-		panelAnadirSocios.add(escribirNombreSocios, "wrap");
-		panelAnadirSocios.add(apellidosSocios);
-		panelAnadirSocios.add(escribirApellidosSocios, "wrap");
-		panelAnadirSocios.add(telefonoSocios);
-		panelAnadirSocios.add(escribirTelefonoSocios, "wrap");
-		panelAnadirSocios.add(dniSocios);
-		panelAnadirSocios.add(escribirDniSocios, "wrap");
-		panelAnadirSocios.add(anadirSocios);
-		panelEliminarSocios.add(tituloEliminarSocios, "align center, wrap");
-		panelEliminarSocios.add(idSocios, "split2");
-		panelEliminarSocios.add(escribirIdSocios, "wrap");
-		panelEliminarSocios.add(eliminarSocios);
-		
-		/*panelAnadirEliminarSocios.add(tituloAnadirEliminarSocios, "skip2, align center, wrap");
-		panelAnadirEliminarSocios.add(tituloAnadirSocios, "span4");
-		panelAnadirEliminarSocios.add(tituloEliminarSocios, "wrap");
+		panelAnadirEliminarSocios.add(tituloAnadirEliminarSocios, "skip2, align right, wrap");
+		panelAnadirEliminarSocios.add(tituloAnadirSocios, "span2, pos 0.1al 0.05al");
+		panelAnadirEliminarSocios.add(tituloEliminarSocios, "skip3, wrap");
 		panelAnadirEliminarSocios.add(nombreSocios);
 		panelAnadirEliminarSocios.add(escribirNombreSocios, "wrap");
 		panelAnadirEliminarSocios.add(apellidosSocios);
@@ -462,7 +404,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelAnadirEliminarSocios.add(dniSocios);
 		panelAnadirEliminarSocios.add(escribirDniSocios, "wrap");
 		panelAnadirEliminarSocios.add(anadirSocios);
-		panelAnadirEliminarSocios.add(eliminarSocios, "skip3, align left");*/
+		panelAnadirEliminarSocios.add(eliminarSocios, "skip3, align left");
 
 		this.add(pestanas);
 		setVisible(true);
@@ -470,10 +412,6 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		setResizable(false);
 		pack();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-        int height = pantalla.height;
-        int width = pantalla.width;
-        setSize((int)(width/1.8), (int)(height/1.8));
 	}
 
 	@Override
@@ -852,7 +790,6 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 	 * @param b un objeto de tipo Bibliotecario
 	 */
 	public void introducirBibliotecario(Bibliotecario b) {
-		Bibliotecario aux;
 		if(b!=null) {
 			Object lista[] = new Object[5];
 			lista [0] = b.getCod_Emple();
@@ -872,7 +809,6 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 	 * @param l un objeto de tipo Libros
 	 */
 	public void introducirLibro(Libros l) {
-		Libros aux;
 		if(l!=null) {
 			Object lista[] = new Object[5];
 			lista [0] = l.getId_libro();
@@ -895,7 +831,6 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 	 * @param p un objeto de tipo Prestamos
 	 */
 	public void introducirPrestamos(Prestamos p) {
-		Prestamos aux;
 		if(p!=null) {
 			Object lista[] = new Object[5];
 			lista [0] = p.getFecha_inicio();
@@ -914,7 +849,6 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 	 * @param s un objeto de tipo Socio
 	 */
 	public void introducirSocios(Socio s) {
-		Socio aux;
 		if(s!=null) {
 			Object lista[] = new Object[6];
 			lista [0] = s.getCod_Socio();
