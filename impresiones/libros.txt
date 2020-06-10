@@ -1,4 +1,11 @@
 Lista de libros: 
-Libro: Id: 3, con titulo El perro, cuyo autor/a es Clase1 y cuyo genero es animales, y estado: disponible
-Libro: Id: 1, con titulo EL cid campeador, cuyo autor/a es Maritn y cuyo genero es accion, y estado: prestado
-Libro: Id: 2, con titulo El lobo, cuyo autor/a es Clase y cuyo genero es animales, y estado: disponible
+Libro: Id: 6, con titulo Señor de los Anillos, cuyo autor/a es J.R.R Tolkien y cuyo genero es fantasia, y estado: disponible
+Libro: Id: 5, con titulo Harry Potter, cuyo autor/a es J.K Rollings y cuyo genero es fantasia, y estado: disponible
+Libro: Id: 9, con titulo El Principito, cuyo autor/a es Antoine y cuyo genero es fabula, y estado: disponible
+Libro: Id: 2, con titulo Los juegos del Hambre, cuyo autor/a es Suzane Collins y cuyo genero es fantasia, y estado: disponible
+Libro: Id: 4, con titulo La Biblia, cuyo autor/a es Desconocido y cuyo genero es fantasia, y estado: disponible
+Libro: Id: 1, con titulo El Quijote, cuyo autor/a es Cervantes y cuyo genero es novela, y estado: prestado
+Libro: Id: 10, con titulo Mar de cristal, cuyo autor/a es Ganoza y cuyo genero es drama, y estado: disponible
+Libro: Id: 7, con titulo Dr Stone, cuyo autor/a es Richiro y cuyo genero es manga, y estado: disponible
+Libro: Id: 3, con titulo El Lazarillo de Tormes, cuyo autor/a es Desconocido y cuyo genero es novela, y estado: disponible
+Libro: Id: 8, con titulo Cancion de hielo y fuego, cuyo autor/a es George R. R. Martin y cuyo genero es novela, y estado: disponible

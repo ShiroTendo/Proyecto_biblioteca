@@ -1,5 +1,7 @@
 Lista de socios: 
-Socio: 1 Nombre: Mortador RJ, cuyo numero de telefono es: 85964217  y con dni: 021584Q, y sus libros en pertenencia son: 
-[Libro: Id: 1, con titulo EL cid campeador, cuyo autor/a es Maritn y cuyo genero es accion, y estado: prestado]
-Socio: 2 Nombre: Oswaldo Willy, cuyo numero de telefono es: 65465654  y con dni: 025554A, y sus libros en pertenencia son: 
+Socio: 1 Nombre: Gorka Iraizoz, cuyo numero de telefono es: 635789426  y con dni: 12345678A, y sus libros en pertenencia son: 
+[Libro: Id: 1, con titulo El Quijote, cuyo autor/a es Cervantes y cuyo genero es novela, y estado: prestado]
+Socio: 3 Nombre: Morta Rama, cuyo numero de telefono es: 945123674  y con dni: 96843571P, y sus libros en pertenencia son: 
+[]
+Socio: 2 Nombre: Oswaldo Nuñez, cuyo numero de telefono es: 965471235  y con dni: 28746379R, y sus libros en pertenencia son: 
 []
