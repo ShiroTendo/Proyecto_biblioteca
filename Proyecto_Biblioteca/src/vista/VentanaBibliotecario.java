@@ -177,7 +177,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		imprimirLibros.setPreferredSize(new Dimension(400,70));
 		imprimirPrestamos.setPreferredSize(new Dimension(400,70));
 		imprimirSocios.setPreferredSize(new Dimension(400,70));
-		
+
 		panelImprimir.add(tituloImprimir, "pos 0.5al 0al");
 		panelImprimir.add(imprimirBibliotecarios, "pos 0al 0.2al");
 		panelImprimir.add(imprimirLibros, "pos 1al 0.2al");
@@ -245,12 +245,12 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		escribirAutor = new JTextField(25);
 		escribirGenero = new JTextField(15);
 		borrarIdLibro = new JTextField(3);
-		
+
 		anadirLibro = new JButton("Añadir libro");
 		borrarLibro = new JButton("Borrar libro");
 		anadirLibro.addActionListener(this);
 		borrarLibro.addActionListener(this);
-		
+
 		panelAnadirBorrar.add(panelTituloLibro, "pos 0.5al 0al");
 		panelAnadirBorrar.add(panelAnadirLibro, "pos 0.2al 0.35al");
 		panelAnadirBorrar.add(panelEliminarLibro, "pos 0.8al 0.295al");
@@ -277,7 +277,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelPrestarLibro.setLayout(new MigLayout());
 		panelDevolverLibro = new JPanel();
 		panelDevolverLibro.setLayout(new MigLayout());
-		
+
 
 		//AÑADIR PANEL PRESTAR/DEVOLVER A PESTAÑA
 		pestanas.addTab("PRESTAR/DEVOLVER", panelPrestarDevolver);
@@ -300,7 +300,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		devolver = new JButton("Devolver libro");
 		prestar.addActionListener(this);
 		devolver.addActionListener(this);
-		
+
 		panelPrestarDevolver.add(panelPrestarDevolverTitulo, "pos 0.5al 0al");
 		panelPrestarDevolver.add(panelPrestarLibro, "pos 0.2al 0.4al");
 		panelPrestarDevolver.add(panelDevolverLibro, "pos 0.8al 0.4al");
@@ -345,7 +345,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		eliminarBibliotecario = new JButton("Eliminar");
 		anadirBibliotecario.addActionListener(this);
 		eliminarBibliotecario.addActionListener(this);
-		
+
 		panelAnadirEliminarBibliotecarios.add(tituloAnadirEliminarBibiliotecarios, "skip2, align left, split2, wrap");
 		panelAnadirEliminarBibliotecarios.add(tituloAnadirBibiliotecarios, "span2, pos 0.1al 0.05al");
 		panelAnadirEliminarBibliotecarios.add(tituloEliminarBibliotecarios, "skip3, align right, wrap");
@@ -389,7 +389,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		eliminarSocios = new JButton("Eliminar");
 		anadirSocios.addActionListener(this);
 		eliminarSocios.addActionListener(this);
-		
+
 		panelAnadirEliminarSocios.add(tituloAnadirEliminarSocios, "skip2, align right, wrap");
 		panelAnadirEliminarSocios.add(tituloAnadirSocios, "span2, pos 0.1al 0.05al");
 		panelAnadirEliminarSocios.add(tituloEliminarSocios, "skip3, wrap");
@@ -605,16 +605,20 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 			if(borrarIdLibro.getText().equals("") ||borrarIdLibro.getText().equals(" "))
 				JOptionPane.showMessageDialog(this, "Rellene el campo por favor");
 			else {
-				Libros aux = MainVentana.biblioteca.buscaLibro(Integer.parseInt(borrarIdLibro.getText()));
-				if(aux.isPrestado())
-					JOptionPane.showMessageDialog(this, "Error, el libro esta prestado, y por tanto no se puede eliminar");
-				else {
-					try {
-						MainVentana.biblioteca.borradoTotalLibro(aux);
-					} catch (ClassNotFoundException | SQLException e1) {
-						e1.printStackTrace();
+				try {
+					Libros aux = MainVentana.biblioteca.buscaLibro(Integer.parseInt(borrarIdLibro.getText()));
+					if(aux.isPrestado())
+						JOptionPane.showMessageDialog(this, "Error, el libro esta prestado, y por tanto no se puede eliminar");
+					else {
+						try {
+							MainVentana.biblioteca.borradoTotalLibro(aux);
+						} catch (ClassNotFoundException | SQLException e1) {
+							e1.printStackTrace();
+						}
+						JOptionPane.showMessageDialog(this, "Libro borrado con éxito");
 					}
-					JOptionPane.showMessageDialog(this, "Libro borrado con éxito");
+				}catch (NullPointerException ex) {
+					JOptionPane.showMessageDialog(this, "Introduce un ID numerico");
 				}
 			}
 		}
@@ -630,8 +634,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 				try {
 					int aux = bibliotecario.PrestarLibro(Integer.parseInt(escribirIdSocioPrestar.getText()), Integer.parseInt(escribirIdLibroPrestar.getText()), MainVentana.biblioteca);
 					opcionesPrestar(aux);
-				} catch (NumberFormatException | ClassNotFoundException | SQLException e1) {
+				} catch (ClassNotFoundException | SQLException e1) {
 					e1.printStackTrace();
+				}catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(this, "Introduce un ID numerico");
 				}
 
 			}
@@ -648,8 +654,10 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 				try {
 					int aux = bibliotecario.DevolverLibro(Integer.parseInt(escribirIdSocioDevolver.getText()), Integer.parseInt(escribirIdLibroDevolver.getText()), MainVentana.biblioteca);
 					opcionesDevolver(aux);
-				} catch (NumberFormatException | ClassNotFoundException | SQLException e1) {
+				} catch (ClassNotFoundException | SQLException e1) {
 					e1.printStackTrace();
+				}catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(this, "Introduce un ID numerico");
 				}
 
 			}
@@ -690,18 +698,22 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 					JOptionPane.showMessageDialog(this, "Error, no se puede eliminar el bibliotecario que está en uso");
 				}
 				else {
-					Bibliotecario aux = MainVentana.biblioteca.buscarBibliotecario(Integer.parseInt(escribirIdBibliotecario.getText()));
-					if(aux == null) {
-						JOptionPane.showMessageDialog(this, "Bibliotecario no existe");
-					}
-					else {
-
-						try {
-							aux.eliminarBibliotecarioBD(MainVentana.biblioteca);
-							JOptionPane.showMessageDialog(this, "Bibliotecario eliminado con éxito");
-						} catch (ClassNotFoundException | SQLException e1) {
-							e1.printStackTrace();
+					try {
+						Bibliotecario aux = MainVentana.biblioteca.buscarBibliotecario(Integer.parseInt(escribirIdBibliotecario.getText()));
+						if(aux == null) {
+							JOptionPane.showMessageDialog(this, "Bibliotecario no existe");
 						}
+						else {
+
+							try {
+								aux.eliminarBibliotecarioBD(MainVentana.biblioteca);
+								JOptionPane.showMessageDialog(this, "Bibliotecario eliminado con éxito");
+							} catch (ClassNotFoundException | SQLException e1) {
+								e1.printStackTrace();
+							}
+						}
+					}catch (NumberFormatException ex) {
+						JOptionPane.showMessageDialog(this, "Introduce un ID numerico");
 					}
 				}
 			}
@@ -737,22 +749,26 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 				JOptionPane.showMessageDialog(this, "Rellene el campo por favor");
 			}
 			else {
-				Socio aux = MainVentana.biblioteca.buscarSocio(Integer.parseInt(escribirIdSocios.getText()));
-				if(aux == null) {
-					JOptionPane.showMessageDialog(this, "Socio no existe");
-				}
-				else {
-					try {
-						aux.eliminarSocioTotal(MainVentana.biblioteca, bibliotecario);
-						JOptionPane.showMessageDialog(this, "Socio eliminado con éxito");
-					} catch (ClassNotFoundException | SQLException e1) {
-						e1.printStackTrace();
+				try {
+					Socio aux = MainVentana.biblioteca.buscarSocio(Integer.parseInt(escribirIdSocios.getText()));
+					if(aux == null) {
+						JOptionPane.showMessageDialog(this, "Socio no existe");
 					}
+					else {
+						try {
+							aux.eliminarSocioTotal(MainVentana.biblioteca, bibliotecario);
+							JOptionPane.showMessageDialog(this, "Socio eliminado con éxito");
+						} catch (ClassNotFoundException | SQLException e1) {
+							e1.printStackTrace();
+						}
+					}
+				}catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(this, "Introduce un ID numerico");
 				}
 			}
 		}
-
 	}
+
 
 	/**
 	 * Método encargado de comprobar si un dni cumple el patrón.
