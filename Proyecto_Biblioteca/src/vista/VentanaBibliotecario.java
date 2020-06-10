@@ -359,7 +359,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		eliminarBibliotecario.addActionListener(this);
 
 		
-		/*panelAnadirEliminarBibliotecarios.add(panelAnadirEliminarBibliotecariosTitulo, "pos 0.5al 0al");
+		panelAnadirEliminarBibliotecarios.add(panelAnadirEliminarBibliotecariosTitulo, "pos 0.5al 0al");
 		panelAnadirEliminarBibliotecarios.add(panelAnadirBibliotecarios, "pos 0.1al 0.4al");
 		panelAnadirEliminarBibliotecarios.add(panelEliminarBibliotecarios, "pos 0.9al 0.4al");
 		panelAnadirEliminarBibliotecariosTitulo.add(tituloAnadirEliminarBibiliotecarios, "align center");
@@ -376,9 +376,9 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelEliminarBibliotecarios.add(tituloEliminarBibliotecarios, "align center, wrap");
 		panelEliminarBibliotecarios.add(idBibliotecario, "split2");
 		panelEliminarBibliotecarios.add(escribirIdBibliotecario, "wrap");
-		panelEliminarBibliotecarios.add(eliminarBibliotecario);*/
+		panelEliminarBibliotecarios.add(eliminarBibliotecario);
 		
-		panelAnadirEliminarBibliotecarios.add(tituloAnadirEliminarBibiliotecarios, "skip2, align center, wrap");
+		/*panelAnadirEliminarBibliotecarios.add(tituloAnadirEliminarBibiliotecarios, "skip2, align center, wrap");
 		panelAnadirEliminarBibliotecarios.add(tituloAnadirBibiliotecarios, "span4");
 		panelAnadirEliminarBibliotecarios.add(tituloEliminarBibliotecarios, "wrap");
 		panelAnadirEliminarBibliotecarios.add(nombreBibliotecario);
@@ -392,7 +392,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelAnadirEliminarBibliotecarios.add(dniBibliotecario);
 		panelAnadirEliminarBibliotecarios.add(escribirDniBibliotecario, "wrap");
 		panelAnadirEliminarBibliotecarios.add(anadirBibliotecario);
-		panelAnadirEliminarBibliotecarios.add(eliminarBibliotecario, "skip3, align left");
+		panelAnadirEliminarBibliotecarios.add(eliminarBibliotecario, "skip3, align left");*/
 
 		//CREAR PANEL AÑADIR/ELIMINAR SOCIOS
 		panelAnadirEliminarSocios = new JPanel();
@@ -429,7 +429,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		eliminarSocios.addActionListener(this);
 
 		
-		/*panelAnadirEliminarSocios.add(panelAnadirEliminarSociosTitulo, "pos 0.5al 0al");
+		panelAnadirEliminarSocios.add(panelAnadirEliminarSociosTitulo, "pos 0.5al 0al");
 		panelAnadirEliminarSocios.add(panelAnadirSocios, "pos 0.1al 0.4al");
 		panelAnadirEliminarSocios.add(panelEliminarSocios, "pos 0.9al 0.4al");
 		panelAnadirEliminarSociosTitulo.add(tituloAnadirEliminarSocios, "align center");
@@ -446,9 +446,9 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelEliminarSocios.add(tituloEliminarSocios, "align center, wrap");
 		panelEliminarSocios.add(idSocios, "split2");
 		panelEliminarSocios.add(escribirIdSocios, "wrap");
-		panelEliminarSocios.add(eliminarSocios);*/
+		panelEliminarSocios.add(eliminarSocios);
 		
-		panelAnadirEliminarSocios.add(tituloAnadirEliminarSocios, "skip2, align center, wrap");
+		/*panelAnadirEliminarSocios.add(tituloAnadirEliminarSocios, "skip2, align center, wrap");
 		panelAnadirEliminarSocios.add(tituloAnadirSocios, "span4");
 		panelAnadirEliminarSocios.add(tituloEliminarSocios, "wrap");
 		panelAnadirEliminarSocios.add(nombreSocios);
@@ -462,7 +462,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelAnadirEliminarSocios.add(dniSocios);
 		panelAnadirEliminarSocios.add(escribirDniSocios, "wrap");
 		panelAnadirEliminarSocios.add(anadirSocios);
-		panelAnadirEliminarSocios.add(eliminarSocios, "skip3, align left");
+		panelAnadirEliminarSocios.add(eliminarSocios, "skip3, align left");*/
 
 		this.add(pestanas);
 		setVisible(true);
@@ -470,6 +470,14 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		setResizable(false);
 		pack();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = pantalla.height;
+        int width = pantalla.width;
+        setSize((int)(width/2), height/2);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+        setLocationRelativeTo(null);
+		
 	}
 
 	@Override
