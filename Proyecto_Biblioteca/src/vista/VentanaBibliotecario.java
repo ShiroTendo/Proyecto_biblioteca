@@ -694,11 +694,11 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 				JOptionPane.showMessageDialog(this, "Rellene el campo por favor");
 			}
 			else {
-				if(bibliotecario.getCod_Emple()==Integer.parseInt(escribirIdBibliotecario.getText())) {
-					JOptionPane.showMessageDialog(this, "Error, no se puede eliminar el bibliotecario que está en uso");
-				}
-				else {
-					try {
+				try {
+					if(bibliotecario.getCod_Emple()==Integer.parseInt(escribirIdBibliotecario.getText())) {
+						JOptionPane.showMessageDialog(this, "Error, no se puede eliminar el bibliotecario que está en uso");
+					}
+					else {
 						Bibliotecario aux = MainVentana.biblioteca.buscarBibliotecario(Integer.parseInt(escribirIdBibliotecario.getText()));
 						if(aux == null) {
 							JOptionPane.showMessageDialog(this, "Bibliotecario no existe");
@@ -712,9 +712,9 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 								e1.printStackTrace();
 							}
 						}
-					}catch (NumberFormatException ex) {
-						JOptionPane.showMessageDialog(this, "Introduce un ID numerico");
 					}
+				}catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(this, "Introduce un ID numerico");
 				}
 			}
 		}
