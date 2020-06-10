@@ -150,11 +150,15 @@ public class VentanaInicio extends JFrame implements ActionListener, WindowListe
 			}
 			
 			else {
+				try {
 				Socio aux = MainVentana.biblioteca.buscarSocio(Integer.parseInt(escribirIdSocio.getText()));
 				if(aux!=null)
 					new VentanaSocio(aux);
 				else
 					JOptionPane.showMessageDialog(this, "No se ha encontrado un socio con ese ID en la base de datos");
+				}catch(NumberFormatException ex) {
+					JOptionPane.showMessageDialog(this, "Introduce un ID numerico");
+				}
 			}
 				
 		}
@@ -168,11 +172,15 @@ public class VentanaInicio extends JFrame implements ActionListener, WindowListe
 				JOptionPane.showMessageDialog(this, "Introduce un valor válido");
 			}
 			else {
+				try {
 				Bibliotecario aux = MainVentana.biblioteca.buscarBibliotecario(Integer.parseInt(escribirIdBibliotecario.getText()));
 				if(aux!=null)
 					new VentanaBibliotecario(aux);
 				else
 					JOptionPane.showMessageDialog(this, "No se ha encontrado un bibliotecario con ese ID en la base de datos");
+				}catch(NumberFormatException ex) {
+					JOptionPane.showMessageDialog(this, "Introduce un ID numerico");
+				}
 			}
 			
 		}

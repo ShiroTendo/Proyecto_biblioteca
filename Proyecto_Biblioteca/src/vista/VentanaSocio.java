@@ -156,7 +156,11 @@ public class VentanaSocio extends JFrame implements ActionListener, WindowListen
 				JOptionPane.showMessageDialog(this, "Introduzca un valor en el campo");
 			else {
 				limpiarTabla(tabla, modelo);
+				try {
 				introducirLibro(Integer.parseInt(escribirLibro.getText()));
+				}catch(NumberFormatException ex) {
+					JOptionPane.showMessageDialog(this, "Introduce un ID numerico");
+				}
 			}
 		}
 
