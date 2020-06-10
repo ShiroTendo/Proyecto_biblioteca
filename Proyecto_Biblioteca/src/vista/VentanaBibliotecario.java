@@ -333,7 +333,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		apellidosBibliotecario = new JLabel("Apellidos: ");
 		telefonoBibliotecario = new JLabel("Teléfono: ");
 		dniBibliotecario = new JLabel("DNI: ");
-		idBibliotecario = new JLabel("Id bibliotecario: ");
+		idBibliotecario = new JLabel("ID bibliotecario: ");
 
 		escribirNombreBibliotecario = new JTextField(15);
 		escribirApellidosBibliotecario = new JTextField(40);
@@ -385,8 +385,8 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		escribirDniSocios = new JTextField(9);
 		escribirIdSocios = new JTextField(4);
 
-		anadirSocios = new JButton("Añadir socio");
-		eliminarSocios = new JButton("Eliminar socio");
+		anadirSocios = new JButton("Añadir");
+		eliminarSocios = new JButton("Eliminar");
 		anadirSocios.addActionListener(this);
 		eliminarSocios.addActionListener(this);
 		
@@ -408,7 +408,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 
 		this.add(pestanas);
 		setVisible(true);
-		setTitle("Imprimir");
+		setTitle("Bibliotecario");
 		setResizable(false);
 		pack();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
