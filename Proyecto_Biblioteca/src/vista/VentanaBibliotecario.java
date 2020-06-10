@@ -359,6 +359,8 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		eliminarBibliotecario.addActionListener(this);
 
 		
+		//hola
+		
 		panelAnadirEliminarBibliotecarios.add(panelAnadirEliminarBibliotecariosTitulo, "pos 0.5al 0al");
 		panelAnadirEliminarBibliotecarios.add(panelAnadirBibliotecarios, "pos 0.1al 0.4al");
 		panelAnadirEliminarBibliotecarios.add(panelEliminarBibliotecarios, "pos 0.9al 0.4al");
