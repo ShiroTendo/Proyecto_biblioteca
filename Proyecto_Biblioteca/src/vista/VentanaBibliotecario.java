@@ -359,9 +359,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		eliminarBibliotecario.addActionListener(this);
 
 		
-		//hola
-		
-		panelAnadirEliminarBibliotecarios.add(panelAnadirEliminarBibliotecariosTitulo, "pos 0.5al 0al");
+		/*panelAnadirEliminarBibliotecarios.add(panelAnadirEliminarBibliotecariosTitulo, "pos 0.5al 0al");
 		panelAnadirEliminarBibliotecarios.add(panelAnadirBibliotecarios, "pos 0.1al 0.4al");
 		panelAnadirEliminarBibliotecarios.add(panelEliminarBibliotecarios, "pos 0.9al 0.4al");
 		panelAnadirEliminarBibliotecariosTitulo.add(tituloAnadirEliminarBibiliotecarios, "align center");
@@ -378,9 +376,9 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelEliminarBibliotecarios.add(tituloEliminarBibliotecarios, "align center, wrap");
 		panelEliminarBibliotecarios.add(idBibliotecario, "split2");
 		panelEliminarBibliotecarios.add(escribirIdBibliotecario, "wrap");
-		panelEliminarBibliotecarios.add(eliminarBibliotecario);
+		panelEliminarBibliotecarios.add(eliminarBibliotecario);*/
 		
-		/*panelAnadirEliminarBibliotecarios.add(tituloAnadirEliminarBibiliotecarios, "skip2, align center, wrap");
+		panelAnadirEliminarBibliotecarios.add(tituloAnadirEliminarBibiliotecarios, "skip2, align center, wrap");
 		panelAnadirEliminarBibliotecarios.add(tituloAnadirBibiliotecarios, "span4");
 		panelAnadirEliminarBibliotecarios.add(tituloEliminarBibliotecarios, "wrap");
 		panelAnadirEliminarBibliotecarios.add(nombreBibliotecario);
@@ -394,7 +392,7 @@ public class VentanaBibliotecario extends JFrame implements ActionListener, Wind
 		panelAnadirEliminarBibliotecarios.add(dniBibliotecario);
 		panelAnadirEliminarBibliotecarios.add(escribirDniBibliotecario, "wrap");
 		panelAnadirEliminarBibliotecarios.add(anadirBibliotecario);
-		panelAnadirEliminarBibliotecarios.add(eliminarBibliotecario, "skip3, align left");*/
+		panelAnadirEliminarBibliotecarios.add(eliminarBibliotecario, "skip3, align left");
 
 		//CREAR PANEL AÑADIR/ELIMINAR SOCIOS
 		panelAnadirEliminarSocios = new JPanel();
