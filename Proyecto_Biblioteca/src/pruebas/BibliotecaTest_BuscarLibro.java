@@ -15,5 +15,11 @@ public class BibliotecaTest_BuscarLibro {
 		Biblioteca aux= new Biblioteca();
 		assertNull(aux.buscaLibro(20));
 	}
+	@Test
+	public void test2() throws ClassNotFoundException, SQLException {
+		Biblioteca aux= new Biblioteca();
+		assertNotNull(aux.buscaLibro(1));
+	}
+		
 
 }
