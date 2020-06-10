@@ -295,9 +295,11 @@ public class Biblioteca {
 	 * @throws IOException
 	 */
 	public void imprimirSocios() throws IOException {
-		 File f= new File("./impresiones/socios.txt");
+		ArrayList<Socio> orden = new ArrayList<Socio>(this.getLista_socios());
+		Collections.sort(orden);
+		File f= new File("./impresiones/socios.txt");
 		BufferedWriter bw= new BufferedWriter(new FileWriter(f));
-		Iterator it= this.lista_socios.iterator();
+		Iterator it= orden.iterator();
 		bw.write("Lista de socios: "+"\n");
 		while(it.hasNext()) {
 			Socio aux=(Socio)it.next();
@@ -313,9 +315,11 @@ public class Biblioteca {
 	 */
 	
 	public void imprimirBibliotecarios() throws IOException {
-		 File f= new File("./impresiones/bibliotecarios.txt");
+		ArrayList<Bibliotecario> orden = new ArrayList<Bibliotecario>(this.getLista_bibliotecarios());
+		Collections.sort(orden);
+		File f= new File("./impresiones/bibliotecarios.txt");
 		BufferedWriter bw= new BufferedWriter(new FileWriter(f));
-		Iterator it= this.lista_bibliotecarios.iterator();
+		Iterator it= orden.iterator();
 		bw.write("Lista de bibliotecarios: "+"\n");
 		while(it.hasNext()) {
 			Bibliotecario aux=(Bibliotecario)it.next();
@@ -331,9 +335,11 @@ public class Biblioteca {
 	 */
 	
 	public void imprimirLibros() throws IOException {
-		 File f= new File("./impresiones/libros.txt");
+		ArrayList<Libros> orden = new ArrayList<Libros>(this.getLista_libros());
+		Collections.sort(orden);
+		File f= new File("./impresiones/libros.txt");
 		BufferedWriter bw= new BufferedWriter(new FileWriter(f));
-		Iterator it= this.lista_libros.iterator();
+		Iterator it= orden.iterator();
 		bw.write("Lista de libros: "+"\n");
 		while(it.hasNext()) {
 			Libros aux=(Libros)it.next();
