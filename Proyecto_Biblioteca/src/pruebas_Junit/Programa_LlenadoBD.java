@@ -26,6 +26,8 @@ public class Programa_LlenadoBD {
 
 	public static void main(String[] args){
 		try {
+			
+			//OBJETOS
 			Libros l1= new Libros("El Quijote", "Cervantes", "novela");
 			Libros l2= new Libros("Los juegos del Hambre", "Suzane Collins", "fantasia");
 			Libros l3= new Libros("El Lazarillo de Tormes", "Desconocido", "novela");
