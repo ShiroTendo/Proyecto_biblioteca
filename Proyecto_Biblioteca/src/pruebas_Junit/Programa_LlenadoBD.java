@@ -37,9 +37,12 @@ public class Programa_LlenadoBD {
 			Libros l7= new Libros("Dr Stone", "Richiro", "manga");
 			Libros l8= new Libros("Cancion de hielo y fuego", "George R. R. Martin", "novela");
 			Libros l9= new Libros("El Principito", "Antoine", "fabula");
+			Libros l10= new Libros("Monogatari", "Nishio", "manga");
 			Socio s1= new Socio("12345678A", "Gorka", "Iraizoz",635789426);
 			Socio s2= new Socio("28746379R", "Oswaldo", "Nuñez",965471235);
 			Socio s3= new Socio("96843571P", "Morta", "Rama",945123674);
+			Socio s4= new Socio("65312485F", "Andrea", "Abad",964253168);
+			Socio s5= new Socio("78963245G", "Juana", "D'Arc",978645128);
 			Bibliotecario b1= new Bibliotecario("97852461Z", "Alfonso", "Milos", 632178945);
 			Bibliotecario b2= new Bibliotecario("45123657F", "Ana", "Suarez", 654124896);
 			Biblioteca biblio= new Biblioteca();
@@ -52,9 +55,12 @@ public class Programa_LlenadoBD {
 			l7.insertarLibroBD(biblio);
 			l8.insertarLibroBD(biblio);
 			l9.insertarLibroBD(biblio);
+			l10.insertarLibroBD(biblio);
 			s1.insertarSocioBD(biblio);
 			s2.insertarSocioBD(biblio);
 			s3.insertarSocioBD(biblio);
+			s4.insertarSocioBD(biblio);
+			s5.insertarSocioBD(biblio);
 			b1.insertarBibliotecarioBD(biblio);
 			b2.insertarBibliotecarioBD(biblio);
 	
