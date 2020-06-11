@@ -1,4 +1,4 @@
-package pruebas;
+package pruebas_Junit;
 
 import java.sql.Connection;
 
@@ -20,7 +20,7 @@ import modelo.Libros;
 import modelo.Prestamos;
 import modelo.Socio;
 
-public class pruebas_Clases_bbdd {
+public class Programa_LlenadoBD {
 	
 
 
