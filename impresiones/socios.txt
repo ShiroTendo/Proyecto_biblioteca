@@ -1,7 +1,0 @@
-Lista de socios: 
-Socio: 1 Nombre: Gorka Iraizoz, cuyo numero de telefono es: 635789426  y con dni: 12345678A, y sus libros en pertenencia son: 
-[]
-Socio: 2 Nombre: Oswaldo Nuñez, cuyo numero de telefono es: 965471235  y con dni: 28746379R, y sus libros en pertenencia son: 
-[]
-Socio: 3 Nombre: Morta Rama, cuyo numero de telefono es: 945123674  y con dni: 96843571P, y sus libros en pertenencia son: 
-[]

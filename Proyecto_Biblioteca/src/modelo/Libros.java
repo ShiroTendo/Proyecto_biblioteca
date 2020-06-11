@@ -207,9 +207,9 @@ public class Libros implements Comparable<Libros>{
 	public String toString() {
 		String aux = "Libro: Id: " + id_libro + ", con titulo " + titulo + ", cuyo autor/a es " + autor + " y cuyo genero es " + genero;
 		if(this.isPrestado()) {
-			return aux+= ", y estado: prestado";
+			return aux+= ", y estado: prestado \n";
 		}
-		return aux+= ", y estado: disponible";
+		return aux+= ", y estado: disponible \n";
 	}
 
 	@Override
