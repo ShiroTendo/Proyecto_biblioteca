@@ -31,8 +31,7 @@ public class BibliotecarioTest_Prestar_Devolver {
 		Bibliotecario bl1= new Bibliotecario("21345698W", "Carla", "Romero", 645231897);
 		Biblioteca b1= new Biblioteca();
 		bl1.DevolverLibro(1, 1, b1);
-		bl1.PrestarLibro(1, 1, b1);
-		assertNotEquals(20,bl1.PrestarLibro(1, 1, b1));
+		assertEquals(4,bl1.PrestarLibro(12, 1, b1));
 	}
 	
 	@Test
@@ -45,7 +44,8 @@ public class BibliotecarioTest_Prestar_Devolver {
 	public void teestDevolver2() throws ClassNotFoundException, SQLException {
 		Bibliotecario bl1= new Bibliotecario("21345698W", "Carla", "Romero", 645231897);
 		Biblioteca b1= new Biblioteca();
-		assertNotEquals(2,bl1.DevolverLibro(20, 1, b1));
+		bl1.PrestarLibro(1, 1, b1);
+		assertEquals(0,bl1.DevolverLibro(1, 1, b1));
 	}
 
 	
