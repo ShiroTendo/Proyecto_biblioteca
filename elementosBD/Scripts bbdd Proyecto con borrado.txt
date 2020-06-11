@@ -1,0 +1,36 @@
+drop table prestamos;
+drop table bibliotecarios;
+drop table libros;
+drop table socios;
+
+create table libros(
+id_libro number primary KEY,
+titulo VARCHAR2(30),
+autor varchar2(25),
+genero varchar2(15),
+estado  NUMBER(1) DEFAULT 0 NOT NULL CHECK  (estado in (0,1)));
+
+
+create table socios(
+dni varchar2(9) ,
+nombre varchar2(15),
+apellidos varchar(40),
+n_telefono number(9),
+cod_socio number(4) primary key);
+
+create table bibliotecarios(
+dni varchar2(9),
+nombre varchar2(15),
+apellidos varchar(40),
+n_telefono number(9),
+cod_emple number(4)primary key );
+
+create table prestamos(
+fecha_inicio date,
+fecha_fin date,
+cod_socio number(4), 
+id_libro number(4),
+primary key(cod_socio,id_libro),
+foreign key(cod_socio) references socios(cod_socio),
+foreign key(id_libro) references libros(id_libro)
+);
