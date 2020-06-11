@@ -46,7 +46,7 @@ public class Socio extends Personas implements Comparable<Socio>{
 	}
 
 	/**
-	 * Constructor de la clase con el cod_socio automático.
+	 * Constructor de la clase con el Cod_socio automático.
 	 * 
 	 * @param Dni String
 	 * @param Nombre String
